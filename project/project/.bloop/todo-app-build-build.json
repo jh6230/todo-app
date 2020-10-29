@@ -2,25 +2,28 @@
     "version": "1.4.0",
     "project": {
         "name": "todo-app-build-build",
-        "directory": "/Users/jun.honda/project/todo-app/project/project",
-        "workspaceDir": "/Users/jun.honda/project/todo-app/project/project",
+        "directory": "/Users/jun.honda/project/play/todo-app/project/project",
+        "workspaceDir": "/Users/jun.honda/project/play/todo-app/project/project",
         "sources": [
-            "/Users/jun.honda/project/todo-app/project/project/src/main/scala-2.12",
-            "/Users/jun.honda/project/todo-app/project/project/src/main/scala",
-            "/Users/jun.honda/project/todo-app/project/project/src/main/java",
-            "/Users/jun.honda/project/todo-app/project/project/src/main/scala-sbt-1.0",
-            "/Users/jun.honda/project/todo-app/project/project/target/scala-2.12/sbt-1.0/src_managed/main"
+            "/Users/jun.honda/project/play/todo-app/project/project/src/main/scala-2.12",
+            "/Users/jun.honda/project/play/todo-app/project/project/src/main/scala",
+            "/Users/jun.honda/project/play/todo-app/project/project/src/main/java",
+            "/Users/jun.honda/project/play/todo-app/project/project/src/main/scala-sbt-1.0",
+            "/Users/jun.honda/project/play/todo-app/project/project/target/scala-2.12/sbt-1.0/src_managed/main"
         ],
         "dependencies": [
             
         ],
         "classpath": [
+            "/Users/jun.honda/.ivy2/cache/scala_2.12/sbt_1.0/org.ensime/sbt-ensime/jars/sbt-ensime-2.6.1.jar",
+            "/Users/jun.honda/.sbt/boot/scala-2.12.7/lib/scala-library.jar",
+            "/Users/jun.honda/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/bundles/scala-xml_2.12-1.1.0.jar",
+            "/Users/jun.honda/.ivy2/cache/scala_2.12/sbt_1.0/com.dwijnand/sbt-compat/jars/sbt-compat-1.2.6.jar",
             "/Users/jun.honda/.ivy2/cache/scala_2.12/sbt_1.0/ch.epfl.scala/sbt-bloop/jars/sbt-bloop-1.4.4-13-408f4d80.jar",
             "/Users/jun.honda/.ivy2/cache/net.java.dev.jna/jna/jars/jna-4.5.0.jar",
             "/Users/jun.honda/.ivy2/cache/net.java.dev.jna/jna-platform/jars/jna-platform-4.5.0.jar",
             "/Users/jun.honda/.ivy2/cache/com.google.code.gson/gson/jars/gson-2.7.jar",
             "/Users/jun.honda/.ivy2/cache/com.google.code.findbugs/jsr305/jars/jsr305-3.0.2.jar",
-            "/Users/jun.honda/.sbt/boot/scala-2.12.7/lib/scala-library.jar",
             "/Users/jun.honda/.ivy2/cache/org.scala-sbt/sbt/jars/sbt-1.2.4.jar",
             "/Users/jun.honda/.ivy2/cache/org.scala-sbt/main_2.12/jars/main_2.12-1.2.4.jar",
             "/Users/jun.honda/.ivy2/cache/org.scala-sbt/logic_2.12/jars/logic_2.12-1.2.4.jar",
@@ -46,7 +49,6 @@
             "/Users/jun.honda/.ivy2/cache/com.lmax/disruptor/jars/disruptor-3.3.6.jar",
             "/Users/jun.honda/.ivy2/cache/org.scala-sbt/zinc-classpath_2.12/jars/zinc-classpath_2.12-1.2.3.jar",
             "/Users/jun.honda/.sbt/boot/scala-2.12.7/lib/scala-compiler.jar",
-            "/Users/jun.honda/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/bundles/scala-xml_2.12-1.0.6.jar",
             "/Users/jun.honda/.ivy2/cache/org.scala-sbt/compiler-interface/jars/compiler-interface-1.2.3.jar",
             "/Users/jun.honda/.ivy2/cache/org.scala-sbt/launcher-interface/jars/launcher-interface-1.0.4.jar",
             "/Users/jun.honda/.ivy2/cache/org.scala-sbt/task-system_2.12/jars/task-system_2.12-1.2.4.jar",
@@ -101,11 +103,11 @@
             "/Users/jun.honda/.ivy2/cache/org.scala-sbt.ivy/ivy/jars/ivy-2.3.0-sbt-b18f59ea3bc914a297bb6f1a4f7fb0ace399e310.jar",
             "/Users/jun.honda/.ivy2/cache/org.scala-sbt/zinc-compile_2.12/jars/zinc-compile_2.12-1.2.3.jar"
         ],
-        "out": "/Users/jun.honda/project/todo-app/project/project/.bloop/todo-app-build-build",
-        "classesDir": "/Users/jun.honda/project/todo-app/project/project/.bloop/todo-app-build-build/scala-2.12/sbt-1.0/classes",
+        "out": "/Users/jun.honda/project/play/todo-app/project/project/.bloop/todo-app-build-build",
+        "classesDir": "/Users/jun.honda/project/play/todo-app/project/project/.bloop/todo-app-build-build/scala-2.12/sbt-1.0/classes",
         "resources": [
-            "/Users/jun.honda/project/todo-app/project/project/src/main/resources",
-            "/Users/jun.honda/project/todo-app/project/project/target/scala-2.12/sbt-1.0/resource_managed/main"
+            "/Users/jun.honda/project/play/todo-app/project/project/src/main/resources",
+            "/Users/jun.honda/project/play/todo-app/project/project/target/scala-2.12/sbt-1.0/resource_managed/main"
         ],
         "scala": {
             "organization": "org.scala-lang",
@@ -121,7 +123,7 @@
                 "/Users/jun.honda/.sbt/boot/scala-2.12.7/lib/scala-reflect.jar",
                 "/Users/jun.honda/.sbt/boot/scala-2.12.7/lib/scala-xml_2.12.jar"
             ],
-            "analysis": "/Users/jun.honda/project/todo-app/project/project/target/streams/compile/bloopAnalysisOut/$global/streams/inc_compile_2.12.zip",
+            "analysis": "/Users/jun.honda/project/play/todo-app/project/project/target/streams/compile/bloopAnalysisOut/$global/streams/inc_compile_2.12.zip",
             "setup": {
                 "order": "mixed",
                 "addLibraryToBootClasspath": true,
@@ -142,8 +144,8 @@
                 "import _root_.scala.xml.{TopScope=>$scope}",
                 "import _root_.sbt._",
                 "import _root_.sbt.Keys._",
-                "import _root_.sbt.ScriptedPlugin.autoImport._, _root_.bloop.integrations.sbt.BloopPlugin.autoImport._",
-                "import _root_.sbt.plugins.IvyPlugin, _root_.sbt.plugins.JvmPlugin, _root_.sbt.plugins.CorePlugin, _root_.sbt.ScriptedPlugin, _root_.sbt.plugins.SbtPlugin, _root_.sbt.plugins.JUnitXmlReportPlugin, _root_.sbt.plugins.Giter8TemplatePlugin, _root_.bloop.integrations.sbt.BloopPlugin"
+                "import _root_.sbt.ScriptedPlugin.autoImport._, _root_.org.ensime.EnsimeCoursierPlugin.autoImport._, _root_.org.ensime.EnsimeExtrasPlugin.autoImport._, _root_.org.ensime.EnsimePlugin.autoImport._, _root_.bloop.integrations.sbt.BloopPlugin.autoImport._",
+                "import _root_.sbt.plugins.IvyPlugin, _root_.sbt.plugins.JvmPlugin, _root_.sbt.plugins.CorePlugin, _root_.sbt.ScriptedPlugin, _root_.sbt.plugins.SbtPlugin, _root_.sbt.plugins.JUnitXmlReportPlugin, _root_.sbt.plugins.Giter8TemplatePlugin, _root_.org.ensime.EnsimeCoursierPlugin, _root_.org.ensime.EnsimeExtrasPlugin, _root_.org.ensime.EnsimePlugin, _root_.bloop.integrations.sbt.BloopPlugin"
             ]
         },
         "test": {
@@ -190,7 +192,7 @@
             "config": {
                 "home": "/Library/Java/JavaVirtualMachines/amazon-corretto-8.jdk/Contents/Home/jre",
                 "options": [
-                    "-Duser.dir=/Users/jun.honda/project/todo-app/project/project"
+                    "-Duser.dir=/Users/jun.honda/project/play/todo-app/project/project"
                 ]
             },
             "mainClass": [
@@ -199,6 +201,55 @@
         },
         "resolution": {
             "modules": [
+                {
+                    "organization": "org.ensime",
+                    "name": "sbt-ensime",
+                    "version": "2.6.1",
+                    "artifacts": [
+                        {
+                            "name": "sbt-ensime",
+                            "path": "/Users/jun.honda/.ivy2/cache/scala_2.12/sbt_1.0/org.ensime/sbt-ensime/jars/sbt-ensime-2.6.1.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang",
+                    "name": "scala-library",
+                    "version": "2.12.7",
+                    "artifacts": [
+                        {
+                            "name": "scala-library",
+                            "path": "/Users/jun.honda/.sbt/boot/scala-2.12.7/lib/scala-library.jar"
+                        },
+                        {
+                            "name": "scala-library",
+                            "classifier": "sources",
+                            "path": "/Users/jun.honda/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.12.7-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang.modules",
+                    "name": "scala-xml_2.12",
+                    "version": "1.1.0",
+                    "artifacts": [
+                        {
+                            "name": "scala-xml_2.12",
+                            "path": "/Users/jun.honda/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/bundles/scala-xml_2.12-1.1.0.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.dwijnand",
+                    "name": "sbt-compat",
+                    "version": "1.2.6",
+                    "artifacts": [
+                        {
+                            "name": "sbt-compat",
+                            "path": "/Users/jun.honda/.ivy2/cache/scala_2.12/sbt_1.0/com.dwijnand/sbt-compat/jars/sbt-compat-1.2.6.jar"
+                        }
+                    ]
+                },
                 {
                     "organization": "ch.epfl.scala",
                     "name": "sbt-bloop",
@@ -276,22 +327,6 @@
                             "name": "jsr305",
                             "classifier": "sources",
                             "path": "/Users/jun.honda/.ivy2/cache/com.google.code.findbugs/jsr305/srcs/jsr305-3.0.2-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.scala-lang",
-                    "name": "scala-library",
-                    "version": "2.12.7",
-                    "artifacts": [
-                        {
-                            "name": "scala-library",
-                            "path": "/Users/jun.honda/.sbt/boot/scala-2.12.7/lib/scala-library.jar"
-                        },
-                        {
-                            "name": "scala-library",
-                            "classifier": "sources",
-                            "path": "/Users/jun.honda/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.12.7-sources.jar"
                         }
                     ]
                 },
@@ -692,22 +727,6 @@
                             "name": "scala-compiler",
                             "classifier": "sources",
                             "path": "/Users/jun.honda/.ivy2/cache/org.scala-lang/scala-compiler/srcs/scala-compiler-2.12.7-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.scala-lang.modules",
-                    "name": "scala-xml_2.12",
-                    "version": "1.0.6",
-                    "artifacts": [
-                        {
-                            "name": "scala-xml_2.12",
-                            "path": "/Users/jun.honda/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/bundles/scala-xml_2.12-1.0.6.jar"
-                        },
-                        {
-                            "name": "scala-xml_2.12",
-                            "classifier": "sources",
-                            "path": "/Users/jun.honda/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/srcs/scala-xml_2.12-1.0.6-sources.jar"
                         }
                     ]
                 },
