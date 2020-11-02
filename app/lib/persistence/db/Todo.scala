@@ -14,22 +14,22 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
   
 
   lazy val dsn = Map(
-    "master" -> DataSourceName("ixias.db.mysql://master/todo"),
-    "slave" ->  DataSourceName("ixias.db.mysql://slave/todo") 
+    "master" -> DataSourceName("ixias.db.mysql://master/to_do"),
+    "slave" ->  DataSourceName("ixias.db.mysql://slave/to_do") 
     )
   
   class  Query extends BasicQuery(new Table(_)) {}
     lazy val query = new Query
   
 
-  class Table(tag: Tag) extends BasicTable(tag, "todo"){
+  class Table(tag: Tag) extends BasicTable(tag, "to_do"){
     import Todo._
     //Columns
     
      def id         = column[Id]            ("id",          O.UInt64, O.PrimaryKey, O.AutoInc)
      def title      = column[String]        ("title",       O.Utf8Char255)
      def content    = column[String]        ("body",        O.Text)
-     def state      = column[TodoStatus]    ("status",      O.Int8)
+     def state      = column[TodoStatus]    ("state",      O.Int8)
      def updatedAt  = column[LocalDateTime] ("updated_at",  O.TsCurrent)
      def createdAt  = column[LocalDateTime] ("created_at",  O.Ts)
 

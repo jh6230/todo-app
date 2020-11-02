@@ -5,7 +5,6 @@ import ixias.persistence.SlickRepository
 import lib.model.Todo
 import slick.jdbc.JdbcProfile
 
-
 //TodoRepositoryの定義
 case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
   extends SlickRepository[Todo.Id, Todo, P]
@@ -15,14 +14,15 @@ case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
 
     //CRUD処理
 
-    def all():Future[Seq[EntityEmbeddedId]] = 
-      RunDBAction(TodoTable, "slave"){_.result}
 
+    def all(): Future[Seq[EntityEmbeddedId]] = 
+      RunDBAction(TodoTable, "slave"){
+        slick => slick.result
+      }
 
-
-
-    def get(id: Id):Future[Option[EntityEmbeddedId]] = 
-      RunDBAction(TodoTable, "slave") {_  
+    
+    def get(id: Id): Future[Option[EntityEmbeddedId]] = 
+      RunDBAction(TodoTable, "slave") {slick => slick 
         .filter(_.id === id)
         .result.headOption
       }
