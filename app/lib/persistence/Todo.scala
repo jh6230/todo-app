@@ -53,13 +53,3 @@ case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
 }
 
 
-
-
-
-
-
-
-
-
-
-

@@ -1,10 +1,3 @@
-/**
-  * This is a sample of Todo Application.
-  * 
-  */
-
-package lib.persistence.db
-
 import slick.jdbc.JdbcProfile
 
 // Tableを扱うResourceのProvider
@@ -18,5 +11,5 @@ trait SlickResourceProvider[P <: JdbcProfile] {
 
   lazy val AllTables = Seq(
     UserTable, TodoTable
-    )
+  )
 }
