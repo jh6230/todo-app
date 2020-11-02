@@ -1,3 +1,5 @@
+package lib.persistence.db
+
 import slick.jdbc.JdbcProfile
 
 // Tableを扱うResourceのProvider
