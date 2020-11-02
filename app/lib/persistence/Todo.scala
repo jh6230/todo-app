@@ -15,6 +15,12 @@ case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
 
     //CRUD処理
 
+    def all():Future[Seq[EntityEmbeddedId]] = 
+      RunDBAction(TodoTable, "slave"){_.result}
+
+
+
+
     def get(id: Id):Future[Option[EntityEmbeddedId]] = 
       RunDBAction(TodoTable, "slave") {_  
         .filter(_.id === id)
