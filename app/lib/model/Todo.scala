@@ -34,10 +34,15 @@ object Todo {
       case object IS_FINISHED  extends TodoStatus(code = 2) //完了  
     }
 
-
-  
-
-
-
-
+  //INSERT時のIDがAutoincrementのため,IDなしであることを示すオブジェクトに変換
+  def apply(title: String, content: String, state: TodoStatus):WithNoId = {
+    new Entity.WithNoId(
+      new Todo(
+        id = None,
+        title = title,
+        content = content,
+        state = state
+      )
+    )
+  }
 }
