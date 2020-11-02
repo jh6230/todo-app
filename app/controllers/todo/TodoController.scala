@@ -6,20 +6,17 @@ import play.api.data.Form
 import play.api.data.Form._
 import scala.concurrent.{ExecutionContext, Future}
 import lib.model.Todo
-import lib.persistence.onMySQL.TodoRepository
+import lib.persistence.default.TodoRepository
 //import play.api.i18n.I18nSupport
 
 @Singleton
 class TodoController @Inject()(
-  val cc: ControllerComponents,
-  todoRepository:       TodoRepository  //TodoRepositoryの依存性注入
+  val cc: ControllerComponents
 )(implicit ec: ExecutionContext)
 extends BaseController{
 
 
-//  def show(id: Long) = Action async { implicit request: Request[AnyContent] =>
 
-  //}
 
 
 
