@@ -11,8 +11,8 @@ import lib.persistence
 
 @Singleton
 class TodoController @Inject()(
-  val controllerComponents: ControllerComponents,
-  todoRepository:       onMySQL.TodoRepository  //TodoRepositoryの依存性注入
+  val cc: ControllerComponents,
+//  todoRepository:       onMySQL.TodoRepository  //TodoRepositoryの依存性注入
 )(implicit ec: ExecutionContext)
 extends BaseController{
 

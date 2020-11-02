@@ -17,7 +17,7 @@ case class User(
   id:        Option[Id],
   name:      String,
   age:       Short,
-  state:     Status,
+  state:     UserStatus,
   updatedAt: LocalDateTime = NOW,
   createdAt: LocalDateTime = NOW
 ) extends EntityModel[Id]
@@ -33,14 +33,14 @@ object User {
 
   // ステータス定義
   //~~~~~~~~~~~~~~~~~
-  sealed abstract class Status(val code: Short, val name: String) extends EnumStatus
-  object Status extends EnumStatus.Of[Status] {
-    case object IS_INACTIVE extends Status(code = 0,   name = "無効")
-    case object IS_ACTIVE   extends Status(code = 100, name = "有効")
+  sealed abstract class UserStatus(val code: Short, val name: String) extends EnumStatus
+  object UserStatus extends EnumStatus.Of[UserStatus] {
+    case object IS_INACTIVE extends UserStatus(code = 0,   name = "無効")
+    case object IS_ACTIVE   extends UserStatus(code = 100, name = "有効")
   }
 
   // INSERT時のIDがAutoincrementのため,IDなしであることを示すオブジェクトに変換
-  def apply(name: String, age: Short, state: Status): WithNoId = {
+  def apply(name: String, age: Short, state: UserStatus): WithNoId = {
     new Entity.WithNoId(
       new User(
         id    = None,
