@@ -1,8 +1,19 @@
+@import controllers.todo.TodoForm
+@import helper._
+
 @(vv: model.ViewValueTodoForm)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
+
 
 @common.Default(vv){
 
-@vv.todoForm
+    @form(action = controllers.todo.routes.TodoController.add()){
+    @CSRF.formField
+    @inputText(vv.todoForm("title"))
+    @inputText(vv.todoForm("categoryId"))
+    @textarea(vv.todoForm("content"))
+
+    <input type="submit" value= "追加">
+  }
 
 
 

@@ -26,11 +26,10 @@ body {
 
 .main {
   width:      980px;
-  margin:     100px auto;
+  margin:     50px auto;
   padding:    100px;
   background-color: #FFF;
   box-shadow: 0 0 4px gray;
-  position:   relative;
 }
 
 .success-message {

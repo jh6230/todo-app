@@ -13,7 +13,7 @@ import model.ViewValueTodo
 import model.ViewValueTodoForm
 import play.api.i18n.I18nSupport
 
-case class TodoForm(title: String, content: String)
+case class TodoForm(title: String,categoryId: Long, content: String)
 
 @Singleton
 class TodoController @Inject()(
@@ -24,8 +24,9 @@ with I18nSupport{
   //新規追加機能用のフォームオブジェクト
   val todoForm: Form[TodoForm]= Form(
     mapping(
-      "title"    -> nonEmptyText, 
-      "content"  -> nonEmptyText
+      "title"      -> nonEmptyText, 
+      "categoryId" -> longNumber,
+      "content"    -> nonEmptyText
     )(TodoForm.apply)(TodoForm.unapply)
   ) 
 
