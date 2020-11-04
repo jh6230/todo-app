@@ -21,19 +21,19 @@ class TodoController @Inject()(
     for {
       todos <- TodoRepository.all()
     } yield {
-      todos.v
+
 
 
 //    コンパイルを通すために記述
-//    println(todos)
-//      val vv = ViewValueHome(
-//      title  = "Home",
-//      cssSrc = Seq("main.css"),
-//      jsSrc  = Seq("main.js")
-//    )
-//    
-//     (Ok(views.html.Home(vv)))
-//    }
+    println(todos)
+      val vv = ViewValueHome(
+      title  = "Home",
+      cssSrc = Seq("main.css"),
+      jsSrc  = Seq("main.js")
+    )
+    
+     (Ok(views.html.Home(vv)))
+    }
  
 
 //  def show() = Action async { implicit request: Request[AnyContent] =>
