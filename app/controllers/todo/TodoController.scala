@@ -27,12 +27,6 @@ class TodoController @Inject()(
           cssSrc = Seq("main.css"),
           jsSrc  = Seq("main.js"),
           todo = todos.map(_.v)
-
-      //  id =todos.map(_.v.id.get),
-      //  categoryId = todos.map(_.v.categoryId),
-      //  title = todos.map(_.v.title),
-      //  content = todos.map(_.v.content),
-      //  state = todos.map(_.v.state),
     )
       Ok(views.html.todo.list(vv))
     }
@@ -40,10 +34,6 @@ class TodoController @Inject()(
 
 }
 
-//  def show() = Action async { implicit request: Request[AnyContent] =>
-//    val id = Todo.Id
-//    TodoRepository.get(id)
-//
 
 
 
