@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.Todo
 import lib.persistence.default.TodoRepository
 import model.ViewValueTodo
-import akka.http.scaladsl.model.headers.LinkParams.title
+import model.ViewValueTodoForm
 import play.api.i18n.I18nSupport
 
 case class TodoForm(title: String, content: String)
@@ -48,12 +48,19 @@ with I18nSupport{
 
   //登録画面の表示用
   def registar() = Action { implicit request: Request[AnyContent] => 
-    Ok(views.html.todo.add(todoForm))
+    val vv = ViewValueTodoForm(
+      head     = "新規登録",
+      cssSrc   = Seq("main.css"),
+      jsSrc    = Seq("main.js"),
+      todoForm = todoForm
+      )
+    Ok(views.html.todo.add(vv))
   }
 
 
   def add() = Action async {implicit request: Request[AnyContent] =>
-   Future.successful(NoContent)
+    Future.successful(NoContent)
+
 
 
   }  

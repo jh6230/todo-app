@@ -1,5 +1,14 @@
-@import controllers.todo.TodoForm
+@(vv: model.ViewValueTodoForm)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 
-@(todoForm: Form[TodoForm])(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
+@common.Default(vv){
+
+@vv.todoForm
+
+
+
+}
+
+
+
 
 
