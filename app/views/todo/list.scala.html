@@ -1,29 +1,26 @@
-@(vv:model.ViewValueTodo)
-@common.Default(vv) {
-  <ul>
-    <h2>ID</h2> 
-    @for(id <- vv.id){
-    <li>@id</li>
-    }
-    <h2>categoryId</h2> 
-    @for(categoryId <- vv.categoryId){
-    <li>@categoryId</li>
-    }
-    <h2>title</h2> 
-    @for(title <- vv.title){
-     <li>@title</li>
-   }
-   <h2>content</h2> 
-   @for(content <- vv.content){
-     <li>@content</li> 
-   }
-   <h2>state</h2>
-   @for(state <- vv.state){
-     <li>@state.name</li>
-   }
- 
-  </ul>
+@import lib.model.Todo
 
 
+@(vv: model.ViewValueTodo)
+@common.Default(vv){
+
+    @for(todo <- vv.todo){
+    <div class = "todoList">
+      id: @todo.id.get
+      categoryId: ID:@todo.categoryId
+      title: @todo.title
+      content: @todo.content
+      state: @todo.state.name
+    </div>
+  }
 
 }
+
+
+
+  
+
+
+
+
+
