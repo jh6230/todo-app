@@ -11,14 +11,15 @@ import lib.model.Todo
 import lib.persistence.default.TodoRepository
 import model.ViewValueTodo
 import akka.http.scaladsl.model.headers.LinkParams.title
-//import play.api.i18n.I18nSupport
+import play.api.i18n.I18nSupport
 
 case class TodoForm(title: String, content: String)
 
 @Singleton
 class TodoController @Inject()(
   val controllerComponents: ControllerComponents
-)extends BaseController{
+)extends BaseController
+with I18nSupport{
 
   //新規追加機能用のフォームオブジェクト
   val todoForm: Form[TodoForm]= Form(
@@ -46,7 +47,7 @@ class TodoController @Inject()(
   }
 
   //登録画面の表示用
-  def registar() = Action async { implicit request: Request[AnyContent] => 
+  def registar() = Action { implicit request: Request[AnyContent] => 
     Ok(views.html.todo.add(todoForm))
   }
 
