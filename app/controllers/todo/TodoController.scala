@@ -28,7 +28,8 @@ class TodoController @Inject()(
         todos.map(_.v.id.get),
         todos.map(_.v.categoryId),
         todos.map(_.v.title),
-        todos.map(_.v.content)
+        todos.map(_.v.content),
+        todos.map(_.v.state)
         ) 
       Ok(views.html.todo.list(vv))
     }
