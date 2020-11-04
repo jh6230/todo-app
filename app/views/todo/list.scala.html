@@ -1,1 +1,21 @@
+@(vv:model.ViewValueTodo)
+@common.Default(vv) {
+  @for(id <- vv.id){
+    @id
+  }
+  @for(categoryId <- vv.categoryId){
+    @categoryId
+  }
 
+ @for(title <- vv.title){
+    @title
+ }
+ @for(content <- vv.content){
+    @content
+ }
+ 
+
+
+
+
+}

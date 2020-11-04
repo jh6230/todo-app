@@ -9,7 +9,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.Todo
 import lib.persistence.default.TodoRepository
-import model.ViewValueHome
+import model.ViewValueTodo
 //import play.api.i18n.I18nSupport
 
 @Singleton
@@ -21,20 +21,20 @@ class TodoController @Inject()(
     for {
       todos <- TodoRepository.all()
     } yield {
-
-
-
-//    コンパイルを通すために記述
-    println(todos)
-      val vv = ViewValueHome(
-      title  = "Home",
-      cssSrc = Seq("main.css"),
-      jsSrc  = Seq("main.js")
-    )
-    
-     (Ok(views.html.Home(vv)))
+      val vv = ViewValueTodo(
+        "一覧表示",
+        Seq("main.css"),
+        Seq("main.js"),
+        todos.map(_.v.id.get),
+        todos.map(_.v.categoryId),
+        todos.map(_.v.title),
+        todos.map(_.v.content)
+        ) 
+      Ok(views.html.todo.list(vv))
     }
- 
+  }
+
+}
 
 //  def show() = Action async { implicit request: Request[AnyContent] =>
 //    val id = Todo.Id
@@ -42,7 +42,6 @@ class TodoController @Inject()(
 //
 
 
-}
 
 
 
@@ -58,9 +57,6 @@ class TodoController @Inject()(
 
 
 
-
-
-}
 
 
   
