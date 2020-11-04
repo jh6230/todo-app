@@ -21,7 +21,7 @@ class TodoController @Inject()(
 )extends BaseController{
 
   //新規追加機能用のフォームオブジェクト
-  val todoForm = Form(
+  val todoForm: Form[TodoForm]= Form(
     mapping(
       "title"    -> nonEmptyText, 
       "content"  -> nonEmptyText
@@ -40,21 +40,22 @@ class TodoController @Inject()(
           cssSrc = Seq("main.css"),
           jsSrc  = Seq("main.js"),
           todo = todos.map(_.v)
-    )
+        )
       Ok(views.html.todo.list(vv))
     }
   }
 
+  //登録画面の表示用
+  def registar() = Action async { implicit request: Request[AnyContent] => 
+    Ok(views.html.todo.add(todoForm))
+  }
 
 
+  def add() = Action async {implicit request: Request[AnyContent] =>
+   Future.successful(NoContent)
 
 
-
-//  def add() = Action async {implicit request: Request[AnyContent] =>
-
-
-
-//  }  
+  }  
 
 
 }
