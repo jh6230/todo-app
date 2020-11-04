@@ -11,6 +11,7 @@ import Todo._
 //Todoを表すモデル
 case class Todo(
   id:         Option[Id],
+  categoryId: Long,
   title:      String,
   content:    String,
   state:      TodoStatus,
@@ -35,10 +36,11 @@ object Todo {
     }
 
   //INSERT時のIDがAutoincrementのため,IDなしであることを示すオブジェクトに変換
-  def apply(title: String, content: String, state: TodoStatus):WithNoId = {
+  def apply(categoryId: Long, title: String, content: String, state: TodoStatus):WithNoId = {
     new Entity.WithNoId(
       new Todo(
         id = None,
+        categoryId = categoryId,
         title = title,
         content = content,
         state = state
