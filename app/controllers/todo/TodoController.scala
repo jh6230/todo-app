@@ -70,7 +70,7 @@ with I18nSupport{
   def add() = Action async {implicit request: Request[AnyContent] =>
     todoForm.bindFromRequest().fold(
       (errorForm: Form[TodoForm]) => {
-        Future.successful(Redirect(routes.TodoController.add()))
+        Future.successful(Redirect(routes.TodoController.add()).flashing("Failure" -> "登録に失敗しました"))
       },
       (todoForm: TodoForm) =>{ 
         val  todoWithNoId = new Todo(

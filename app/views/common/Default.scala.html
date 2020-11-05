@@ -19,7 +19,18 @@
     @* And here's where we render the `Html` object containing
     * the page content. *@
     <header class="header">
-      <div class="header__content"><span class="header__logo">My Todo App</span></div>
+      <div class="header__content">
+        <span class="header__logo">
+          <a class="header__logo-link" href = "/">My Todo App</a>
+        </span>
+        <ul class = "header__nav">
+          <li class = "header__item-todo">
+          <a class = "header__item-link" href = "@controllers.todo.routes.TodoController.add()">Todo新規追加</a>
+          </li>
+          <li class = "header__item-category">
+          <a class = "header__item-link" href = "@controllers.todo.routes.TodoController.list()">カテゴリー</a>
+          </li>
+      </div>
     </header>
     <main class="main">
       <h1>@vv.head</h1>
