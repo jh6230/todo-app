@@ -37,15 +37,14 @@ object Todo {
     
 
   //INSERT時のIDがAutoincrementのため,IDなしであることを示すオブジェクトに変換
-  def apply(categoryId: Long, title: String, content: String, state: TodoStatus): WithNoId = {
-    new Entity.WithNoId(
-      new Todo(
-        id = None,
-        categoryId = categoryId,
-        title = title,
-        content = content,
-        state = state
-      )
-    )
-  }
+  def apply(categoryId: Long, title: String, content: String, state: TodoStatus):Todo#WithNoId = 
+    new Todo(
+      id = None,
+      categoryId = categoryId,
+      title = title,
+      content = content,
+      state   = state 
+    ).toWithNoId
+  
+
 }

@@ -12,8 +12,14 @@ import lib.persistence.default.TodoRepository
 import model.ViewValueTodo
 import model.ViewValueTodoForm
 import play.api.i18n.I18nSupport
+import lib.model.Todo.TodoStatus
 
-case class TodoForm(title: String,categoryId: Long, content: String)
+case class TodoForm(
+  title:      String,
+  categoryId: Long, 
+  content:    String,
+  state:      Short 
+)
 
 @Singleton
 class TodoController @Inject()(
@@ -26,7 +32,8 @@ with I18nSupport{
     mapping(
       "title"      -> nonEmptyText, 
       "categoryId" -> longNumber,
-      "content"    -> nonEmptyText
+      "content"    -> nonEmptyText,
+      "state"      -> shortNumber(min = 0, max = 255)  
     )(TodoForm.apply)(TodoForm.unapply)
   ) 
 
@@ -59,15 +66,35 @@ with I18nSupport{
   }
 
 
+  //登録処理
   def add() = Action async {implicit request: Request[AnyContent] =>
-    Future.successful(NoContent)
+    todoForm.bindFromRequest().fold(
+      (errorForm: Form[TodoForm]) => {
+        Future.successful(Redirect(routes.TodoController.add()))
+      },
+      (todoForm: TodoForm) =>{ 
+        val  todoWithNoId = new Todo(
+          id = None,
+          categoryId = todoForm.categoryId,
+          title      = todoForm.title,
+          content    = todoForm.content,
+          state      = TodoStatus.apply(todoForm.state)
+        ).toWithNoId
+      for {
+        _ <- TodoRepository.add(todoWithNoId)
+      } yield {
+        Redirect(routes.TodoController.list())
+      }
+
+      }
+    )
 
 
+      
+  }
 
-  }  
-
-
+    
 }
 
 
-  
+ 
