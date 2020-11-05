@@ -80,18 +80,16 @@ with I18nSupport{
           content    = todoForm.content,
           state      = TodoStatus.apply(todoForm.state)
         ).toWithNoId
-      for {
-        _ <- TodoRepository.add(todoWithNoId)
-      } yield {
-        Redirect(routes.TodoController.list())
-      }
-
+        for {
+          _ <- TodoRepository.add(todoWithNoId)
+        } yield {
+          Redirect(routes.TodoController.list())
+        }
       }
     )
-
-
-      
   }
+
+
 
     
 }
