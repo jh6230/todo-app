@@ -96,6 +96,27 @@ with I18nSupport{
   }
 
 
+  //編集画面表示用
+  def edit(id: Long) = Action async {implicit request: Request[AnyContent] => 
+    val todoId = Todo.Id(id)
+    for {
+      todo <- TodoRepository.get(todoId)
+    } yield {
+      val vv = ViewValueTodoForm(
+        head     = "編集画面",
+        cssSrc   = Seq("main.css"),
+        jsSrc    = Seq("main.js"),
+        todoForm = todoForm
+      )
+      Ok(views.html.todo.edit(id))
+
+    }
+
+
+
+  } 
+
+
 
     
 }
