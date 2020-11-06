@@ -1,11 +1,11 @@
 @import controllers.todo.TodoForm
 @import helper._
 
-@(vv: model.ViewValueTodoForm)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
+@(id: Long,  vv: model.ViewValueTodoForm)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 
 @common.Default(vv){
 
-    @form(action = controllers.todo.routes.TodoController.add()){
+    @form(action = controllers.todo.routes.TodoController.update(id)){
     @CSRF.formField
     @inputText(vv.todoForm("title"), Symbol("_label") -> "タイトル")
     @inputText(vv.todoForm("categoryId"))
