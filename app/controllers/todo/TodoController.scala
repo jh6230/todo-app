@@ -13,6 +13,7 @@ import model.ViewValueTodo
 import model.ViewValueTodoForm
 import play.api.i18n.I18nSupport
 import lib.model.Todo.TodoStatus
+import java.lang.ProcessBuilder.Redirect
 
 case class TodoForm(
   title:      String,
@@ -36,7 +37,12 @@ with I18nSupport{
       "state"      -> shortNumber(min = 0, max = 255)  
     )(TodoForm.apply)(TodoForm.unapply)
   ) 
-
+  private val vv = ViewValueTodoForm(
+    head     = "新規登録",
+    cssSrc   = Seq("main.css"),
+    jsSrc    = Seq("main.js"),
+    todoForm = todoForm
+  ) 
 
 
   //Todo一覧表示
@@ -55,13 +61,7 @@ with I18nSupport{
   }
 
   //登録画面の表示用
-  def registar() = Action { implicit request: Request[AnyContent] => 
-    val vv = ViewValueTodoForm(
-      head     = "新規登録",
-      cssSrc   = Seq("main.css"),
-      jsSrc    = Seq("main.js"),
-      todoForm = todoForm
-      )
+  def registar() = Action { implicit request: Request[AnyContent] => vv
     Ok(views.html.todo.add(vv))
   }
 
@@ -69,13 +69,7 @@ with I18nSupport{
   //登録処理
   def add() = Action async {implicit request: Request[AnyContent] =>
     todoForm.bindFromRequest().fold(
-      (errorForm: Form[TodoForm]) => {
-        val vv = ViewValueTodoForm(
-          head     = "新規登録",
-          cssSrc   = Seq("main.css"),
-          jsSrc    = Seq("main.js"),
-          todoForm = errorForm
-          )
+      (todoForm: Form[TodoForm]) => { vv
         Future.successful(BadRequest(views.html.todo.add(vv)))
       },
       (todoForm: TodoForm) =>{ 
@@ -95,26 +89,30 @@ with I18nSupport{
     )
   }
 
-
   //編集画面表示用
   def edit(id: Long) = Action async {implicit request: Request[AnyContent] => 
     val todoId = Todo.Id(id)
-    for {
-      todo <- TodoRepository.get(todoId)
-    } yield {
-      val vv = ViewValueTodoForm(
-        head     = "編集画面",
-        cssSrc   = Seq("main.css"),
-        jsSrc    = Seq("main.js"),
-        todoForm = todoForm
-      )
-      Ok(views.html.todo.edit(vv))
-
-    }
-
-
-
+      for {
+        todo <- TodoRepository.get(todoId)
+      } yield  {
+        todo match {
+          case Some(todoId) =>
+            val vv = ViewValueTodoForm(
+              head     = "編集画面",
+              cssSrc   = Seq("main.css"),
+              jsSrc    = Seq("main.js"),
+              todoForm = todoForm
+            ) 
+            Ok(views.html.todo.edit(vv))
+            //idが見つからない場合はトップページにリダイレクト 
+          case None => 
+            Redirect(routes.TodoController.list())
+        } 
+      }
   } 
+
+  def update(id: Long) = Action async{implicit request: Request[AnyContent]  } 
+  
 
 
 
