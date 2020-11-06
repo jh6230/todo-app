@@ -7,10 +7,10 @@
 
     @form(action = controllers.todo.routes.TodoController.update(id)){
     @CSRF.formField
-    @inputText(vv.todoForm("title"), Symbol("_label") -> "タイトル")
-    @inputText(vv.todoForm("categoryId"))
-    @textarea(vv.todoForm("content"), Symbol("_label") -> "内容")
-    @inputText(vv.todoForm("state"),Symbol("_label") -> "ステータス")
+    @inputText(vv.todoForm("title"), '_label -> "タイトル")
+    @inputText(vv.todoForm("categoryId"), '_label -> "カテゴリー")
+    @textarea(vv.todoForm("content"), '_label -> "内容")
+    @inputText(vv.todoForm("state"),'_label -> "ステータス")
     <input type="submit" value= "更新">
   }
 
