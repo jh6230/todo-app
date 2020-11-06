@@ -122,6 +122,7 @@ with I18nSupport{
   //更新処理
   def update(id: Long) = Action async{implicit request: Request[AnyContent] =>
     todoForm.bindFromRequest().fold(
+      //todo 処理が失敗した場合
       (errorForm: Form[TodoForm]) => { 
         val vv = ViewValueTodoForm(
           head     = "編集画面",
@@ -129,26 +130,29 @@ with I18nSupport{
           jsSrc    = Seq("main.js"),
           todoForm = errorForm 
         )
-        println("OK")
         Future.successful(BadRequest(views.html.todo.edit(id, vv)))
       },
-       (todoForm: TodoForm) =>{
-          val  todoEmbededId = new Todo(
-            id         = None,
+      //処理が成功した場合
+      (todoForm: TodoForm) => {
+      //取得したidを基にTodo[EntityEmbeddedId]をインスタンスを生成
+        val  todoEmbededId = new Todo(
+            id         = Some(Todo.Id(id)),
             categoryId = todoForm.categoryId,
             title      = todoForm.title,
             content    = todoForm.content,
             state      = TodoStatus.apply(todoForm.state)
-          ).toEmbeddedId
+        ).toEmbeddedId //EmbededId型に変換
         for {
-          _ <- TodoRepository.update(todoEmbededId)
+          todoUpdate <- TodoRepository.update(todoEmbededId)
         } yield {
-          Redirect(routes.TodoController.list())
-        }
-       }
+          todoUpdate match{
+            case None    => Redirect(routes.TodoController.edit(id))//更新が失敗した場合元のページにリダイレクト 
+            case Some(_) => Redirect(routes.TodoController.list())//更新できたらトップページにリダイレクト
+          }
+        } 
+      }
     )
-  } 
-  
+  }
 
 
 
