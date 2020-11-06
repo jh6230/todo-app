@@ -16,6 +16,7 @@ import lib.model.Todo.TodoStatus
 import java.lang.ProcessBuilder.Redirect
 import org.w3c.dom.Entity
 import views.html.defaultpages.todo
+import akka.http.scaladsl.model.headers.LinkParams.title
 
 case class TodoForm(
   title:      String,
@@ -104,12 +105,17 @@ with I18nSupport{
         todo <- TodoRepository.get(todoId)
       } yield  {
         todo match {
-          case Some(todoId) =>
+          case Some(todo) =>
             val vv = ViewValueTodoForm(
               head     = "編集画面",
               cssSrc   = Seq("main.css"),
               jsSrc    = Seq("main.js"),
-              todoForm = todoForm
+              todoForm = todoForm.fill(
+                TodoForm(
+                  todo.v.title, 
+                  todo.v.categoryId,
+                  todo.v.content,
+                  todo.v.state.code))
             ) 
             Ok(views.html.todo.edit(id, vv))
             //idが見つからない場合はトップページにリダイレクト 
