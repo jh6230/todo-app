@@ -11,6 +11,7 @@
       title: @todo.title
       content: @todo.content
       state: @todo.state.name
+      <a class = "todoEdit-link" href = "@controllers.todo.routes.TodoController.edit(todo.id.getOrElse(0))">Todo編集</a>
     </div>
   }
 

@@ -3,7 +3,6 @@
 
 @(vv: model.ViewValueTodoForm)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 
-
 @common.Default(vv){
 
     @form(action = controllers.todo.routes.TodoController.add()){
@@ -12,14 +11,12 @@
     @inputText(vv.todoForm("categoryId"))
     @textarea(vv.todoForm("content"), Symbol("_label") -> "内容")
     @inputText(vv.todoForm("state"),Symbol("_label") -> "ステータス")
-    <input type="submit" value= "追加">
+    <input type="submit" value= "更新">
   }
 
 
 
 }
-
-
 
 
 

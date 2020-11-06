@@ -108,7 +108,7 @@ with I18nSupport{
         jsSrc    = Seq("main.js"),
         todoForm = todoForm
       )
-      Ok(views.html.todo.edit(id))
+      Ok(views.html.todo.edit(vv))
 
     }
 
