@@ -1,7 +1,7 @@
 package model
 
 import lib.model.Category
-import lib.Category.CategoryColor
+import lib.model.Category.CategoryColor
 
 case class ViewValueCategory(
   head:     String,
