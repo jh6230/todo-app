@@ -12,6 +12,7 @@
       content: @todo.content
       state: @todo.state.name
       <a class = "todoEdit-link" href = "@controllers.todo.routes.TodoController.edit(todo.id.getOrElse(0))">Todo編集</a>
+      <a class = "todoDelete-link" href = "@controllers.todo.routes.TodoController.delete(todo.id.getOrElse(0))">Todo削除</a>
     </div>
   }
 

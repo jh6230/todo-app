@@ -128,7 +128,7 @@ with I18nSupport{
   //更新処理
   def update(id: Long) = Action async{implicit request: Request[AnyContent] =>
     todoForm.bindFromRequest().fold(
-      //todo 処理が失敗した場合
+      //処理が失敗した場合
       (errorForm: Form[TodoForm]) => { 
         val vv = ViewValueTodoForm(
           head     = "編集画面",
@@ -160,8 +160,17 @@ with I18nSupport{
     )
   }
 
-
-
+  def delete(id: Long) = Action async{ implicit request: Request[AnyContent] => 
+    val todoId = Todo.Id(id)
+      for {
+        todoDelete <- TodoRepository.remove(todoId)
+      } yield  {
+        todoDelete match {
+          case None      => Redirect(routes.TodoController.list())
+          case Some(_)   => Redirect(routes.TodoController.list())
+        }
+      }
+  }
     
 }
 
