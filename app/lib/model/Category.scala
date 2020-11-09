@@ -38,7 +38,7 @@ object Category {
       name  = name,
       slug  =  slug,
       color = color
-    ).toWithNoId
+  ).toWithNoId
 
 }
 
