@@ -30,7 +30,7 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
      def categoryId = column[Long]          ("category_id", O.UInt64)
      def title      = column[String]        ("title",       O.Utf8Char255)
      def content    = column[String]        ("body",        O.Text)
-     def state      = column[TodoStatus]    ("state",       O.Int8)
+     def state      = column[TodoStatus]    ("state",       O.UInt8)
      def updatedAt  = column[LocalDateTime] ("updated_at",  O.TsCurrent)
      def createdAt  = column[LocalDateTime] ("created_at",  O.Ts)
 
