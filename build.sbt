@@ -11,7 +11,7 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 scalaVersion := "2.12.8"
 
 libraryDependencies += guice
-libraryDependencies += jdbc
+//libraryDependencies += jdbc
 
 resolvers ++= Seq(
   "IxiaS Releases" at "http://maven.ixias.net.s3-ap-northeast-1.amazonaws.com/releases"
