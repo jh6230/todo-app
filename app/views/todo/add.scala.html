@@ -9,9 +9,10 @@
     @form(action = controllers.todo.routes.TodoController.add()){
     @CSRF.formField
     @inputText(vv.todoForm("title"), Symbol("_label") -> "タイトル")
-    @inputText(vv.todoForm("categoryId"))
+    @inputText(vv.todoForm("categoryId"), '_label -> "カテゴリー")
     @textarea(vv.todoForm("content"), Symbol("_label") -> "内容")
-    @inputText(vv.todoForm("state"),Symbol("_label") -> "ステータス")
+    @select(vv.todoForm("state"), options = options(("0" -> "未着手")),
+    '_label -> "進捗")
     <input type="submit" value= "追加">
   }
 
