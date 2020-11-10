@@ -48,7 +48,7 @@ with I18nSupport{
       todos <- TodoRepository.all()
     } yield {
         val vv = ViewValueTodo(
-          head = "一覧表示",
+          head = "Todo一覧",
           cssSrc = Seq("main.css"),
           jsSrc  = Seq("main.js"),
           todo = todos.map(_.v)

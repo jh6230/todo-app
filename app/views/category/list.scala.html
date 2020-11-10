@@ -2,6 +2,14 @@
 
 @(vv: model.ViewValueCategory)
 @common.Default(vv){
+  
+  @for(category <-vv.category){
+  <div class = "categoryList">
+    id: @category.id.get
+    カテゴリー名: @category.name
+    slug: @category.slug
+    color: @category.color.code
+  } 
 
 
 

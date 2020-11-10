@@ -16,7 +16,7 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
   lazy val dsn = Map(
     "master" -> DataSourceName("ixias.db.mysql://master/to_do"),
     "slave" ->  DataSourceName("ixias.db.mysql://slave/to_do") 
-    )
+  )
   
   class  Query extends BasicQuery(new Table(_)) {}
     lazy val query = new Query

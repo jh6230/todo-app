@@ -13,7 +13,6 @@ import lib.persistence.default.CategoryRepository
 import play.api.i18n.I18nSupport
 import lib.model.Category.CategoryColor
 
-
 @Singleton
 class CategoryController @Inject()(
   val controllerComponents: ControllerComponents
@@ -27,12 +26,11 @@ with I18nSupport{
       categories <- CategoryRepository.all()
     } yield {
         val vv = ViewValueCategory(
-          head     = "カテゴリー一覧表示",
+          head     = "カテゴリー 一覧",
           cssSrc   = Seq("main.css"),
           jsSrc    = Seq("main.js"),
           category = categories.map(_.v)
         )
-      println(vv)
       Ok(views.html.category.list(vv)) 
     }
   }
@@ -42,4 +40,4 @@ with I18nSupport{
 
 
 
-  }
+}

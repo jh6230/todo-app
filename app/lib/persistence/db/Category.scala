@@ -10,11 +10,14 @@ case class CategoryTable[P <: JdbcProfile]()(implicit val driver: P)
   extends Table[Category, P]{
   import api._
 
+  //データベースの名前
   lazy val dsn = Map(
-    "master" -> DataSourceName("ixias.db.mysql://master/to_do_category"),
-      "slave"-> DataSourceName("ixias.db.mysql://slave/to_do_category")
+    "master" -> DataSourceName("ixias.db.mysql://master/to_do"),
+    "slave" ->  DataSourceName("ixias.db.mysql://slave/to_do") 
   )
+  
 
+  //テーブル名
   class Query extends BasicQuery(new Table(_)) {}
     lazy val query = new Query
 
