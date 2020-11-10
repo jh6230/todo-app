@@ -9,6 +9,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.Category
 import model.ViewValueCategory
+import model.ViewValueCategoryForm
 import lib.persistence.default.CategoryRepository
 import play.api.i18n.I18nSupport
 import lib.model.Category.CategoryColor
@@ -33,6 +34,17 @@ with I18nSupport{
         )
       Ok(views.html.category.list(vv)) 
     }
+  }
+
+  //Category新規作成
+  def registar() = Action {implicit request: Request[AnyContent] =>
+    val vv = ViewValueCategoryForm(
+      head          = "カテゴリー新規登録",
+      cssSrc        = Seq("main.css"),
+      jsSrc         = Seq("main.js"),
+      categoryForm  = categoryForm
+    )
+    Ok(views.html.category.add(vv))
   }
 
 
