@@ -14,8 +14,8 @@ case class ViewValueCategory(
 )extends ViewValueCommon
 
 case class ViewValueCategoryForm(
-  head:      String,
-  cssSrc:    Seq[String],
-  jsSrc:     Seq[String],
+  head:          String,
+  cssSrc:        Seq[String],
+  jsSrc:         Seq[String],
   categoryForm:  Form[CategoryForm]
 )extends ViewValueCommon

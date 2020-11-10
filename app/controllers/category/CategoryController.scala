@@ -110,11 +110,10 @@ with I18nSupport{
                 CategoryForm(
                   category.v.name,
                   category.v.slug,
-                  category.v.color.code
-                ))
-              Ok(views.html.category.edit(id, vv))
+                  category.v.color.code))
+            )
+            Ok(views.html.category.edit(id, vv))
               //idが見つからない場合はトップページにリダイレクト
-              )
           case None =>
             Redirect(routes.CategoryController.list())
         }
@@ -128,3 +127,30 @@ with I18nSupport{
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
