@@ -21,8 +21,8 @@ GET      /category/add          controllers.category.CategoryController.registar
 POST     /category/add          controllers.category.CategoryController.add()
 GET      /category/edit/:id     controllers.category.CategoryController.edit(id: Long)
 POST     /category/edit/update  controllers.category.CategoryController.update(id: Long)
-#GET      /category/delete/:id   controllers.category.CategoryController.delte(id: Long)
-#DELETE   /category/delte        controllers.category.CategoryController.delte(id:Long)
+GET      /category/delete/:id   controllers.category.CategoryController.delete(id: Long)
+DELETE   /category/delete       controllers.category.CategoryController.delete(id:Long)
 
 
 # Map static resources from the /public folder to the /assets URL path
