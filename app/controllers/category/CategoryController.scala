@@ -120,6 +120,39 @@ with I18nSupport{
       }
   }
 
+  //更新処理
+  def update(id: Long) = Action async{implicit request: Request[AnyContent] =>
+    categoryForm.bindFromRequest().fold(
+      //処理が失敗した場合
+      (errorForm: Form[CategoryForm]) => {
+        val vv = ViewValueCategoryForm(
+          head          = "編集画面",
+          cssSrc        = Seq("main.css"),
+          jsSrc         = Seq("main.js"),
+          categoryForm  = errorForm
+        )
+        Future.successful(BadRequest(views.html.category.edit(id, vv)))
+      },
+      //処理が成功した場合
+      (categoryForm: CategoryForm) => {
+        val categoryEmbededId = new Category(
+          id      = Some(Category.Id(id)),
+          name    = categoryForm.name,
+          slug    = categoryForm.slug,
+          color   = CategoryColor.apply(categoryForm.color)
+        ).toEmbeddedId
+        for {
+          categoryUpdate <- CategoryRepository.update(categoryEmbededId)
+        } yield {
+          categoryUpdate match {
+            case None     => Redirect(routes.CategoryController.edit(id))//更新が失敗したら元の画面へリダイレクト
+            case Some(_)  => Redirect(routes.CategoryController.list())//更新できたら一覧へリダイレクト
+          }
+        }
+      }
+    )
+  }
+
 
 
   

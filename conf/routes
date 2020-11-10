@@ -20,7 +20,7 @@ GET      /category/list         controllers.category.CategoryController.list()
 GET      /category/add          controllers.category.CategoryController.registar()
 POST     /category/add          controllers.category.CategoryController.add()
 GET      /category/edit/:id     controllers.category.CategoryController.edit(id: Long)
-#POST     /category/edit/update  controllers.category.CategoryController.update(id: Long)
+POST     /category/edit/update  controllers.category.CategoryController.update(id: Long)
 
 
 # Map static resources from the /public folder to the /assets URL path
