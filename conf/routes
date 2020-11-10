@@ -16,10 +16,11 @@ GET      /todo/delete/:id      controllers.todo.TodoController.delete(id: Long)
 DELETE   /todo/delete/delete   controllers.todo.TodoController.delete(id:Long)
 
 #Categoryに関するルーティング
-GET      /category/list        controllers.category.CategoryController.list()
-GET      /category/add         controllers.category.CategoryController.registar()
-POST     /category/add         controllers.category.CategoryController.add()
-
+GET      /category/list         controllers.category.CategoryController.list()
+GET      /category/add          controllers.category.CategoryController.registar()
+POST     /category/add          controllers.category.CategoryController.add()
+GET      /category/edit/:id     controllers.category.CategoryController.edit(id: Long)
+POST     /category/edit/update  controllers.category.CategoryController.update(id: Long)
 
 
 # Map static resources from the /public folder to the /assets URL path
