@@ -65,11 +65,26 @@ with I18nSupport{
   }
 
   //登録処理
-  def add() = Action{ implicit request: Request[AnyContent] =>
-    categoryForm.bindFromRequest()
-
-
-
+  def add() = Action async { implicit request: Request[AnyContent] =>
+    categoryForm.bindFromRequest().fold(
+      (categoryForm: Form[CategoryForm]) =>{
+        val vv = vvForm 
+        Future.successful(BadRequest(views.html.category.add(vv)))
+      },
+      (categoryForm: CategoryForm) => {
+        val categoryWithNoId = new Category(
+          id     = None,
+          name   = categoryForm.name,
+          slug   = categoryForm.slug,
+          color  = CategoryColor.apply(categoryForm.color)
+        ).toWithNoId
+        for {
+          _ <- CategoryRepository.add(categoryWithNoId)
+        } yield {
+          Redirect(routes.CategoryController.list())
+        }
+      }
+    )
   }
 
 
