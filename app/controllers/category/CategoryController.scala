@@ -93,10 +93,37 @@ with I18nSupport{
     )
   }
 
-  def 
+
+  //編集画面表示用
+  def edit(id :Long) = Action async{ implicit request: Request[AnyContent] =>
+    val categoryId = Category.Id(id)
+      for {
+        category <- CategoryRepository.get(categoryId)
+      } yield {
+        category match {
+          case Some(category) =>
+            val vv = ViewValueCategoryForm(
+              head         = "カテゴリー編集",
+              cssSrc       = Seq("main.css"),
+              jsSrc        = Seq("main.js"),
+              categoryForm = categoryForm.fill(
+                CategoryForm(
+                  category.v.name,
+                  category.v.slug,
+                  category.v.color.code
+                ))
+              Ok(views.html.category.edit(id, vv))
+              //idが見つからない場合はトップページにリダイレクト
+              )
+          case None =>
+            Redirect(routes.CategoryController.list())
+        }
+      }
+  }
 
 
 
+  
 
 
 
