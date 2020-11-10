@@ -13,6 +13,8 @@ import model.ViewValueCategoryForm
 import lib.persistence.default.CategoryRepository
 import play.api.i18n.I18nSupport
 import lib.model.Category.CategoryColor
+import views.html.defaultpages.error
+import org.w3c.dom.Text
 
 
 case class CategoryForm(
@@ -38,7 +40,6 @@ with I18nSupport{
   )
 
 
-  //Category一覧
   def list() = Action async { implicit request: Request[AnyContent] => 
     for {
       categories <- CategoryRepository.all()
@@ -91,6 +92,8 @@ with I18nSupport{
       }
     )
   }
+
+  def 
 
 
 
