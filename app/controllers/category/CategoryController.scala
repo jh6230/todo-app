@@ -153,11 +153,18 @@ with I18nSupport{
     )
   }
 
-
-
-  
-
-
+  //削除処理
+  def delete(id: Long) = Action async{ implicit request: Request[AnyContent] =>
+    val categoryId = Category.Id(id)
+      for {
+        categoryDelete <- CategoryRepository.remove(categoryId)
+      } yield {
+        categoryDelete match {
+          case None =>   Redirect(routes.CategoryController.list())
+          case Some(_) =>   Redirect(routes.CategoryController.list())
+        }
+      }
+  } 
 
 }
 
