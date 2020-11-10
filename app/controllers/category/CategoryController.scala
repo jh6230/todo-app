@@ -14,11 +14,27 @@ import lib.persistence.default.CategoryRepository
 import play.api.i18n.I18nSupport
 import lib.model.Category.CategoryColor
 
+
+case class CategoryForm(
+  name:  String,
+  slug:  String,
+  color: Short
+)
+
 @Singleton
 class CategoryController @Inject()(
   val controllerComponents: ControllerComponents
 )extends BaseController
 with I18nSupport{
+
+  //新規登録用のフォームオブジェクト
+  val categoryForm: Form[CategoryForm] = Form(
+    mapping(
+      "name " -> nonEmptyText,
+      "slug"  -> nonEmptyText,
+      "color" -> shortNumber(min = 0, max = 255)
+    )
+  )
 
   
   //Category一覧
