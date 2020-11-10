@@ -4,7 +4,7 @@ import lib.model.Category
 import lib.model.Category.CategoryColor
 import controllers.category.CategoryForm
 import play.api.data.Form
-import play.api.data.Form._
+import play.api.data.Forms._
 
 case class ViewValueCategory(
   head:     String,
@@ -17,5 +17,5 @@ case class ViewValueCategoryForm(
   head:      String,
   cssSrc:    Seq[String],
   jsSrc:     Seq[String],
-  category:  Form[CategoryForm]
+  categoryForm:  Form[CategoryForm]
 )extends ViewValueCommon

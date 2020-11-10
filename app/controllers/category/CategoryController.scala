@@ -30,12 +30,18 @@ with I18nSupport{
   //新規登録用のフォームオブジェクト
   val categoryForm: Form[CategoryForm] = Form(
     mapping(
-      "name " -> nonEmptyText,
+      "name"  -> nonEmptyText,
       "slug"  -> nonEmptyText,
       "color" -> shortNumber(min = 0, max = 255)
-    )
+    )(CategoryForm.apply)(CategoryForm.unapply)
   )
 
+  val vvForm = ViewValueCategoryForm(
+      head          = "カテゴリー新規登録",
+      cssSrc        = Seq("main.css"),
+      jsSrc         = Seq("main.js"),
+      categoryForm  = categoryForm
+    )
   
   //Category一覧
   def list() = Action async { implicit request: Request[AnyContent] => 
@@ -52,15 +58,11 @@ with I18nSupport{
     }
   }
 
-  //Category新規作成
+  //登録画面の表示用
   def registar() = Action {implicit request: Request[AnyContent] =>
-    val vv = ViewValueCategoryForm(
-      head          = "カテゴリー新規登録",
-      cssSrc        = Seq("main.css"),
-      jsSrc         = Seq("main.js"),
-      categoryForm  = categoryForm
-    )
+    val vv  = vvForm
     Ok(views.html.category.add(vv))
+
   }
 
 
