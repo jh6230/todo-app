@@ -62,6 +62,13 @@ with I18nSupport{
   def registar() = Action {implicit request: Request[AnyContent] =>
     val vv  = vvForm
     Ok(views.html.category.add(vv))
+  }
+
+  //登録処理
+  def add() = Action{ implicit request: Request[AnyContent] =>
+    categoryForm.bindFromRequest()
+
+
 
   }
 
