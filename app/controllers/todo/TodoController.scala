@@ -41,7 +41,6 @@ with I18nSupport{
     )(TodoForm.apply)(TodoForm.unapply)
   ) 
 
-
   //Todo一覧表示
   def list() = Action async {implicit request: Request[AnyContent] =>
     for {
@@ -64,21 +63,20 @@ with I18nSupport{
       cssSrc   = Seq("main.css"),
       jsSrc    = Seq("main.js"),
       todoForm = todoForm
-    ) 
+  ) 
     Ok(views.html.todo.add(vv))
   }
-
 
   //登録処理
   def add() = Action async {implicit request: Request[AnyContent] =>
     todoForm.bindFromRequest().fold(
-      (todoForm: Form[TodoForm]) => {
+      (errorForm: Form[TodoForm]) => {
         val vv = ViewValueTodoForm(
-          head     = "新規登録",
-          cssSrc   = Seq("main.css"),
-          jsSrc    = Seq("main.js"),
-          todoForm = todoForm
-        ) 
+        head     = "新規登録",
+        cssSrc   = Seq("main.css"),
+        jsSrc    = Seq("main.js"),
+        todoForm = errorForm
+    ) 
         Future.successful(BadRequest(views.html.todo.add(vv)))
       },
       (todoForm: TodoForm) =>{ 

@@ -31,18 +31,13 @@ with I18nSupport{
   val categoryForm: Form[CategoryForm] = Form(
     mapping(
       "name"  -> nonEmptyText,
-      "slug"  -> nonEmptyText,
+      "slug"  -> nonEmptyText.verifying(error= "半角英数字のみ入力してください", 
+        constraint = _.matches("""^[0-9a-zA-Z]+$""")),
       "color" -> shortNumber(min = 0, max = 255)
     )(CategoryForm.apply)(CategoryForm.unapply)
   )
 
-  val vvForm = ViewValueCategoryForm(
-      head          = "カテゴリー新規登録",
-      cssSrc        = Seq("main.css"),
-      jsSrc         = Seq("main.js"),
-      categoryForm  = categoryForm
-    )
-  
+
   //Category一覧
   def list() = Action async { implicit request: Request[AnyContent] => 
     for {
@@ -60,7 +55,12 @@ with I18nSupport{
 
   //登録画面の表示用
   def registar() = Action {implicit request: Request[AnyContent] =>
-    val vv  = vvForm
+    val vv = ViewValueCategoryForm(
+      head          = "カテゴリー新規登録",
+      cssSrc        = Seq("main.css"),
+      jsSrc         = Seq("main.js"),
+      categoryForm  = categoryForm
+    ) 
     Ok(views.html.category.add(vv))
   }
 
@@ -68,7 +68,12 @@ with I18nSupport{
   def add() = Action async { implicit request: Request[AnyContent] =>
     categoryForm.bindFromRequest().fold(
       (categoryForm: Form[CategoryForm]) =>{
-        val vv = vvForm 
+        val vv = ViewValueCategoryForm(
+          head          = "カテゴリー新規登録",
+          cssSrc        = Seq("main.css"),
+          jsSrc         = Seq("main.js"),
+          categoryForm  = categoryForm
+        )  
         Future.successful(BadRequest(views.html.category.add(vv)))
       },
       (categoryForm: CategoryForm) => {
