@@ -9,4 +9,5 @@ target
 /RUNNING_PID
 docker/db/data/
 .bloop
-
+.project/metals.sbt
+.project/project/metals.sbt

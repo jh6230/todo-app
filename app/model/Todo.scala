@@ -2,6 +2,7 @@ package model
 
 import lib.model.Todo
 import lib.model.Todo.TodoStatus
+import lib.model.Category
 import controllers.todo.TodoForm
 import play.api.data.Form
 import play.api.data.Forms._

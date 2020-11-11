@@ -54,6 +54,24 @@ case class CategoryRepository[P <: JdbcProfile]()(implicit val driver: P)
           } 
         } yield old 
       }
+
+    
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

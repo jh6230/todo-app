@@ -9,6 +9,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.Todo
 import lib.persistence.default.TodoRepository
+import lib.persistence.default.CategoryRepository
 import model.ViewValueTodo
 import model.ViewValueTodoForm
 import play.api.i18n.I18nSupport
@@ -44,15 +45,17 @@ with I18nSupport{
   //Todo一覧表示
   def list() = Action async {implicit request: Request[AnyContent] =>
     for {
-      todos <- TodoRepository.all()
+      todosEmbed      <- TodoRepository.all()
+      categoriesEmbed <- CategoryRepository.all()
     } yield {
+        val categories = categoriesEmbed.map(_.v)
         val vv = ViewValueTodo(
           head = "Todo一覧",
-          cssSrc = Seq("main.css"),
-          jsSrc  = Seq("main.js"),
-          todo = todos.map(_.v)
-        )
-      Ok(views.html.todo.list(vv))
+          cssSrc   = Seq("main.css"),
+          jsSrc    = Seq("main.js"),
+          todo     = todosEmbed.map(_.v)
+       )
+      Ok(views.html.todo.list(vv, categories))
     }
   }
 
