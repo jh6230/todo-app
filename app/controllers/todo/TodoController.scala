@@ -5,7 +5,8 @@ import play.api.Configuration
 import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
-import scala.concurrent.Future
+import scala.concurrent._
+import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.Todo
 import lib.persistence.default.TodoRepository
@@ -15,9 +16,8 @@ import model.ViewValueTodoForm
 import play.api.i18n.I18nSupport
 import lib.model.Todo.TodoStatus
 import java.lang.ProcessBuilder.Redirect
-import org.w3c.dom.Entity
 import views.html.defaultpages.todo
-import akka.http.scaladsl.model.headers.LinkParams.title
+import com.amazonaws.services.qldbsession.model.BadRequestException
 
 case class TodoForm(
   title:      String,
@@ -42,45 +42,58 @@ with I18nSupport{
     )(TodoForm.apply)(TodoForm.unapply)
   ) 
 
+
   //Todo一覧表示
   def list() = Action async {implicit request: Request[AnyContent] =>
     for {
       todosEmbed      <- TodoRepository.all()
       categoriesEmbed <- CategoryRepository.all()
     } yield {
-        val categories = categoriesEmbed.map(_.v)
         val vv = ViewValueTodo(
-          head = "Todo一覧",
+          head     = "Todo一覧",
           cssSrc   = Seq("main.css"),
           jsSrc    = Seq("main.js"),
-          todo     = todosEmbed.map(_.v)
-       )
-      Ok(views.html.todo.list(vv, categories))
+          todo     = todosEmbed.map(_.v),
+          category = categoriesEmbed.map(_.v)
+        )
+      Ok(views.html.todo.list(vv))
     }
   }
 
+  
   //登録画面の表示用
-  def registar() = Action { implicit request: Request[AnyContent] =>
-    val vv = ViewValueTodoForm(
-      head     = "新規登録",
-      cssSrc   = Seq("main.css"),
-      jsSrc    = Seq("main.js"),
-      todoForm = todoForm
-  ) 
-    Ok(views.html.todo.add(vv))
+  def registar() = Action async {implicit request: Request[AnyContent] =>
+    for {
+      categoriesEmbed <- CategoryRepository.all()
+    } yield {
+        val categories = categoriesEmbed.map(_.v)
+        val vv = ViewValueTodoForm(
+          head       = "Todo追加",
+          cssSrc     = Seq("main.css"),
+          jsSrc      = Seq("main.js"),
+          todoForm   = todoForm 
+        )
+      Ok(views.html.todo.add(vv, categories))
+    }
   }
+
 
   //登録処理
   def add() = Action async {implicit request: Request[AnyContent] =>
     todoForm.bindFromRequest().fold(
       (errorForm: Form[TodoForm]) => {
-        val vv = ViewValueTodoForm(
-        head     = "新規登録",
-        cssSrc   = Seq("main.css"),
-        jsSrc    = Seq("main.js"),
-        todoForm = errorForm
-    ) 
-        Future.successful(BadRequest(views.html.todo.add(vv)))
+        for {
+          categoriesEmbed <- CategoryRepository.all()
+        } yield {
+            val categories = categoriesEmbed.map(_.v)
+            val vv = ViewValueTodoForm(
+              head     = "新規登録",
+              cssSrc   = Seq("main.css"),
+              jsSrc    = Seq("main.js"),
+              todoForm = errorForm
+            ) 
+        BadRequest(views.html.todo.add(vv, categories))
+        }  
       },
       (todoForm: TodoForm) =>{ 
         val  todoWithNoId = new Todo(
@@ -103,22 +116,24 @@ with I18nSupport{
   def edit(id: Long) = Action async {implicit request: Request[AnyContent] => 
     val todoId = Todo.Id(id)
       for {
-        todo <- TodoRepository.get(todoId)
+        todoEmbed       <- TodoRepository.get(todoId)
+        categoriesEmbed <- CategoryRepository.all()
       } yield  {
-        todo match {
-          case Some(todo) =>
+        val categories = categoriesEmbed.map(_.v)
+        todoEmbed match {
+          case Some(todoEmbed) =>
             val vv = ViewValueTodoForm(
               head     = "編集画面",
               cssSrc   = Seq("main.css"),
               jsSrc    = Seq("main.js"),
               todoForm = todoForm.fill(
                 TodoForm(
-                  todo.v.title, 
-                  todo.v.categoryId,
-                  todo.v.content,
-                  todo.v.state.code))
+                  todoEmbed.v.title, 
+                  todoEmbed.v.categoryId,
+                  todoEmbed.v.content,
+                  todoEmbed.v.state.code))
             ) 
-            Ok(views.html.todo.edit(id, vv))
+            Ok(views.html.todo.edit(id, vv, categories))
             //idが見つからない場合はトップページにリダイレクト 
           case None => 
             Redirect(routes.TodoController.list())
@@ -131,13 +146,18 @@ with I18nSupport{
     todoForm.bindFromRequest().fold(
       //処理が失敗した場合
       (errorForm: Form[TodoForm]) => { 
-        val vv = ViewValueTodoForm(
-          head     = "編集画面",
-          cssSrc   = Seq("main.css"),
-          jsSrc    = Seq("main.js"),
-          todoForm = errorForm 
+        for {
+          categoriesEmbed <- CategoryRepository.all()
+        } yield{
+          val categories = categoriesEmbed.map(_.v)
+          val vv = ViewValueTodoForm(
+            head     = "編集画面",
+            cssSrc   = Seq("main.css"),
+            jsSrc    = Seq("main.js"),
+            todoForm = errorForm 
         )
-        Future.successful(BadRequest(views.html.todo.edit(id, vv)))
+        BadRequest(views.html.todo.add(vv, categories))
+        }
       },
       //処理が成功した場合
       (todoForm: TodoForm) => {

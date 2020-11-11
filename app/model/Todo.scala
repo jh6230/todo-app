@@ -3,6 +3,10 @@ package model
 import lib.model.Todo
 import lib.model.Todo.TodoStatus
 import lib.model.Category
+import lib.model.Category.CategoryColor
+import lib.persistence.default.CategoryRepository
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 import controllers.todo.TodoForm
 import play.api.data.Form
 import play.api.data.Forms._
@@ -11,7 +15,8 @@ case class ViewValueTodo(
   head:       String,
   cssSrc:     Seq[String],
   jsSrc:      Seq[String],
-  todo:       Seq[Todo]
+  todo:       Seq[Todo],
+  category:   Seq[Category]
 )extends ViewValueCommon
 
 
@@ -21,3 +26,4 @@ case class ViewValueTodoForm(
   jsSrc:      Seq[String],
   todoForm:   Form[TodoForm]
 )extends ViewValueCommon
+

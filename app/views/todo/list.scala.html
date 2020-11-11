@@ -3,7 +3,7 @@
 @import lib.model.Todo
 @import lib.model.Category
 
-@(vv: model.ViewValueTodo, category:Seq[lib.model.Category])
+@(vv: model.ViewValueTodo)
 @common.Default(vv){
 
 @for(todo <- vv.todo){
@@ -11,7 +11,8 @@
     <div class = "todoList">
     
       タイトル: @todo.title、
-      カテゴリー: @category(todo.categoryId.toInt - 1).name、
+      カテゴリー: @vv.category.find(v => v.id == todo.categoryId)
+      
       内容: @todo.content、
       進捗: @todo.state.name、
       @todo.updatedAt.format(DateTimeFormatter.ofPattern("yyy-MM-dd"))
