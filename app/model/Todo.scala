@@ -4,7 +4,6 @@ import lib.model.Todo
 import lib.model.Todo.TodoStatus
 import lib.model.Category
 import lib.model.Category.CategoryColor
-import lib.persistence.default.CategoryRepository
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers.todo.TodoForm
