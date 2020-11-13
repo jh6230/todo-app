@@ -3,6 +3,7 @@ package lib.persistence
 import scala.concurrent.Future
 import ixias.persistence.SlickRepository
 import lib.model.Category
+import lib.model.Todo
 import slick.jdbc.JdbcProfile
 
 //CategoryRepositoryの定義
@@ -21,8 +22,7 @@ case class CategoryRepository[P <: JdbcProfile]()(implicit val driver: P)
     
     def get(id: Id): Future[Option[EntityEmbeddedId]] = 
       RunDBAction(CategoryTable, "slave") {slick => slick 
-        .filter(_.id === id)
-        .result.headOption
+        .filter(_.id === id).result.headOption
       }
 
     def add(entity: EntityWithNoId):Future[Id] = 
@@ -50,31 +50,8 @@ case class CategoryRepository[P <: JdbcProfile]()(implicit val driver: P)
           old <- row.result.headOption
           _   <- old match {
             case None    => DBIO.successful(0)
-            case Some(_) =>row.delete
-          } 
+            case Some(_) =>row.delete   
+          }
         } yield old 
       }
-
-
-    
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
-
-
-
-
+  }

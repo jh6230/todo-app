@@ -26,7 +26,7 @@ case class TodoForm(
   content:    String,
   state:      Short 
 )
-
+    
 @Singleton
 class TodoController @Inject()(
   val controllerComponents: ControllerComponents
@@ -182,6 +182,7 @@ with I18nSupport{
     )
   }
 
+  //削除処理
   def delete(id: Long) = Action async{ implicit request: Request[AnyContent] => 
     val todoId = Todo.Id(id)
       for {
@@ -193,7 +194,7 @@ with I18nSupport{
         }
       }
   }
-    
+   
 }
 
 

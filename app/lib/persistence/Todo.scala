@@ -27,6 +27,7 @@ case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
         .result.headOption
       }
 
+
     def add(entity: EntityWithNoId):Future[Id] = 
       RunDBAction(TodoTable) { slick =>
         slick returning slick.map(_.id) += entity.v
@@ -57,5 +58,10 @@ case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
         } yield old 
       }
 }
+
+
+
+
+  
 
 

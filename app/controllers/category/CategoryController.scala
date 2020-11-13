@@ -8,13 +8,17 @@ import play.api.data.Forms._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.Category
+import lib.model.Todo
 import model.ViewValueCategory
 import model.ViewValueCategoryForm
 import lib.persistence.default.CategoryRepository
+import lib.persistence.default.TodoRepository
+import controllers.todo
 import play.api.i18n.I18nSupport
 import lib.model.Category.CategoryColor
 import views.html.defaultpages.error
 import org.w3c.dom.Text
+import views.html.defaultpages.todo
 
 
 case class CategoryForm(
@@ -22,7 +26,7 @@ case class CategoryForm(
   slug:  String,
   color: Short
 )
-
+ 
 @Singleton
 class CategoryController @Inject()(
   val controllerComponents: ControllerComponents
@@ -33,8 +37,7 @@ with I18nSupport{
   val categoryForm: Form[CategoryForm] = Form(
     mapping(
       "name"  -> nonEmptyText,
-      "slug"  -> nonEmptyText.verifying(error= "半角英数字のみ入力してください", 
-        constraint = _.matches("""^[0-9a-zA-Z]+$""")),
+      "slug"  -> nonEmptyText.verifying(error= "半角英数字のみ入力してください",constraint = _.matches("""^[0-9a-zA-Z]+$""")),
       "color" -> shortNumber(min = 0, max = 255)
     )(CategoryForm.apply)(CategoryForm.unapply)
   )
@@ -154,43 +157,22 @@ with I18nSupport{
   }
 
   //削除処理
-  def delete(id: Long) = Action async{ implicit request: Request[AnyContent] =>
+  def delete(id: Long) = Action async { implicit request: Request[AnyContent] =>
     val categoryId = Category.Id(id)
+  
       for {
-        categoryDelete <- CategoryRepository.remove(categoryId)
-      } yield {
-        categoryDelete match {
-          case None =>   Redirect(routes.CategoryController.list())
-          case Some(_) =>   Redirect(routes.CategoryController.list())
+          categoryDelete <- CategoryRepository.remove(categoryId)
+          todosEmbed     <- TodoRepository.all() 
+      } yield { 
+        //println(categoryDelete.get.id) //削除するカテゴリーのid
+        //println(todosEmbed.map(_.v).filter(_.categoryId == categoryDelete.get.id)) //関連づいたTodo
+        println(todosEmbed.map(_.v).find(_.categoryId == categoryDelete.get.id))
+        val todoDelete = todosEmbed.map(_.v).filter(_.categoryId == categoryDelete.get.id)
+        (categoryDelete, todoDelete) match {
+          case _ =>   Redirect(routes.CategoryController.list()) //削除へのルーティング
         }
       }
-  } 
+  }
+
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

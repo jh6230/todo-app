@@ -30,9 +30,9 @@ object Todo {
   //TodoのStatusを定義
   sealed abstract class TodoStatus(val code: Short, val name: String) extends EnumStatus
   object TodoStatus extends EnumStatus.Of[TodoStatus] {
-    case object Notyet    extends TodoStatus(0, "未着手") //未着手
-    case object Active    extends TodoStatus(1, "進行中") //進行中
-    case object Finished  extends TodoStatus(2, "完了") //完了  
+    case object Notyet    extends TodoStatus(0, "未着手") 
+    case object Active    extends TodoStatus(1, "進行中") 
+    case object Finished  extends TodoStatus(2, "完了")   
   }
     
 

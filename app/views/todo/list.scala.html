@@ -1,3 +1,5 @@
+@* コメントはこう書く *@
+
 @import java.time.format.DateTimeFormatter
 
 @import lib.model.Todo
@@ -14,9 +16,9 @@
     
     内容: @todo.content
 
-    進捗: @todo.state.name
+    進捗: @todo.state.name 
     
-    日時: @todo.updatedAt.format(DateTimeFormatter.ofPattern("yyy-mm-dd"))
+    日時: @todo.updatedAt.format(DateTimeFormatter.ofPattern("yyy-MM-dd"))
       <a class = "todoedit-link" href = "@controllers.todo.routes.TodoController.edit(todo.id.getOrElse(0))">編集</a>
       <a class = "tododelete-link" href = "@controllers.todo.routes.TodoController.delete(todo.id.getOrElse(0))">削除</a>  
   

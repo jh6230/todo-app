@@ -24,8 +24,7 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
 
   class Table(tag: Tag) extends BasicTable(tag, "to_do"){
     import Todo._
-    //Columns
-    
+    //Columns    
      def id         = column[Id]            ("id",          O.UInt64, O.PrimaryKey, O.AutoInc)
      def categoryId = column[Long]          ("category_id", O.UInt64)
      def title      = column[String]        ("title",       O.Utf8Char255)
