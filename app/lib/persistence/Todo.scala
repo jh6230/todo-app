@@ -56,7 +56,15 @@ case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
             case Some(_) =>row.delete
           } 
         } yield old 
+     }
+
+     def removeAllByCategory(categoryId: Long):Future[Int] = 
+      RunDBAction(TodoTable) { slick =>
+        val row = slick.filter(_.categoryId === categoryId) //TodoのcategorId と引数で渡すcategoryIdが同じもの
+        row.delete
       }
+
+     
 }
 
 

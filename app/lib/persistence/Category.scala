@@ -52,6 +52,8 @@ case class CategoryRepository[P <: JdbcProfile]()(implicit val driver: P)
             case None    => DBIO.successful(0)
             case Some(_) =>row.delete   
           }
-        } yield old 
+        } yield old
       }
-  }
+     
+ 
+}

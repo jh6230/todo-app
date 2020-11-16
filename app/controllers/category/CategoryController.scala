@@ -159,17 +159,13 @@ with I18nSupport{
   //削除処理
   def delete(id: Long) = Action async { implicit request: Request[AnyContent] =>
     val categoryId = Category.Id(id)
-  
-      for {
+      for{
           categoryDelete <- CategoryRepository.remove(categoryId)
-          todosEmbed     <- TodoRepository.all() 
+          todosDelete     <- TodoRepository.removeAllByCategory(categoryId)
       } yield { 
-        //println(categoryDelete.get.id) //削除するカテゴリーのid
-        //println(todosEmbed.map(_.v).filter(_.categoryId == categoryDelete.get.id)) //関連づいたTodo
-        println(todosEmbed.map(_.v).find(_.categoryId == categoryDelete.get.id))
-        val todoDelete = todosEmbed.map(_.v).filter(_.categoryId == categoryDelete.get.id)
-        (categoryDelete, todoDelete) match {
-          case _ =>   Redirect(routes.CategoryController.list()) //削除へのルーティング
+        
+        (todosDelete, categoryDelete) match {
+          case  _  => Redirect(routes.CategoryController.list()) //削除へのルーティング
         }
       }
   }
