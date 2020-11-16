@@ -1,0 +1,25 @@
+@import "modules/reset";
+@import "modules/header";
+@import "modules/list"; 
+
+body {
+  margin:   0;
+  padding:  0;
+  background-color: #EEEEEE;
+}
+
+a{
+text-decoration: none;
+}
+
+.main {
+  width:      1080px;
+  margin:     50px auto;
+  padding:    60px;
+  background-color: #FFF;
+  box-shadow: 0 0 4px gray;
+}
+
+.info {
+  display: none;
+}

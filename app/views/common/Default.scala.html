@@ -1,19 +1,11 @@
-@*
-* This template is called from the `index` template. This template
-* handles the rendering of the page header and body tags. It takes
-* two arguments, a `String` for the title of the page and an `Html`
-* object to insert into the body of the page.
-*@
 @(vv: model.ViewValueCommon)(content: Html)
 
 <!DOCTYPE html>
 <html lang="ja">
   <head>
     <title>Todoアプリ</title>
-    @for(css <- vv.cssSrc) {
-      <link rel="stylesheet" media="screen" href="@{routes.Assets.versioned("stylesheets/" + css)}">
-    }
-    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+      <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+      <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
   </head>
   <body>
     @* And here's where we render the `Html` object containing
@@ -24,20 +16,17 @@
           <a class="header__logo-link" href = "/">My Todo App</a>
         </span>
         <ul class = "header__nav">
-          <li class = "header__item-todo">
+          <li class = "header__item">
           <a class = "header__item-link" href = "@controllers.todo.routes.TodoController.add()">Todo新規追加</a>
           </li>
-          <li class = "header__item-category">
+          <li class = "header__item">
           <a class = "header__item-link" href = "@controllers.category.routes.CategoryController.list()">カテゴリー</a>
           </li>
       </div>
     </header>
     <main class="main">
-      <h1>@vv.head</h1>
       @content
     </main>
-    @for(js <- vv.jsSrc) {
-      <script src="@{routes.Assets.versioned("javascripts/" + js)}" type="text/javascript"></script>
-    }
+      <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
   </body>
 </html>

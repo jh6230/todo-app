@@ -51,9 +51,6 @@ with I18nSupport{
       categoriesEmbed <- CategoryRepository.all()
     } yield {
         val vv = ViewValueTodo( 
-          head     = "Todo一覧",
-          cssSrc   = Seq("main.css"),
-          jsSrc    = Seq("main.js"),
           todo     = todosEmbed.map(_.v), //Seq[Todo] 
           category = categoriesEmbed.map(_.v)  //Seq[Category]
       )
@@ -69,9 +66,6 @@ with I18nSupport{
     } yield {
         val categories = categoriesEmbed.map(_.v)
         val vv = ViewValueTodoForm(
-          head       = "Todo追加",
-          cssSrc     = Seq("main.css"),
-          jsSrc      = Seq("main.js"),
           todoForm   = todoForm 
         )
       Ok(views.html.todo.add(vv, categories))
@@ -88,9 +82,6 @@ with I18nSupport{
         } yield {
             val categories = categoriesEmbed.map(_.v)
             val vv = ViewValueTodoForm(
-              head     = "新規登録",
-              cssSrc   = Seq("main.css"),
-              jsSrc    = Seq("main.js"),
               todoForm = errorForm
             ) 
         BadRequest(views.html.todo.add(vv, categories))
@@ -124,9 +115,6 @@ with I18nSupport{
         todoEmbed match {
           case Some(todoEmbed) =>
             val vv = ViewValueTodoForm(
-              head     = "編集画面",
-              cssSrc   = Seq("main.css"),
-              jsSrc    = Seq("main.js"),
               todoForm = todoForm.fill(
                 TodoForm(
                   todoEmbed.v.title, 
@@ -152,9 +140,6 @@ with I18nSupport{
         } yield{
           val categories = categoriesEmbed.map(_.v)
           val vv = ViewValueTodoForm(
-            head     = "編集画面",
-            cssSrc   = Seq("main.css"),
-            jsSrc    = Seq("main.js"),
             todoForm = errorForm 
         )
         BadRequest(views.html.todo.add(vv, categories))
@@ -189,8 +174,7 @@ with I18nSupport{
         todoDelete <- TodoRepository.remove(todoId)
       } yield  {
         todoDelete match {
-          case None      => Redirect(routes.TodoController.list())
-          case Some(_)   => Redirect(routes.TodoController.list())
+          case _  => Redirect(routes.TodoController.list())
         }
       }
   }

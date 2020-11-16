@@ -1,0 +1,47 @@
+.list{
+  width: 85%;
+  margin: 30px auto;
+  height: 80px;
+  border: 4px solid;
+  border-color: #005FFF;
+
+  &__upper{
+    display: flex;
+    margin-left:8px;
+    height: 30px;
+  }
+  &__title{
+    margin-right: 16px;
+  }
+  &__category{
+    margin-right: 16px;
+  }
+  &__status{
+    margin-right: 16px;
+  }
+
+  &__down{
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    margin-right:20px;
+    margin-left:10px;
+  }
+
+  &__todo{
+    font-size:20px;
+  }
+
+  &__link{
+    color: black;
+  }
+
+  button{
+    width: 70px;
+    height: 30px;
+    border-color: black;
+    background-color: #BAD3FF;
+  }
+
+
+}

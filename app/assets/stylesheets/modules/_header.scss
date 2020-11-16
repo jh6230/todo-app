@@ -1,0 +1,48 @@
+.header {
+  height:            70px;
+  background-color:  #FFFFFF;
+  width:             100%;
+  border-bottom: solid 1px;
+
+
+
+  &__logo{
+    margin-left:120px;
+    &-link{
+      color:#000044;
+      line-height:70px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  }
+
+  &__nav{
+    float: right;
+    margin-right:170px;
+    line-height: 30px;
+    display: flex;
+  }
+
+  &__item{
+    list-style: none;
+    border: 4px solid;
+    border-radius: 0.5em;
+    border-color:#008080;
+
+    padding: 3px 8px;
+    margin-right: 15px;
+    &-link{
+      color:#000044;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  &__item:hover{
+    background-color:#93FFAB;
+  }
+}
+
+
+
+
