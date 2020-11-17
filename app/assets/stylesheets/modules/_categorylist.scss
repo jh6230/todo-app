@@ -21,6 +21,11 @@
     border-color: black;
     background-color: #BAD3FF;
   }
+  &__link{
+    &-category:hover{
+      color:blue;     
+    }
+  }
 
 }
   .categoryAdd{
