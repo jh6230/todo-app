@@ -1,10 +1,4 @@
-# Routes
-# This file defines all application routes (Higher priority routes first)
-# https://www.playframework.com/documentation/latest/ScalaRouting
-# ~~~~
 
-# An example controller showing a sample home page
-#GET     /                             controllers.HomeController.index
 
 #Todoに関するルーティング
 GET      /                     controllers.todo.TodoController.list()
@@ -14,6 +8,7 @@ GET      /todo/edit/:id        controllers.todo.TodoController.edit(id:Long)
 POST     /todo/edit/update     controllers.todo.TodoController.update(id: Long)
 GET      /todo/delete/:id      controllers.todo.TodoController.delete(id: Long)
 DELETE   /todo/delete/         controllers.todo.TodoController.delete(id:Long)
+GET      /state/:state         controllers.todo.TodoController.listOfState(state:Int)
 
 
 #Categoryに関するルーティング

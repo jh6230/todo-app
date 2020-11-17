@@ -168,7 +168,7 @@ with I18nSupport{
         categoryEmbed <- CategoryRepository.all()
       } yield {
         val vv = ViewValueTodo(
-          head     = "ToDo",
+          head     = "Todo",
           todo     = todosEmbed.map(_.v),
           category = categoryEmbed.map(_.v)
         )

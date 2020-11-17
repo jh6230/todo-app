@@ -60,9 +60,11 @@ with I18nSupport{
   }
 
   //stateごとの一覧表示
-  def listOfState(state: TodoStatus) = Action async{implicit request: Request[AnyContent] =>
+  def listOfState(state: Int) = Action async{implicit request: Request[AnyContent] =>
+    val stateCode: Short = state.toShort
+    val todoStatus = TodoStatus.apply(stateCode) 
     for {
-      todosEmbed       <- TodoRepository.todoAllByState(state)
+      todosEmbed       <- TodoRepository.todoAllByState(todoStatus)
       categoriesEmbed  <- CategoryRepository.all()
     } yield {
       val vv = ViewValueTodo(

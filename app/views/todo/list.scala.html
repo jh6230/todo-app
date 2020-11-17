@@ -20,7 +20,11 @@
           </a>
           | </p> 
 
-        <p class="todoBox__status">進捗: @todo.state.name | </p> 
+        <p class="todoBox__status">進捗: 
+          <a class="todoBox__status-link" href="@controllers.todo.routes.TodoController.listOfState(todo.state.code.toInt)"> @todo.state.name
+          </a> |
+        </p> 
+
         <p class="todoBox__date">作成・更新日: @todo.updatedAt.format(DateTimeFormatter.ofPattern("yyy-MM-dd"))</p>
     </div>
       <div class="todoBox__down">
