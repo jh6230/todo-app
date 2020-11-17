@@ -4,6 +4,7 @@ import scala.concurrent.Future
 import ixias.persistence.SlickRepository
 import lib.model.Todo
 import slick.jdbc.JdbcProfile
+import lib.model.Todo.TodoStatus
 
 //TodoRepositoryの定義
 case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
@@ -66,6 +67,11 @@ case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
      def todoAllByCategory(categoryId: Long):Future[Seq[EntityEmbeddedId]] = 
        RunDBAction(TodoTable, "slave"){
         slick => slick.filter(_.categoryId === categoryId).result
+    }
+
+    def todoAllByState(state: TodoStatus):Future[Seq[EntityEmbeddedId]] = 
+      RunDBAction(TodoTable, "slave"){
+        slick => slick.filter(_.state === state).result
     }
      
 }
