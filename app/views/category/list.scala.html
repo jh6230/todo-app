@@ -5,7 +5,9 @@
   
   @for(category <-vv.category){
   <div class = "categoryBox">
-    <p class="categoryBox__name"><span class="@category.color">@category.name</span></p>
+    <p class="categoryBox__name"><span class="@category.color">
+      <a href= "@controllers.category.routes.CategoryController.todoCategory(category.id.getOrElse(0))">
+        @category.name</span></p>
       <div class="categoryBox__ope">
         <button><a class = "categoryBox__link" href="@controllers.category.routes.CategoryController.edit(category.id.getOrElse(0))">編集</a></button>
         <button><a class = "categoryBox__link" href="@controllers.category.routes.CategoryController.delete(category.id.getOrElse(0))">削除</a></button>
