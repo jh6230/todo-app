@@ -10,7 +10,7 @@
     @form(action = controllers.todo.routes.TodoController.add()){
     @CSRF.formField
     <div class="inputs">
-      <div class="inputs__name"><label>タイトル</label></div>
+      <label class="inputs__name">タイトル</label>
       <div class = "inputs__form">@inputText(vv.todoForm("title"))</div>
     </div>
     <div class="inputs">
