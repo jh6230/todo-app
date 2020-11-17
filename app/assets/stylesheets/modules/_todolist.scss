@@ -1,4 +1,4 @@
-.list{
+.todoBox{
   width: 85%;
   margin: 30px auto;
   height: 80px;
@@ -11,13 +11,13 @@
     height: 30px;
   }
   &__title{
-    margin-right: 16px;
+    margin-right: 8px;
   }
   &__category{
-    margin-right: 16px;
+    margin-right: 8px;
   }
   &__status{
-    margin-right: 16px;
+    margin-right: 8px;
   }
 
   &__down{

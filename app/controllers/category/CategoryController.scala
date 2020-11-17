@@ -48,9 +48,7 @@ with I18nSupport{
       categories <- CategoryRepository.all()
     } yield {
         val vv = ViewValueCategory(
-          head     = "カテゴリー 一覧",
-          cssSrc   = Seq("main.css"),
-          jsSrc    = Seq("main.js"),
+          head     = "カテゴリー",
           category = categories.map(_.v)
         )
       Ok(views.html.category.list(vv)) 
@@ -61,8 +59,6 @@ with I18nSupport{
   def registar() = Action {implicit request: Request[AnyContent] =>
     val vv = ViewValueCategoryForm(
       head          = "カテゴリー新規登録",
-      cssSrc        = Seq("main.css"),
-      jsSrc         = Seq("main.js"),
       categoryForm  = categoryForm
     ) 
     Ok(views.html.category.add(vv))
@@ -74,8 +70,6 @@ with I18nSupport{
       (categoryForm: Form[CategoryForm]) =>{
         val vv = ViewValueCategoryForm(
           head          = "カテゴリー新規登録",
-          cssSrc        = Seq("main.css"),
-          jsSrc         = Seq("main.js"),
           categoryForm  = categoryForm
         )  
         Future.successful(BadRequest(views.html.category.add(vv)))
@@ -107,8 +101,6 @@ with I18nSupport{
           case Some(category) =>
             val vv = ViewValueCategoryForm(
               head         = "カテゴリー編集",
-              cssSrc       = Seq("main.css"),
-              jsSrc        = Seq("main.js"),
               categoryForm = categoryForm.fill(
                 CategoryForm(
                   category.v.name,
@@ -130,8 +122,6 @@ with I18nSupport{
       (errorForm: Form[CategoryForm]) => {
         val vv = ViewValueCategoryForm(
           head          = "編集画面",
-          cssSrc        = Seq("main.css"),
-          jsSrc         = Seq("main.js"),
           categoryForm  = errorForm
         )
         Future.successful(BadRequest(views.html.category.edit(id, vv)))

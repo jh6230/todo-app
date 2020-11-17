@@ -1,11 +1,12 @@
 @import "modules/reset";
 @import "modules/header";
-@import "modules/list"; 
+@import "modules/todolist"; 
+@import "modules/categorylist";
 
 body {
   margin:   0;
   padding:  0;
-  background-color: #EEEEEE;
+  background-color: #DDFFFF;
 }
 
 a{

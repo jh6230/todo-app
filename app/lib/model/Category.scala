@@ -27,9 +27,9 @@ object Category {
 
   sealed abstract class CategoryColor(val code: Short, val color: String)extends EnumStatus
   object CategoryColor extends EnumStatus.Of[CategoryColor]{
-    case object Red   extends CategoryColor(code = 1, "赤")
-    case object Blue  extends CategoryColor(code = 2, "青")
-    case object Green extends CategoryColor(code = 3, "緑")
+    case object Red     extends CategoryColor(code = 1, "赤")
+    case object Yellow  extends CategoryColor(code = 2, "黄")
+    case object Blue    extends CategoryColor(code = 3, "青")
   }
 
   def apply(name: String, slug: String, color: CategoryColor):Category#WithNoId = 

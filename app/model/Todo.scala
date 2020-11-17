@@ -11,12 +11,14 @@ import play.api.data.Form
 import play.api.data.Forms._
 
 case class ViewValueTodo(
+  head:       String,
   todo:       Seq[Todo],
   category:   Seq[Category]
 )extends ViewValueCommon
 
 
 case class ViewValueTodoForm(
+  head:       String,
   todoForm:   Form[TodoForm]
 )extends ViewValueCommon
 

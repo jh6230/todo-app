@@ -18,7 +18,6 @@ import lib.model.Todo.TodoStatus
 import java.lang.ProcessBuilder.Redirect
 import views.html.defaultpages.todo
 import com.amazonaws.services.qldbsession.model.BadRequestException
-import cats.arrow.Category
 
 case class TodoForm(
   title:      String,
@@ -51,6 +50,7 @@ with I18nSupport{
       categoriesEmbed <- CategoryRepository.all()
     } yield {
         val vv = ViewValueTodo( 
+          head     = "ToDo",
           todo     = todosEmbed.map(_.v), //Seq[Todo] 
           category = categoriesEmbed.map(_.v)  //Seq[Category]
       )
@@ -66,6 +66,7 @@ with I18nSupport{
     } yield {
         val categories = categoriesEmbed.map(_.v)
         val vv = ViewValueTodoForm(
+          head       = "ToDo追加画面",
           todoForm   = todoForm 
         )
       Ok(views.html.todo.add(vv, categories))
@@ -82,6 +83,7 @@ with I18nSupport{
         } yield {
             val categories = categoriesEmbed.map(_.v)
             val vv = ViewValueTodoForm(
+              head     = "ToDo追加画面",
               todoForm = errorForm
             ) 
         BadRequest(views.html.todo.add(vv, categories))
@@ -115,6 +117,7 @@ with I18nSupport{
         todoEmbed match {
           case Some(todoEmbed) =>
             val vv = ViewValueTodoForm(
+              head     = "ToDo編集画面",
               todoForm = todoForm.fill(
                 TodoForm(
                   todoEmbed.v.title, 
@@ -140,6 +143,7 @@ with I18nSupport{
         } yield{
           val categories = categoriesEmbed.map(_.v)
           val vv = ViewValueTodoForm(
+            head     = "ToDo編集画面",
             todoForm = errorForm 
         )
         BadRequest(views.html.todo.add(vv, categories))

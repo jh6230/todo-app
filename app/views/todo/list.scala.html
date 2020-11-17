@@ -10,18 +10,18 @@
 
 <div class = "todoList">
 @for(todo <- vv.todo){
-    <div class="list">
-      <div class="list__upper">
-        <p class="list__title">タイトル: @todo.title | </p>
-        <p class="list__category">カテゴリー: @vv.category.find(_.id.get == todo.categoryId).map(_.name) | </p>   
-        <p class="list__status">進捗: @todo.state.name</p> 
-        <p class="list__date">作成・更新日: @todo.updatedAt.format(DateTimeFormatter.ofPattern("yyy-MM-dd"))</p>
+    <div class="todoBox">
+      <div class="todoBox__upper">
+        <p class="todoBox__title">タイトル: @todo.title | </p>
+        <p class="todoBox__category">カテゴリー: @vv.category.find(_.id.get == todo.categoryId).map(_.name) | </p>   
+        <p class="todoBox__status">進捗: @todo.state.name | </p> 
+        <p class="todoBox__date">作成・更新日: @todo.updatedAt.format(DateTimeFormatter.ofPattern("yyy-MM-dd"))</p>
     </div>
-      <div class="list__down">
-        <p class="list__todo">@todo.content</p>
-        <ul class="list__ope">
-          <button><a class = "list__link" href = "@controllers.todo.routes.TodoController.edit(todo.id.getOrElse(0))">編集</a></button>
-          <button><a class = "list__link" href = "@controllers.todo.routes.TodoController.delete(todo.id.getOrElse(0))">削除</a></button>
+      <div class="todoBox__down">
+        <p class="todoBox__todo">@todo.content</p>
+        <ul class="todoBox__ope">
+          <button><a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.edit(todo.id.getOrElse(0))">編集</a></button>
+          <button><a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.delete(todo.id.getOrElse(0))">削除</a></button>
         </ul>
       </div>
     </div>
