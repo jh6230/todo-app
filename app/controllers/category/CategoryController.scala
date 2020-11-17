@@ -10,6 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.Category
 import lib.model.Todo
 import model.ViewValueCategory
+import model.ViewValueTodo
 import model.ViewValueCategoryForm
 import lib.persistence.default.CategoryRepository
 import lib.persistence.default.TodoRepository
@@ -157,6 +158,21 @@ with I18nSupport{
         (todosDelete, categoryDelete) match {
           case  _  => Redirect(routes.CategoryController.list()) //削除へのルーティング
         }
+      }
+  }
+
+  def todoCategory(id: Long) = Action async{ implicit request: Request[AnyContent] =>
+    val categoryId = Category.Id(id)
+      for{
+        todosEmbed    <- TodoRepository.todoAllByCategory(id)
+        categoryEmbed <- CategoryRepository.all()
+      } yield {
+        val vv = ViewValueTodo(
+          head     = "ToDo",
+          todo     = todosEmbed.map(_.v),
+          category = categoryEmbed.map(_.v)
+        )
+      Ok(views.html.todo.list(vv))
       }
   }
 
