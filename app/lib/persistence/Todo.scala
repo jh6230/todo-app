@@ -23,8 +23,7 @@ case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
     
     def get(id: Id): Future[Option[EntityEmbeddedId]] = 
       RunDBAction(TodoTable, "slave") {slick => slick 
-        .filter(_.id === id)
-        .result.headOption
+        .filter(_.id === id).result.headOption
       }
 
 
@@ -64,6 +63,10 @@ case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
         row.delete
       }
 
+     def allByCategory(categoryId: Long):Future[Seq[EntityEmbeddedId]] = 
+       RunDBAction(TodoTable, "slave"){
+        slick => slick.filter(_.categoryId === categoryId).result
+    }
      
 }
 
