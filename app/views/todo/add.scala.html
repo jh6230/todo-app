@@ -17,16 +17,18 @@
       <label class="inputs__name">Todo</label>
       <div class="inputs__form">@textarea(vv.todoForm("content"))</div>
     </div>
-   <div class="inputs">
-      <label class="inputs__name">カテゴリー</label>
-      <div class="inputs__select">
-        @select(vv.todoForm("categoryId"),categories.map(_.id.get.toString) zip categories.map(_.name))
+    <div class="select">
+     <div class="inputs">
+        <label class="inputs__name">カテゴリー</label>
+        <div class="inputs__select">
+          @select(vv.todoForm("categoryId"),categories.map(_.id.get.toString) zip categories.map(_.name))
+        </div>
       </div>
-    </div>
-
-    <div class="inputs">
-      <label class="inputs__name">進捗</label>
-      <div class="inputs__select">@select(vv.todoForm("state"), Seq(("0" -> "未着手")))</div>
+    
+      <div class="inputs">
+        <label class="inputs__name">進捗</label>
+        <div class="inputs__select">@select(vv.todoForm("state"), Seq(("0" -> "未着手")))</div>
+      </div>
     </div>
 
     <input type="submit" value= "追加">
