@@ -12,8 +12,13 @@
     <div class="todoBox">
       <div class="todoBox__upper">
         <p class="todoBox__title">タイトル: @todo.title | </p>
-        <p class="todoBox__category">カテゴリー: <span class="@vv.category.find(_.id.get == todo.categoryId).map(_.color)">
-          @vv.category.find(_.id.get == todo.categoryId).map(_.name)</span> | </p>   
+        <p class="todoBox__category">カテゴリー: 
+          <a class="@vv.category.find(_.id.get == todo.categoryId).map(_.color)" 
+            href= "@controllers.category.routes.CategoryController.todoCategory(
+            vv.category.find(_.id.get == todo.categoryId).flatMap(_.id).getOrElse(0))">
+            @vv.category.find(_.id.get == todo.categoryId).map(_.name)</a> | 
+        </p> 
+
         <p class="todoBox__status">進捗: @todo.state.name | </p> 
         <p class="todoBox__date">作成・更新日: @todo.updatedAt.format(DateTimeFormatter.ofPattern("yyy-MM-dd"))</p>
     </div>
