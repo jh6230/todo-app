@@ -18,6 +18,7 @@ import lib.model.Todo.TodoStatus
 import java.lang.ProcessBuilder.Redirect
 import views.html.defaultpages.todo
 import com.amazonaws.services.qldbsession.model.BadRequestException
+import cats.implicits
 
 case class TodoForm(
   title:      String,
@@ -50,9 +51,24 @@ with I18nSupport{
       categoriesEmbed <- CategoryRepository.all()
     } yield {
         val vv = ViewValueTodo( 
-          head     = "ToDo",
+          head     = "Todo",
           todo     = todosEmbed.map(_.v), //Seq[Todo] 
           category = categoriesEmbed.map(_.v)  //Seq[Category]
+      )
+      Ok(views.html.todo.list(vv))
+    }
+  }
+
+  //stateごとの一覧表示
+  def listOfState(state: TodoStatus) = Action async{implicit request: Request[AnyContent] =>
+    for {
+      todosEmbed       <- TodoRepository.todoAllByState(state)
+      categoriesEmbed  <- CategoryRepository.all()
+    } yield {
+      val vv = ViewValueTodo(
+        head     = "Todo",
+        todo     = todosEmbed.map(_.v),
+        category = categoriesEmbed.map(_.v) 
       )
       Ok(views.html.todo.list(vv))
     }
