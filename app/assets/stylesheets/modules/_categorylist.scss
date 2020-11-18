@@ -1,23 +1,24 @@
 .categoryBox{
   width:60%;
   height:80x;
-  border-color: #005FFF;
-  display: flex;
+  margin-top:25px;
 
-  &__name{
-    width: 200px;
-    margin-left:15px;
-    font-size:22px;
+  table{
+    width: 350px;
+    height: 35px;
   }
-  &__ope{
-    margin-left:20px;
-    margin-top: 23.5px;
-    display: flex;
+  th{
+    font-size: 24px;
+    padding: 5px;
+  }
+  td{
+    font-size: 20px;;
+    padding: 5px;
   }
   button{
     width: 70px;
     height: 30px;
-    margin-right:15px;
+    margin:15px 15px 0 0;
     border-color: black;
     background-color: #BAD3FF;
   }
