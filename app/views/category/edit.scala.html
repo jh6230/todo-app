@@ -1,0 +1,32 @@
+@import controllers.category.CategoryForm
+@import helper._
+
+
+@(id: Long, vv: model.ViewValueCategoryForm)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
+@implicitField = @{ FieldConstructor(plainFieldConstructor.f) }
+@common.Default(vv){
+  
+  @form(action = controllers.category.routes.CategoryController.update(id)){
+  @CSRF.formField
+  <div class="inputs">
+    <label class= "inputs__name">カテゴリー名</label>
+    <div class="inputs__form">@inputText(vv.categoryForm("name"))</div>
+  </div>
+  
+  <div class="inputs">
+    <label class="inputs__name">スラッグ</label>
+    <div class="inputs__form">@inputText(vv.categoryForm("slug"))</div>
+  </div>
+
+  <div class="inputs">
+    <label class="inputs__name">カラー</label>
+    <div class= "inputs__form">
+      @select(vv.categoryForm("color"), Seq("1" -> "赤", "2" -> "黄", "3" -> "青"))
+    </div>
+  </div>
+
+  <input type ="submit" value ="更新">
+
+  }
+
+}
