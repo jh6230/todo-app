@@ -1,8 +1,7 @@
 .todoBox{
   width: 85%;
   margin: 20px auto;
-  height: 80px;
-  border: 2px solid;
+  border: 1.5px solid;
   border-color:#000033;
 
   &__upper{
@@ -24,23 +23,23 @@
   }
 
   &__down{
-    height: 50px;
     display: flex;
     justify-content: space-between;
-    margin-right:20px;
-    margin-left:10px;
+    margin:0 20px 0 10px;
   }
-
   &__todo{
-    font-size:20px;
-  }
-
+    font-size: 20px;
+  } 
   button{
     width: 70px;
     height: 30px;
     border-color: black;
     background-color: #BAD3FF;
   }
-
-
 }
+
+
+  
+
+
+ 

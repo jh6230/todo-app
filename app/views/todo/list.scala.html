@@ -27,13 +27,15 @@
 
         <p class="todoBox__date">作成・更新日: @todo.updatedAt.format(DateTimeFormatter.ofPattern("yyy-MM-dd"))</p>
     </div>
+
       <div class="todoBox__down">
-        <p class="todoBox__todo">@todo.content</p>
+        <p class="todoBox__todo">@Html(todo.content.replaceAll("(\r\n|\r|\n)","<br>"))</p>
         <ul class="todoBox__ope">
           <button><a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.edit(todo.id.getOrElse(0))">編集</a></button>
           <button><a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.delete(todo.id.getOrElse(0))">削除</a></button>
         </ul>
       </div>
+
     </div>
  }
 </div>

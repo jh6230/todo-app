@@ -1,7 +1,6 @@
 form{
   padding-top: 20px;
 
-
   .inputs{
     margin-top:20px;
     &__name{
@@ -13,7 +12,7 @@ form{
       }
     &__form{
       .error{
-         width: 200px;
+         width: 400px;
          height: 30px;
          margin-left: 30px;
          .errors{
@@ -23,7 +22,7 @@ form{
       }
     }
     input[type="text"]{
-       width: 350px;
+       width: 450px;
        height:35px;
        font-size: 15px;
        border:solid 1px;
@@ -32,7 +31,7 @@ form{
     }
 
     textarea{
-      width: 350px;
+      width: 450px;
       height: 120px;
       margin:10px 0 15px 30px;
       font-size: 15px;
@@ -45,15 +44,16 @@ form{
       height: 35px;
       border: solid 1px;
       border-radius: 5px;
-      margin:10px 0 30px 30px;
+      margin:10px 0 10px 30px;
+      font-size: 15px;
     }
   }
     input[type="submit"]{
-      width: 350px;
+      width: 450px;
       height: 40px;
       border:solid 1px;
       border-radius: 5px;
-      margin:10px 0 0 30px;
+      margin:30px 0 0 30px;
       cursor: pointer;
       color:#F8F8FF;
       background-color: #66CCFF;
@@ -62,9 +62,5 @@ form{
     input[type="submit"]:hover{
       background-color:#00CCFF;
     }
-  .select{
-    display: flex;
-  }
-
 }
 
