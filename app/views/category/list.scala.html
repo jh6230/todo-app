@@ -1,3 +1,4 @@
+@import java.time.format.DateTimeFormatter
 @import lib.model.Category
 
 @(vv: model.ViewValueCategory)
@@ -10,6 +11,7 @@
         <th>カテゴリー</th>
         <th>スラッグ</th>
         <th>カラー</th>
+        <th>作成日</th>
       </tr>
       <tr>
         <td>
@@ -19,7 +21,8 @@
         </td>
         <td>@category.slug</td>
         <td><span class="@category.color">@category.color.color</span></td>
-      </td>
+        <td>@category.createdAt.format(DateTimeFormatter.ofPattern("yyy-MM-dd"))</td>
+      </tr>
     </table>
       <div class="categoryBox__ope">
         <button><a class = "categoryBox__link" href="@controllers.category.routes.CategoryController.edit(category.id.getOrElse(0))">編集</a></button>
