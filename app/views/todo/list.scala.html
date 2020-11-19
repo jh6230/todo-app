@@ -8,10 +8,12 @@
 @(vv: model.ViewValueTodo)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 @common.Default(vv){
 
+<div class="searchForm">
 @form(action = controllers.todo.routes.TodoController.search()){
-  <input type = "search" name="keyword" style="height:35px;" style="margin-left:10px;">
-  <input type = "submit" style="width: 80px;"value="検索">
+  <input type = "search" class="searchForm__box" name="keyword" placeholder="タイトル 本文で検索">  
+  <input type = "submit" style="width:80px"; value="検索">
 }
+</div>
 
 <div class = "todoList">
 @for(todo <- vv.todo){

@@ -1,7 +1,13 @@
-.search{
-  width: 100px;
+.searchForm{
+  margin:0 0 35px 80px;
+
+  &__box{
+    width: 400px;
+    height: 35px;
+  }
 
 }
+
 .todoBox{
   width: 85%;
   margin: 20px auto;
@@ -33,13 +39,24 @@
   }
   &__todo{
     font-size: 20px;
-  } 
-  button{
-    width: 70px;
-    height: 30px;
-    border-color: black;
-    background-color: #BAD3FF;
   }
+  &__link{
+    color:white;
+    font-weight:bold;
+  }
+
+}
+
+button{
+  width: 80px;
+  height: 40px;
+  background-color:#66CCFF;
+  border: solid 1px;
+  border-radius: 5px;
+  border-color:white;
+}
+button:hover{
+  background-color:#00CCFF;
 }
 
 

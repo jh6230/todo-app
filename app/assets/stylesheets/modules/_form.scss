@@ -49,18 +49,39 @@ form{
     }
   }
     input[type="submit"]{
-      width: 450px;
+      width: 210px;
       height: 40px;
       border:solid 1px;
       border-radius: 5px;
       margin:30px 0 0 30px;
       cursor: pointer;
-      color:#F8F8FF;
-      background-color: #66CCFF;
+      color:white;
+      background-color:#00FF00;
       font-weight: bold;
     }
     input[type="submit"]:hover{
-      background-color:#00CCFF;
+      background-color:#00DD00;
     }
+
+    input[type="reset"]{
+      width: 210px;
+      height: 40px;
+      border: solid 1px;
+      border-radius: 5px;
+      margin:30px 0 0 30px;
+      cursor: pointer;
+      color: white;
+      background-color:#BBBBBB;
+      font-weight: bold;
+    }
+    input[type="reset"]:hover{
+      background-color: #999999;
+
+    }
+
+
+
+
+
 }
 
