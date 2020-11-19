@@ -5,7 +5,7 @@
 @import lib.model.Todo
 @import lib.model.Category
 
-@(vv: model.ViewValueTodo)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
+@(vv: model.ViewValueTodo, categories: Seq[lib.model.Category])(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 @common.Default(vv){
 
 <div class="searchForm">
@@ -16,17 +16,15 @@
 </div>
 
 <div class = "todoList">
-@for(todo <- vv.todo){
+@for((todo, category) <- vv.todo zip categories){
     <div class="todoBox">
       <div class="todoBox__upper">
-        <p class="todoBox__title">タイトル: @todo.title | </p>
-        <p class="todoBox__category">カテゴリー: 
-          <a class="@vv.category.find(_.id.get == todo.categoryId).map(_.color)" 
-            href= "@controllers.category.routes.CategoryController.todoCategory(
-            vv.category.find(_.id.get == todo.categoryId).flatMap(_.id).getOrElse(0))">
-            @vv.category.find(_.id.get == todo.categoryId).map(_.name)
-          </a>
-          | </p> 
+        <p class="todoBox__title">タイトル: @todo.title | </p>        
+        <p class="todoBox__category">カテゴリー:           
+          <a class="@category.color" href= "@controllers.category.routes.CategoryController.todoCategory(category.id.getOrElse(0))">
+            @category.name
+          </a> |
+        </p> 
 
         <p class="todoBox__status">進捗: 
           <a class="todoBox__status-link" href="@controllers.todo.routes.TodoController.listOfState(todo.state.code.toInt)"> @todo.state.name

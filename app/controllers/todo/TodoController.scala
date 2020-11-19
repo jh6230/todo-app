@@ -35,6 +35,7 @@ with I18nSupport{
 
   val Home = Redirect(routes.TodoController.list())
 
+
   //新規追加機能用のフォームオブジェクト
   val todoForm: Form[TodoForm]= Form(
     mapping(
@@ -52,12 +53,12 @@ with I18nSupport{
       todosEmbed      <- TodoRepository.all()
       categoriesEmbed <- CategoryRepository.all()
     } yield {
+        val categories = categoriesEmbed.map(_.v)
         val vv = ViewValueTodo( 
-          head     = "Todo",
-          todo     = todosEmbed.map(_.v), //Seq[Todo] 
-          category = categoriesEmbed.map(_.v)  //Seq[Category]
+          todo     = todosEmbed.map(_.v) //Seq[Todo] 
+          //category = categoriesEmbed.map(_.v)  //Seq[Category]
       )
-      Ok(views.html.todo.list(vv))
+      Ok(views.html.todo.list(vv, categories))
     }
   }
   //検索
@@ -66,12 +67,11 @@ with I18nSupport{
       todosEmbed      <- TodoRepository.search(keyword)
       categoriesEmbed <- CategoryRepository.all()
     } yield {
+        val categories = categoriesEmbed.map(_.v) 
         val vv = ViewValueTodo( 
-          head     = "Todo",
-          todo     = todosEmbed.map(_.v), //Seq[Todo] 
-          category = categoriesEmbed.map(_.v)  //Seq[Category]
+          todo     = todosEmbed.map(_.v) //Seq[Todo] 
        )
-      Ok(views.html.todo.list(vv))
+      Ok(views.html.todo.list(vv, categories))
     }
 
   }
@@ -84,12 +84,11 @@ with I18nSupport{
       todosEmbed       <- TodoRepository.todoAllByState(todoStatus)
       categoriesEmbed  <- CategoryRepository.all()
     } yield {
+      val categories = categoriesEmbed.map(_.v)
       val vv = ViewValueTodo(
-        head     = "Todo",
-        todo     = todosEmbed.map(_.v),
-        category = categoriesEmbed.map(_.v) 
+        todo     = todosEmbed.map(_.v)
       )
-      Ok(views.html.todo.list(vv))
+      Ok(views.html.todo.list(vv, categories))
     }
   }
 
@@ -101,7 +100,6 @@ with I18nSupport{
     } yield {
         val categories = categoriesEmbed.map(_.v)
         val vv = ViewValueTodoForm(
-          head       = "ToDo追加画面",
           todoForm   = todoForm 
         )
       Ok(views.html.todo.add(vv, categories))
@@ -118,7 +116,6 @@ with I18nSupport{
         } yield {
             val categories = categoriesEmbed.map(_.v)
             val vv = ViewValueTodoForm(
-              head     = "ToDo追加画面",
               todoForm = errorForm
             ) 
         BadRequest(views.html.todo.add(vv, categories))
@@ -152,7 +149,6 @@ with I18nSupport{
         todoEmbed match {
           case Some(todoEmbed) =>
             val vv = ViewValueTodoForm(
-              head     = "ToDo編集画面",
               todoForm = todoForm.fill(
                 TodoForm(
                   todoEmbed.v.title, 
@@ -178,7 +174,6 @@ with I18nSupport{
         } yield{
           val categories = categoriesEmbed.map(_.v)
           val vv = ViewValueTodoForm(
-            head     = "ToDo編集画面",
             todoForm = errorForm 
         )
         BadRequest(views.html.todo.add(vv, categories))

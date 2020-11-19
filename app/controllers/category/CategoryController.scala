@@ -51,7 +51,6 @@ with I18nSupport{
       categories <- CategoryRepository.all()
     } yield {
         val vv = ViewValueCategory(
-          head     = "カテゴリー",
           category = categories.map(_.v)
         )
       Ok(views.html.category.list(vv)) 
@@ -61,7 +60,6 @@ with I18nSupport{
   //登録画面の表示用
   def registar() = Action {implicit request: Request[AnyContent] =>
     val vv = ViewValueCategoryForm(
-      head          = "カテゴリー新規登録",
       categoryForm  = categoryForm
     ) 
     Ok(views.html.category.add(vv))
@@ -72,7 +70,6 @@ with I18nSupport{
     categoryForm.bindFromRequest().fold(
       (categoryForm: Form[CategoryForm]) =>{
         val vv = ViewValueCategoryForm(
-          head          = "カテゴリー新規登録",
           categoryForm  = categoryForm
         )  
         Future.successful(BadRequest(views.html.category.add(vv)))
@@ -103,7 +100,6 @@ with I18nSupport{
         category match {
           case Some(category) =>
             val vv = ViewValueCategoryForm(
-              head         = "カテゴリー編集",
               categoryForm = categoryForm.fill(
                 CategoryForm(
                   category.v.name,
@@ -124,7 +120,6 @@ with I18nSupport{
       //処理が失敗した場合
       (errorForm: Form[CategoryForm]) => {
         val vv = ViewValueCategoryForm(
-          head          = "編集画面",
           categoryForm  = errorForm
         )
         Future.successful(BadRequest(views.html.category.edit(id, vv)))
@@ -169,12 +164,11 @@ with I18nSupport{
         todosEmbed    <- TodoRepository.todoAllByCategory(id)
         categoryEmbed <- CategoryRepository.all()
       } yield {
+        val categories = categoryEmbed.map(_.v)
         val vv = ViewValueTodo(
-          head     = "Todo",
-          todo     = todosEmbed.map(_.v),
-          category = categoryEmbed.map(_.v)
+          todo     = todosEmbed.map(_.v)
         )
-      Ok(views.html.todo.list(vv))
+      Ok(views.html.todo.list(vv, categories))
       }
   }
 

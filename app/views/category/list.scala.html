@@ -7,27 +7,33 @@
   @for(category <-vv.category){
   <div class = "categoryBox">
     <table border="1">
+    
       <tr>
         <th>カテゴリー</th>
         <th>スラッグ</th>
         <th>カラー</th>
         <th>作成日</th>
       </tr>
+
       <tr>
         <td>
           <span class="@category.color">
-            <a class="categoryBox__link-category" href= "@controllers.category.routes.CategoryController.todoCategory(category.id.getOrElse(0))">@category.name
+            <a class="categoryBox__link-category" href= "@controllers.category.routes.CategoryController.todoCategory(category.id.getOrElse(0))">
+              @category.name
           </span>
         </td>
         <td>@category.slug</td>
         <td><span class="@category.color">@category.color.color</span></td>
         <td>@category.createdAt.format(DateTimeFormatter.ofPattern("yyy-MM-dd"))</td>
       </tr>
+
     </table>
-      <div class="categoryBox__ope">
-        <button><a class = "categoryBox__link" href="@controllers.category.routes.CategoryController.edit(category.id.getOrElse(0))">編集</a></button>
-        <button><a class = "categoryBox__link" href="@controllers.category.routes.CategoryController.delete(category.id.getOrElse(0))">削除</a></button>
-      </div>
+
+    <div class="categoryBox__ope">
+      <button><a class = "categoryBox__link" href="@controllers.category.routes.CategoryController.edit(category.id.getOrElse(0))">編集</a></button>
+      <button><a class = "categoryBox__link" href="@controllers.category.routes.CategoryController.delete(category.id.getOrElse(0))">削除</a></button>
+    </div>
+  
   </div>
 
   } 
