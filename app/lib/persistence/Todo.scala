@@ -21,10 +21,10 @@ case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
         slick => slick.result
       }
 
-    //あいまい検索
+    //あいまい検索タイトルと本文であいまい検索
     def search(keyword: String): Future[Seq[EntityEmbeddedId]] = 
       RunDBAction(TodoTable, "slave"){
-        slick => slick.filter(_.title like s"%${keyword}%").result
+        slick => slick.filter(v => (v.title like s"%${keyword}%") || (v.content like s"%${keyword}%")).result
       }
     
     //取得
