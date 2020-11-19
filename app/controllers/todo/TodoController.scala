@@ -33,6 +33,8 @@ class TodoController @Inject()(
 )extends BaseController
 with I18nSupport{
 
+  val Home = Redirect(routes.TodoController.list())
+
   //新規追加機能用のフォームオブジェクト
   val todoForm: Form[TodoForm]= Form(
     mapping(
@@ -41,7 +43,7 @@ with I18nSupport{
       "content"    -> nonEmptyText,
       "state"      -> shortNumber(min = 0, max = 255)  
     )(TodoForm.apply)(TodoForm.unapply)
-  ) 
+  )
 
 
   //Todo一覧表示
@@ -57,6 +59,21 @@ with I18nSupport{
       )
       Ok(views.html.todo.list(vv))
     }
+  }
+  //検索
+  def search(keyword: String) = Action async {implicit request: Request[AnyContent] =>
+    for {
+      todosEmbed      <- TodoRepository.search(keyword)
+      categoriesEmbed <- CategoryRepository.all()
+    } yield {
+        val vv = ViewValueTodo( 
+          head     = "Todo",
+          todo     = todosEmbed.map(_.v), //Seq[Todo] 
+          category = categoriesEmbed.map(_.v)  //Seq[Category]
+       )
+      Ok(views.html.todo.list(vv))
+    }
+
   }
 
   //stateごとの一覧表示
@@ -200,8 +217,9 @@ with I18nSupport{
         }
       }
   }
-   
+
+
 }
 
 
- 
+

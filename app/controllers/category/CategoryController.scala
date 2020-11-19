@@ -20,6 +20,7 @@ import lib.model.Category.CategoryColor
 import views.html.defaultpages.error
 import org.w3c.dom.Text
 import views.html.defaultpages.todo
+import java.lang.ProcessBuilder.Redirect
 
 
 case class CategoryForm(
@@ -33,6 +34,7 @@ class CategoryController @Inject()(
   val controllerComponents: ControllerComponents
 )extends BaseController
 with I18nSupport{
+
 
   //新規登録用のフォームオブジェクト
   val categoryForm: Form[CategoryForm] = Form(

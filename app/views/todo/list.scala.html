@@ -1,11 +1,17 @@
 @* コメントはこう書く *@
 @import java.time.format.DateTimeFormatter
+@import helper._
 
 @import lib.model.Todo
 @import lib.model.Category
 
-@(vv: model.ViewValueTodo)
+@(vv: model.ViewValueTodo)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 @common.Default(vv){
+
+@form(action = controllers.todo.routes.TodoController.search()){
+  <input type = "search" name="keyword" style="height:35px;" style="margin-left:10px;">
+  <input type = "submit" style="width: 80px;"value="検索">
+}
 
 <div class = "todoList">
 @for(todo <- vv.todo){
