@@ -18,15 +18,12 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "net.ixias" %% "ixias"      % "1.1.25",
-  "net.ixias" %% "ixias-aws"  % "1.1.25",
+  "net.ixias" %% "ixias" % "1.1.25",
+  "net.ixias" %% "ixias-aws" % "1.1.25",
   "net.ixias" %% "ixias-play" % "1.1.25",
-  "mysql"          % "mysql-connector-java" % "5.1.+",
-  "ch.qos.logback" % "logback-classic"      % "1.1.+",
-
+  "mysql" % "mysql-connector-java" % "5.1.+",
+  "ch.qos.logback" % "logback-classic" % "1.1.+"
 )
-
-   
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.example.controllers._"
 

@@ -4,14 +4,13 @@
 @(vv: model.ViewValueCategoryForm)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 @implicitField = @{ FieldConstructor(plainFieldConstructor.f) }
 @common.Default(vv){
-  
   @form(action = controllers.category.routes.CategoryController.add()){
   @CSRF.formField
   <div class="inputs">
     <label class="inputs__name">カテゴリー名</label>
     <div class="inputs__form">@inputText(vv.categoryForm("name"))</div>
   </div>
-  
+
   <div class="inputs">
     <label class="inputs__name">スラッグ</label>
     <div class="inputs__form">@inputText(vv.categoryForm("slug"), 'placeholder -> "半角英数字のみ")</div>
@@ -23,10 +22,9 @@
       @select(vv.categoryForm("color"), Seq("1" -> "赤", "2" -> "黄", "3" -> "青"))
     </div>
   </div>
-
   <input type ="submit" value ="追加">
   <input type = "reset" value="リセット">
-
   }
 
 }
+

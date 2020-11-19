@@ -7,11 +7,9 @@ import play.api.data.Form
 import play.api.data.Forms._
 
 case class ViewValueCategory(
-  category: Seq[Category]
-)extends ViewValueCommon
+    category: Seq[Category]
+) extends ViewValueCommon
 
 case class ViewValueCategoryForm(
-  categoryForm:  Form[CategoryForm]
-)extends ViewValueCommon
-
-
+    categoryForm: Form[CategoryForm]
+) extends ViewValueCommon

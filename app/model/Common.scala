@@ -1,5 +1,3 @@
 package model
 
-trait ViewValueCommon {
-}
-
+trait ViewValueCommon {}

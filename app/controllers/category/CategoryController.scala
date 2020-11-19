@@ -149,7 +149,7 @@ with I18nSupport{
     val categoryId = Category.Id(id)
       for{
           categoryDelete <- CategoryRepository.remove(categoryId)
-          todosDelete     <- TodoRepository.removeAllByCategory(categoryId)
+          todosDelete     <- TodoRepository.insertNullByCategory(categoryId)
       } yield { 
         
         (todosDelete, categoryDelete) match {
@@ -166,9 +166,10 @@ with I18nSupport{
       } yield {
         val categories = categoryEmbed.map(_.v)
         val vv = ViewValueTodo(
-          todo     = todosEmbed.map(_.v)
+          todo       = todosEmbed.map(_.v),
+          category = categoryEmbed.map(_.v)
         )
-      Ok(views.html.todo.list(vv, categories))
+      Ok(views.html.todo.list(vv))
       }
   }
 
