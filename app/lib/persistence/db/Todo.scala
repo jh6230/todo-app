@@ -5,8 +5,8 @@ package lib.persistence.db
 import java.time.LocalDateTime
 import slick.jdbc.JdbcProfile
 import ixias.persistence.model.Table
-
-import lib.model.Todo
+import ixias.model._
+import lib.model._
 
 case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
     extends Table[Todo, P] {
@@ -24,7 +24,7 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
     import Todo._
     //Columns
     def id = column[Id]("id", O.UInt64, O.PrimaryKey, O.AutoInc)
-    def categoryId = column[Long]("category_id", O.UInt64)
+    def categoryId = column[Category.Id]("category_id", O.UInt64)
     def title = column[String]("title", O.Utf8Char255)
     def content = column[String]("body", O.Text)
     def state = column[TodoStatus]("state", O.UInt8)
@@ -33,7 +33,7 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
 
     type TableElementTuple = (
         Option[Id],
-        Long,
+        Category.Id,
         String,
         String,
         TodoStatus,

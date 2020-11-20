@@ -23,16 +23,15 @@ import views.html.defaultpages.todo
 import java.lang.ProcessBuilder.Redirect
 
 case class CategoryForm(
-    name: String,
-    slug: String,
+    name:  String,
+    slug:  String,
     color: Short
 )
 
 @Singleton
 class CategoryController @Inject()(
     val controllerComponents: ControllerComponents
-) extends BaseController
-    with I18nSupport {
+) extends BaseController with I18nSupport{
 
   //新規登録用のフォームオブジェクト
   val categoryForm: Form[CategoryForm] = Form(
@@ -62,7 +61,7 @@ class CategoryController @Inject()(
   }
 
   //登録画面の表示用
-  def registar() = Action { implicit request: Request[AnyContent] =>
+  def register() = Action { implicit request: Request[AnyContent] =>
     val vv = ViewValueCategoryForm(
       head     = "カテゴリー一覧",
       cssSrc   = Seq("main.css"),
@@ -114,7 +113,7 @@ class CategoryController @Inject()(
                 head     = "カテゴリー 編集",
                 cssSrc   = Seq("main.css"),
                 jsSrc    = Seq("main.js"),
-            categoryForm = categoryForm.fill(
+                categoryForm = categoryForm.fill(
               CategoryForm(
                 category.v.name,
                 category.v.slug,
@@ -185,16 +184,17 @@ class CategoryController @Inject()(
     implicit request: Request[AnyContent] =>
       val categoryId = Category.Id(id)
       for {
-        todosEmbed <- TodoRepository.todoAllByCategory(id)
-        categoryEmbed <- CategoryRepository.all()
+        todosEmbed <- TodoRepository.todoAllByCategory(categoryId)
+        categoriesEmbed <- CategoryRepository.all()
       } yield {
-        val categories = categoryEmbed.map(_.v)
+        //val categories = categoryEmbed.map(_.v)
         val vv = ViewValueTodo(
           head     = "カテゴリーごとのTodo",
           cssSrc   = Seq("main.css"),
           jsSrc    = Seq("main.js"),
           todo     = todosEmbed.map(_.v),
-          category = categoryEmbed.map(_.v)
+          //category = categoryEmbed.map(_.v)
+        categoryName = categoriesEmbed.map(_.v).filter(_.id ==  todosEmbed.map(_.v).map(_.categoryId))  //Seq[Category]
         )
         Ok(views.html.todo.list(vv))
       }

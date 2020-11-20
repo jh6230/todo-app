@@ -1,14 +1,15 @@
 package controllers.todo
 
 import javax.inject._
+import ixias.model._
 import play.api.Configuration
 import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
 import scala.concurrent._
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.Todo
+import lib.model.Category
 import lib.persistence.default.TodoRepository
 import lib.persistence.default.CategoryRepository
 import model.ViewValueTodo
@@ -16,6 +17,7 @@ import model.ViewValueTodoForm
 import play.api.i18n.I18nSupport
 import lib.model.Todo.TodoStatus
 import java.lang.ProcessBuilder.Redirect
+import lib.persistence.db.TodoTable
 
 case class TodoForm(
     title: String,
@@ -27,8 +29,7 @@ case class TodoForm(
 @Singleton
 class TodoController @Inject()(
     val controllerComponents: ControllerComponents
-) extends BaseController
-    with I18nSupport {
+) extends BaseController with I18nSupport {
 
   val Home = Redirect(routes.TodoController.list())
  
@@ -49,13 +50,14 @@ class TodoController @Inject()(
       todosEmbed <- TodoRepository.all()
       categoriesEmbed <- CategoryRepository.all()
     } yield {
-      val vv = ViewValueTodo(
+      val vv:ViewValueTodo = ViewValueTodo(
         head     = "Todo一覧",
         cssSrc   = Seq("main.css"),
         jsSrc    = Seq("main.js"),
         todo     = todosEmbed.map(_.v), //Seq[Todo]
-        category = categoriesEmbed.map(_.v)  //Seq[Category]
+        categoryName = categoriesEmbed.map(_.v).filter(_.id ==  todosEmbed.map(_.v).map(_.categoryId))  //Seq[Category]
       )
+      println(vv)
       Ok(views.html.todo.list(vv))
     }
   }
@@ -71,7 +73,8 @@ class TodoController @Inject()(
           cssSrc   = Seq("main.css"),
           jsSrc    = Seq("main.js"),
           todo = todosEmbed.map(_.v), //Seq[Todo]
-          category = categoriesEmbed.map(_.v)  //Seq[Category]
+        //  category = categoriesEmbed.map(_.v)  //Seq[Category]
+        categoryName = categoriesEmbed.map(_.v).filter(_.id.get ==  todosEmbed.map(_.v).map(_.categoryId))  //Seq[Category]
         )
         Ok(views.html.todo.list(vv))
       }
@@ -92,14 +95,15 @@ class TodoController @Inject()(
           cssSrc   = Seq("main.css"),
           jsSrc    = Seq("main.js"), 
           todo = todosEmbed.map(_.v),
-          category = categoriesEmbed.map(_.v)  //Seq[Category]
+        //  category = categoriesEmbed.map(_.v)  //Seq[Category]
+        categoryName = categoriesEmbed.map(_.v).filter(_.id ==  todosEmbed.map(_.v).map(_.categoryId))  //Seq[Category]
         )
         Ok(views.html.todo.list(vv))
       }
   }
 
   //登録画面の表示用
-  def registar() = Action async { implicit request: Request[AnyContent] =>
+  def register() = Action async { implicit request: Request[AnyContent] =>
     for {
       categoriesEmbed <- CategoryRepository.all()
     } yield {
@@ -136,7 +140,7 @@ class TodoController @Inject()(
         (todoForm: TodoForm) => {
           val todoWithNoId = new Todo(
             id = None,
-            categoryId = todoForm.categoryId,
+            categoryId = Category.Id(todoForm.categoryId),
             title = todoForm.title,
             content = todoForm.content,
             state = TodoStatus.apply(todoForm.state)
@@ -205,7 +209,7 @@ class TodoController @Inject()(
           //取得したidを基にTodo[EntityEmbeddedId]をインスタンスを生成
           val todoEmbededId = new Todo(
             id = Some(Todo.Id(id)),
-            categoryId = todoForm.categoryId,
+            categoryId = Category.Id(todoForm.categoryId),
             title = todoForm.title,
             content = todoForm.content,
             state = TodoStatus.apply(todoForm.state)

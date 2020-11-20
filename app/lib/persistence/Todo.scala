@@ -3,6 +3,7 @@ package lib.persistence
 import scala.concurrent.Future
 import ixias.persistence.SlickRepository
 import lib.model.Todo
+import lib.model.Category
 import slick.jdbc.JdbcProfile
 import lib.model.Todo.TodoStatus
 
@@ -80,14 +81,14 @@ case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
   //  }
 
   //カテゴリーを削除した時何にも紐づいていない状態へ更新する
-  def insertNullByCategory(categoryId: Long): Future[Long] =
+  def insertNullByCategory(categoryId: Category.Id): Future[Long] =
     RunDBAction(TodoTable) { slick =>
       val row = slick.filter(_.categoryId === categoryId)
-      row.map(_.categoryId).update(0)
+      row.map(_.categoryId).update(Category.Id(0))
     }
 
   //カテゴリーごとのTodo一覧
-  def todoAllByCategory(categoryId: Long): Future[Seq[EntityEmbeddedId]] =
+  def todoAllByCategory(categoryId: Category.Id): Future[Seq[EntityEmbeddedId]] =
     RunDBAction(TodoTable, "slave") { slick =>
       slick.filter(_.categoryId === categoryId).result
     }

@@ -1,7 +1,7 @@
 @import controllers.category.CategoryForm
 @import helper._
 
-@(vv: model.ViewValueCategoryForm)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
+@(vv: model.ViewValueCategoryForm)(implicit requestHeader: RequestHeader, messagesProvider: MessagesProvider)
 @implicitField = @{ FieldConstructor(plainFieldConstructor.f) }
 @common.Default(vv){
   @form(action = controllers.category.routes.CategoryController.add()){

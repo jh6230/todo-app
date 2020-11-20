@@ -20,6 +20,7 @@
     <div class="todoBox">
       <div class="todoBox__upper">
         <p class="todoBox__title">タイトル: @todo.title | </p>        
+        @*
         <p class= "todoBox__category">カテゴリー: 
           @if(todo.categoryId == 0 ){
             未設定 | 
@@ -31,7 +32,7 @@
           </a> |
           }
         </p> 
-
+*@
         <p class="todoBox__status">進捗: 
           <a class="todoBox__status-link" href="@controllers.todo.routes.TodoController.listOfState(todo.state.code.toInt)"> @todo.state.name
           </a> |

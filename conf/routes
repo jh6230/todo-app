@@ -3,7 +3,7 @@
 #Todoに関するルーティング
 GET      /                       controllers.todo.TodoController.list()
 GET      /todo/search            controllers.todo.TodoController.search(keyword:String ?= "")
-GET      /todo/add               controllers.todo.TodoController.registar()
+GET      /todo/add               controllers.todo.TodoController.register()
 POST     /todo/add               controllers.todo.TodoController.add()
 GET      /todo/edit/:id          controllers.todo.TodoController.edit(id:Long)
 POST     /todo/edit/update       controllers.todo.TodoController.update(id: Long)
@@ -13,7 +13,7 @@ GET      /state/:state           controllers.todo.TodoController.listOfState(sta
   
 #Categoryに関するルーティング
 GET      /category/list           controllers.category.CategoryController.list()
-GET      /category/add            controllers.category.CategoryController.registar()
+GET      /category/add            controllers.category.CategoryController.register()
 POST     /category/add            controllers.category.CategoryController.add()
 GET      /category/edit/:id       controllers.category.CategoryController.edit(id: Long)
 POST     /category/edit/update    controllers.category.CategoryController.update(id: Long)
