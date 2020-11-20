@@ -192,9 +192,7 @@ class CategoryController @Inject()(
           head     = "カテゴリーごとのTodo",
           cssSrc   = Seq("main.css"),
           jsSrc    = Seq("main.js"),
-          todo     = todosEmbed.map(_.v),
-          //category = categoryEmbed.map(_.v)
-        categoryName = categoriesEmbed.map(_.v).filter(_.id ==  todosEmbed.map(_.v).map(_.categoryId))  //Seq[Category]
+          todo     = Nil 
         )
         Ok(views.html.todo.list(vv))
       }

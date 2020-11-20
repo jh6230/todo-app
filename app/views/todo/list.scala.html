@@ -7,7 +7,7 @@
 
 @(vv: model.ViewValueTodo)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 @common.Default(vv){
-
+@*
 <div class="searchForm">
 @form(action = controllers.todo.routes.TodoController.search()){
   <input type = "search" class="searchForm__box" name="keyword" placeholder="タイトル 本文で検索">  
@@ -32,7 +32,6 @@
           </a> |
           }
         </p> 
-*@
         <p class="todoBox__status">進捗: 
           <a class="todoBox__status-link" href="@controllers.todo.routes.TodoController.listOfState(todo.state.code.toInt)"> @todo.state.name
           </a> |
@@ -54,6 +53,6 @@
 </div>
   
   
+*@
 
 }
-
