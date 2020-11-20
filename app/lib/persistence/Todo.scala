@@ -79,12 +79,12 @@ case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
   //    row.delete
   //  }
 
-  def insertNullByCategory(categoryId: Long):Future[Long] = 
-    RunDBAction(TodoTable) {slick => 
+  //カテゴリーを削除した時何にも紐づいていない状態へ更新する
+  def insertNullByCategory(categoryId: Long): Future[Long] =
+    RunDBAction(TodoTable) { slick =>
       val row = slick.filter(_.categoryId === categoryId)
       row.map(_.categoryId).update(0)
     }
-
 
   //カテゴリーごとのTodo一覧
   def todoAllByCategory(categoryId: Long): Future[Seq[EntityEmbeddedId]] =
