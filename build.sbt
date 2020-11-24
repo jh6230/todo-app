@@ -12,6 +12,7 @@ scalaVersion := "2.12.11"
 
 libraryDependencies += guice
 libraryDependencies += jdbc
+libraryDependencies += "org.webjars.bower" % "compass-mixins" % "0.12.7"
 
 resolvers ++= Seq(
   "IxiaS Releases" at "http://maven.ixias.net.s3-ap-northeast-1.amazonaws.com/releases"

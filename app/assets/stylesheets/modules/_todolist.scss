@@ -1,11 +1,18 @@
 .searchForm{
   margin:0 0 35px 80px;
+  &__btn{
+    width: 80px;
+    @include formPrimary-btn;
+    background-color:#00FF00;
+  }
+  &__btn:hover{
+    background-color:#00DD00;
+  }
 
   &__box{
     width: 400px;
     height: 35px;
   }
-
 }
 
 .todoBox{
@@ -60,7 +67,3 @@ button:hover{
 }
 
 
-  
-
-
- 

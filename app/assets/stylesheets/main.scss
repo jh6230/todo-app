@@ -1,8 +1,9 @@
 @import "modules/reset";
+@import "modules/mixin";
 @import "modules/header";
 @import "modules/todolist"; 
 @import "modules/categorylist";
-@import "modules/categoryColor";
+@import "modules/categorycolor";
 @import "modules/form";
 
 body {
