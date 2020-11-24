@@ -9,9 +9,3 @@ trait ViewValueCommon {
   val jsSrc: Seq[String]
 }
 
-object Format{
-  def time(time: LocalDateTime):String = {
-    time.format(DateTimeFormatter.ofPattern("yyy年MM月dd日"))
-  }
-
-}
