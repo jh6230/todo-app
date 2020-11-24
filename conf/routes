@@ -10,7 +10,7 @@ POST     /todo/edit/update       controllers.todo.TodoController.update(id: Long
 GET      /todo/delete/:id        controllers.todo.TodoController.delete(id: Long)
 DELETE   /todo/delete/           controllers.todo.TodoController.delete(id:Long)
 GET      /state/:state           controllers.todo.TodoController.listOfState(state:Int)
-GET      /category/:id           controllers.todo.TodoController.todoCategory(id: Long)
+GET      /todo/category/:id      controllers.todo.TodoController.todoCategory(id: Long)
   
 #Categoryに関するルーティング
 GET      /category/list           controllers.category.CategoryController.list()

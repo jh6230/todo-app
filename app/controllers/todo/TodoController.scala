@@ -2,24 +2,16 @@ package controllers.todo
 
 import javax.inject._
 import ixias.model._
-import play.api.Configuration
 import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
-import scala.concurrent._
+import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import lib.model.Todo
-import lib.model.Category
-import lib.persistence.default.TodoRepository
-import lib.persistence.default.CategoryRepository
-import model.ViewValueTodo
-import model.ViewValueTodoForm
+import lib.model.{ Todo, Category }
+import lib.persistence.default.{ TodoRepository, CategoryRepository }
+import model.{ ViewValueTodo, ViewValueTodoForm }
 import play.api.i18n.I18nSupport
 import lib.model.Todo.TodoStatus
-import java.lang.ProcessBuilder.Redirect
-import lib.persistence.db.TodoTable
-import akka.http.scaladsl.model.headers.LinkParams.title
-import views.html.defaultpages.todo
 
 case class TodoForm(
     title: String,

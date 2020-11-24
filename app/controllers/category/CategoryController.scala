@@ -7,20 +7,12 @@ import play.api.data.Form
 import play.api.data.Forms._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import lib.model.Category
-import lib.model.Todo
-import model.ViewValueCategory
-import model.ViewValueTodo
-import model.ViewValueCategoryForm
-import lib.persistence.default.CategoryRepository
-import lib.persistence.default.TodoRepository
+import lib.model.{ Todo, Category }
+import model.{ ViewValueCategory, ViewValueCategoryForm }
+import lib.persistence.default.{ TodoRepository, CategoryRepository }
 import controllers.todo
 import play.api.i18n.I18nSupport
 import lib.model.Category.CategoryColor
-import views.html.defaultpages.error
-import org.w3c.dom.Text
-import views.html.defaultpages.todo
-import java.lang.ProcessBuilder.Redirect
 
 case class CategoryForm(
     name:  String,
