@@ -1,83 +1,86 @@
-form{
-  padding-top: 20px;
+.form{
+  width: 600px;
+  margin: 0 auto;
+  form{
+    padding-top: 20px;
 
-  .inputs{
-    margin-top:20px;
-    &__name{
-      width: 130px;
-      height: 40px;
-      margin-left:30px;
-      margin-top:30px;
-      font-size:20px;
+    .inputs{
+      margin-top:20px;
+      &__name{
+        width: 130px;
+        height: 40px;
+        margin-left:30px;
+        margin-top:30px;
+        font-size:20px;
+        }
+      &__form{
+        .error{
+           width: 400px;
+           height: 30px;
+           margin-left: 30px;
+           .errors{
+             color:red;
+             font-weight: bolder;
+           }
+        }
       }
-    &__form{
-      .error{
-         width: 400px;
-         height: 30px;
-         margin-left: 30px;
-         .errors{
-           color:red;
-           font-weight: bolder;
-         }
+      input[type="text"]{
+         width: 450px;
+         height:35px;
+         font-size: 15px;
+         border:solid 1px;
+         border-radius: 5px;
+         margin:5px 0 8px 30px;
       }
-    }
-    input[type="text"]{
-       width: 450px;
-       height:35px;
-       font-size: 15px;
-       border:solid 1px;
-       border-radius: 5px;
-       margin:5px 0 8px 30px;
-    }
 
-    textarea{
-      width: 450px;
-      height: 120px;
-      margin:10px 0 15px 30px;
-      font-size: 15px;
-      border:solid 1px;
-      border-radius: 5px;
-      resize: vertical;
+      textarea{
+        width: 450px;
+        height: 120px;
+        margin:10px 0 15px 30px;
+        font-size: 15px;
+        border:solid 1px;
+        border-radius: 5px;
+        resize: vertical;
+      }
+      select{
+        width: 100px;
+        height: 35px;
+        border: solid 1px;
+        border-radius: 5px;
+        margin:10px 0 10px 30px;
+        font-size: 15px;
+      }
     }
-    select{
-      width: 100px;
-      height: 35px;
-      border: solid 1px;
-      border-radius: 5px;
-      margin:10px 0 10px 30px;
-      font-size: 15px;
-    }
+      input[type="submit"]{
+        width: 210px;
+        height: 40px;
+        border:solid 1px;
+        border-radius: 5px;
+        margin:30px 0 0 30px;
+        cursor: pointer;
+        color:white;
+        background-color:#00FF00;
+        font-weight: bold;
+      }
+      input[type="submit"]:hover{
+        background-color:#00DD00;
+      }
+
+      input[type="reset"]{
+        width: 210px;
+        height: 40px;
+        border: solid 1px;
+        border-radius: 5px;
+        margin:30px 0 0 30px;
+        cursor: pointer;
+        color: white;
+        background-color:#BBBBBB;
+        font-weight: bold;
+      }
+      input[type="reset"]:hover{
+        background-color: #999999;
+
+      }
+
   }
-    input[type="submit"]{
-      width: 210px;
-      height: 40px;
-      border:solid 1px;
-      border-radius: 5px;
-      margin:30px 0 0 30px;
-      cursor: pointer;
-      color:white;
-      background-color:#00FF00;
-      font-weight: bold;
-    }
-    input[type="submit"]:hover{
-      background-color:#00DD00;
-    }
-
-    input[type="reset"]{
-      width: 210px;
-      height: 40px;
-      border: solid 1px;
-      border-radius: 5px;
-      margin:30px 0 0 30px;
-      cursor: pointer;
-      color: white;
-      background-color:#BBBBBB;
-      font-weight: bold;
-    }
-    input[type="reset"]:hover{
-      background-color: #999999;
-
-    }
-
 }
-

@@ -6,7 +6,7 @@
 @implicitField = @{ FieldConstructor(plainFieldConstructor.f) }
 
 @common.Default(vv){
-
+<div class="form">
     @form(action = controllers.todo.routes.TodoController.add()){
     @CSRF.formField
     <div class="inputs">
@@ -34,8 +34,7 @@
     <input type="submit" value= "追加">
     <input type="reset" value="リセット">
   }
-
-
+</div>
 
 }
 

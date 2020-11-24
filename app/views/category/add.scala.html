@@ -5,6 +5,7 @@
 @(vv: model.ViewValueCategoryForm)(implicit requestHeader: RequestHeader, messagesProvider: MessagesProvider)
 @implicitField = @{ FieldConstructor(plainFieldConstructor.f) }
 @common.Default(vv){
+<div class="form">
   @form(action = controllers.category.routes.CategoryController.add()){
   @CSRF.formField
   <div class="inputs">
@@ -26,6 +27,7 @@
   <input type ="submit" value ="追加">
   <input type = "reset" value="リセット">
   }
+</div>
 
 }
 
