@@ -27,6 +27,7 @@ object Todo {
   type WithNoId = Entity.WithNoId[Id, Todo]
   type EmbeddedId = Entity.EmbeddedId[Id, Todo]
 
+  val todoOptions = Seq("0" -> "未着手", "1" -> "進行中", "2" -> "完了")
 
 
   //TodoのStatusを定義

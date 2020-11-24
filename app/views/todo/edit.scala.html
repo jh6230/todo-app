@@ -1,5 +1,5 @@
 @import controllers.todo.TodoForm
-@import lib.model.Category
+@import lib.model.{ Todo, Category }
 @import helper._
 
 @(id: Long,  vv: model.ViewValueTodoForm, categories: Seq[(String, String)])(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
@@ -31,7 +31,7 @@
       <div class="inputs">
         <label class="inputs__name">進捗</label>
         <div class="inputs__form">
-          @select(vv.todoForm("state"), Seq(("0" -> "未着手"), ("1" -> "進行中"), ("2" -> "完了"))) 
+          @select(vv.todoForm("state"), Todo.todoOptions ) 
         </div>
       </div>
     </div>
