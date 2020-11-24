@@ -73,26 +73,26 @@ case class TodoRepository[P <: JdbcProfile]()(implicit val driver: P)
     }
 
   //カテゴリーを削除すると、関連するTodoも削除するメソッド
-  //def removeAllByCategory(categoryId: Long): Future[Int] =
+  //def removeByCategory(categoryId: Long): Future[Int] =
   //  RunDBAction(TodoTable) { slick =>
   //    val row = slick.filter(_.categoryId === categoryId) //TodoのcategorId と引数で渡すcategoryIdが同じもの
   //    row.delete
   //  }
 
   //カテゴリーを削除した時何にも紐づいていない状態へ更新する
-  def insertNullByCategory(categoryId: Category.Id): Future[Long] =
+  def updateStatusToNull(categoryId: Category.Id): Future[Long] =
     RunDBAction(TodoTable) { slick =>
       val row = slick.filter(_.categoryId === categoryId)
       row.map(_.categoryId).update(Category.Id(0))
     }
 
   //カテゴリーごとのTodo一覧
-  def todoAllByCategory(categoryId: Category.Id): Future[Seq[EntityEmbeddedId]] =
+  def filterByCategory(categoryId: Category.Id): Future[Seq[EntityEmbeddedId]] =
     RunDBAction(TodoTable, "slave") { slick =>
       slick.filter(_.categoryId === categoryId).result
     }
   //StatusごとのTodo一覧
-  def todoAllByState(state: TodoStatus): Future[Seq[EntityEmbeddedId]] =
+  def filterByStatus(state: TodoStatus): Future[Seq[EntityEmbeddedId]] =
     RunDBAction(TodoTable, "slave") { slick =>
       slick.filter(_.state === state).result
     }

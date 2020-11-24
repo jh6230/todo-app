@@ -163,7 +163,7 @@ class CategoryController @Inject()(
     val categoryId = Category.Id(id)
     for {
       categoryDelete <- CategoryRepository.remove(categoryId)
-      todosDelete <- TodoRepository.insertNullByCategory(categoryId)
+      todosDelete <- TodoRepository.updateStatusToNull(categoryId)
     } yield {
 
       (todosDelete, categoryDelete) match {

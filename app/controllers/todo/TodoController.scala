@@ -81,7 +81,7 @@ class TodoController @Inject()(
       val stateCode: Short = state.toShort
       val todoStatus = TodoStatus.apply(stateCode)
       for {
-        todosEmbed <- TodoRepository.todoAllByState(todoStatus)
+        todosEmbed <- TodoRepository.filterByStatus(todoStatus)
         categoriesEmbed <- CategoryRepository.all()
       } yield {
         val vv = ViewValueTodo(
@@ -100,7 +100,7 @@ class TodoController @Inject()(
     implicit request: Request[AnyContent] =>
       val categoryId = Category.Id(id)
       for {
-        todosEmbed <- TodoRepository.todoAllByCategory(categoryId)
+        todosEmbed <- TodoRepository.filterByCategory(categoryId)
         categoriesEmbed <- CategoryRepository.all()
       } yield {
         val vv = ViewValueTodo(
