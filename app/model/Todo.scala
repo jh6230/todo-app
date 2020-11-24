@@ -11,16 +11,16 @@ import play.api.data.Form
 import play.api.data.Forms._
 
 case class ViewValueTodo(
-    head:     String,
-    cssSrc:   Seq[String],
-    jsSrc:    Seq[String],
-    todo:     Seq[(Todo, Map[Category.Id,Category])] 
+    head: String,
+    cssSrc: Seq[String],
+    jsSrc: Seq[String],
+    todos: Seq[(Todo, Map[Category.Id, Category])]
 ) extends ViewValueCommon
 
 case class ViewValueTodoForm(
-    head:     String,
-    cssSrc:   Seq[String],
-    jsSrc:    Seq[String],
+    head: String,
+    cssSrc: Seq[String],
+    jsSrc: Seq[String],
     todoForm: Form[TodoForm],
-    category: Seq[(String, String)]
+    categories: Seq[(String, String)]
 ) extends ViewValueCommon

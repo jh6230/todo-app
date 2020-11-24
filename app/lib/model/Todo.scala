@@ -11,7 +11,7 @@ import Todo._
 
 //Todoを表すモデル
 case class Todo(
-    id:         Option[Id],
+    id: Option[Id],
     categoryId: Category.Id,
     title: String,
     content: String,
@@ -27,8 +27,8 @@ object Todo {
   type WithNoId = Entity.WithNoId[Id, Todo]
   type EmbeddedId = Entity.EmbeddedId[Id, Todo]
 
-  val todoOptions = Seq("0" -> "未着手", "1" -> "進行中", "2" -> "完了")
-
+  val statusDefault  = Seq("0" -> "未着手") //新規登録時用、新規追加の時は未着手しか選べない
+  val statuses = Seq("0" -> "未着手", "1" -> "進行中", "2" -> "完了") //編集時用
 
   //TodoのStatusを定義
   sealed abstract class TodoStatus(val code: Short, val name: String)
@@ -41,12 +41,12 @@ object Todo {
 
   //INSERT時のIDがAutoincrementのため,IDなしであることを示すオブジェクトに変換
   def apply(
-    categoryId: Category.Id,
-    title: String,
-    content: String,
-    state: TodoStatus,
+      categoryId: Category.Id,
+      title: String,
+      content: String,
+      state: TodoStatus
   ): WithNoId =
-    Entity.WithNoId{
+    Entity.WithNoId {
       new Todo(
         None,
         categoryId,
@@ -55,6 +55,5 @@ object Todo {
         state
       )
     }
-  
 
 }

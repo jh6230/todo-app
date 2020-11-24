@@ -1,5 +1,5 @@
 @import controllers.todo.TodoForm
-@import lib.model.Category
+@import lib.model.{Todo, Category }
 @import helper._
 
 @(vv: model.ViewValueTodoForm)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
@@ -21,18 +21,18 @@
      <div class="inputs">
         <label class="inputs__name">カテゴリー</label>
         <div class="inputs__select">
-          @select(vv.todoForm("categoryId"), vv.category)
+          @select(vv.todoForm("categoryId"), vv.categories)
         </div>
       </div>
     
       <div class="inputs">
         <label class="inputs__name">進捗</label>
-        <div class="inputs__select">@select(vv.todoForm("state"), Seq("0" -> "未着手"))</div>
+        <div class="inputs__select">@select(vv.todoForm("state"), Todo.statusDefault)</div>
       </div>
     </div>
 
     <input type="submit" value= "追加">
-    <input type = "reset" value="リセット">
+    <input type="reset" value="リセット">
   }
 
 

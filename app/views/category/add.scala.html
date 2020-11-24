@@ -1,4 +1,5 @@
 @import controllers.category.CategoryForm
+@import lib.model.Category
 @import helper._
 
 @(vv: model.ViewValueCategoryForm)(implicit requestHeader: RequestHeader, messagesProvider: MessagesProvider)
@@ -19,7 +20,7 @@
   <div class="inputs">
     <label class="inputs__name">カラー</label>
     <div class= "inputs__form">
-      @select(vv.categoryForm("color"), Seq("1" -> "赤", "2" -> "黄", "3" -> "青"))
+      @select(vv.categoryForm("color"), Category.colors) 
     </div>
   </div>
   <input type ="submit" value ="追加">

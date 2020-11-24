@@ -7,9 +7,9 @@ import play.api.data.Form
 import play.api.data.Forms._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import lib.model.{ Todo, Category }
-import lib.persistence.default.{ TodoRepository, CategoryRepository }
-import model.{ ViewValueTodo, ViewValueTodoForm }
+import lib.model.{Todo, Category}
+import lib.persistence.default.{TodoRepository, CategoryRepository}
+import model.{ViewValueTodo, ViewValueTodoForm}
 import play.api.i18n.I18nSupport
 import lib.model.Todo.TodoStatus
 
@@ -23,10 +23,10 @@ case class TodoForm(
 @Singleton
 class TodoController @Inject()(
     val controllerComponents: ControllerComponents
-) extends BaseController with I18nSupport {
+) extends BaseController
+    with I18nSupport {
 
   val Home = Redirect(routes.TodoController.list())
- 
 
   //新規追加機能用のフォームオブジェクト
   val todoForm: Form[TodoForm] = Form(
@@ -44,13 +44,22 @@ class TodoController @Inject()(
       todosEmbed <- TodoRepository.all()
       categoriesEmbed <- CategoryRepository.all()
     } yield {
-      val vv:ViewValueTodo = ViewValueTodo(
-        head     = "Todo一覧",
-        cssSrc   = Seq("main.css"),
-        jsSrc    = Seq("main.js"),
-        todo     = todosEmbed.map(todos =>
-          (todos.v, 
-            Map(todos.v.categoryId -> categoriesEmbed.find(_.id == todos.v.categoryId).get.v)))
+      val vv: ViewValueTodo = ViewValueTodo(
+        head = "Todo一覧",
+        cssSrc = Seq("main.css"),
+        jsSrc = Seq("main.js"),
+        todos = todosEmbed.map(
+          todos =>
+            (
+              todos.v,
+              Map(
+                todos.v.categoryId -> categoriesEmbed
+                  .find(_.id == todos.v.categoryId)
+                  .get
+                  .v
+              )
+            )
+        )
       )
       Ok(views.html.todo.list(vv))
     }
@@ -63,12 +72,21 @@ class TodoController @Inject()(
         categoriesEmbed <- CategoryRepository.all()
       } yield {
         val vv = ViewValueTodo(
-          head     = "検索結果",
-          cssSrc   = Seq("main.css"),
-          jsSrc    = Seq("main.js"),
-          todo     =  todosEmbed.map(todos =>
-              (todos.v, 
-                Map(todos.v.categoryId -> categoriesEmbed.find(_.id == todos.v.categoryId).get.v)))
+          head = "検索結果",
+          cssSrc = Seq("main.css"),
+          jsSrc = Seq("main.js"),
+          todos = todosEmbed.map(
+            todos =>
+              (
+                todos.v,
+                Map(
+                  todos.v.categoryId -> categoriesEmbed
+                    .find(_.id == todos.v.categoryId)
+                    .get
+                    .v
+                )
+              )
+          )
         )
         Ok(views.html.todo.list(vv))
       }
@@ -85,12 +103,21 @@ class TodoController @Inject()(
         categoriesEmbed <- CategoryRepository.all()
       } yield {
         val vv = ViewValueTodo(
-          head     = "進捗ごとのTodo一覧",
-          cssSrc   = Seq("main.css"),
-          jsSrc    = Seq("main.js"), 
-          todo     = todosEmbed.map(todos =>
-              (todos.v, 
-              Map(todos.v.categoryId -> categoriesEmbed.find(_.id == todos.v.categoryId).get.v)))
+          head = "進捗ごとのTodo一覧",
+          cssSrc = Seq("main.css"),
+          jsSrc = Seq("main.js"),
+          todos = todosEmbed.map(
+            todos =>
+              (
+                todos.v,
+                Map(
+                  todos.v.categoryId -> categoriesEmbed
+                    .find(_.id == todos.v.categoryId)
+                    .get
+                    .v
+                )
+              )
+          )
         )
         Ok(views.html.todo.list(vv))
       }
@@ -104,12 +131,21 @@ class TodoController @Inject()(
         categoriesEmbed <- CategoryRepository.all()
       } yield {
         val vv = ViewValueTodo(
-          head     = "カテゴリーごとのTodo",
-          cssSrc   = Seq("main.css"),
-          jsSrc    = Seq("main.js"),
-          todo     = todosEmbed.map(todos =>
-              (todos.v,
-                Map(todos.v.categoryId -> categoriesEmbed.find(_.id == todos.v.categoryId).get.v)))
+          head = "カテゴリーごとのTodo",
+          cssSrc = Seq("main.css"),
+          jsSrc = Seq("main.js"),
+          todos = todosEmbed.map(
+            todos =>
+              (
+                todos.v,
+                Map(
+                  todos.v.categoryId -> categoriesEmbed
+                    .find(_.id == todos.v.categoryId)
+                    .get
+                    .v
+                )
+              )
+          )
         )
         Ok(views.html.todo.list(vv))
       }
@@ -121,14 +157,14 @@ class TodoController @Inject()(
       categoriesEmbed <- CategoryRepository.all()
     } yield {
       val vv = ViewValueTodoForm(
-        head       = "Todo追加",
-        cssSrc     = Seq("main.css"),
-        jsSrc      = Seq("main.js"),
-        todoForm   = todoForm,
-        category = categoriesEmbed.map(category => 
-            (category.id.toString -> category.v.name)
-            ),
-       )
+        head = "Todo追加",
+        cssSrc = Seq("main.css"),
+        jsSrc = Seq("main.js"),
+        todoForm = todoForm,
+        categories = categoriesEmbed.map(
+          category => (category.id.toString -> category.v.name)
+        )
+      )
       Ok(views.html.todo.add(vv))
     }
   }
@@ -143,14 +179,12 @@ class TodoController @Inject()(
             categoriesEmbed <- CategoryRepository.all()
           } yield {
             val vv = ViewValueTodoForm(
-              head     = "進捗ごとのTodo一覧",
-              cssSrc   = Seq("main.css"),
-              jsSrc    = Seq("main.js"),
+              head = "進捗ごとのTodo一覧",
+              cssSrc = Seq("main.css"),
+              jsSrc = Seq("main.js"),
               todoForm = errorForm,
-              category = categoriesEmbed.map(category => 
-            (category.id.toString -> category.v.name)
-            ),
-
+              categories = categoriesEmbed
+                .map(category => (category.id.toString -> category.v.name))
             )
             BadRequest(views.html.todo.add(vv))
           }
@@ -182,19 +216,18 @@ class TodoController @Inject()(
       todoEmbed match {
         case Some(todoEmbed) =>
           val vv = ViewValueTodoForm(
-            head     = "Todo編集",
-            cssSrc   = Seq("main.css"),
-            jsSrc    = Seq("main.js"),
-            category  = 
-              categoriesEmbed.map(category =>
-                (category.id.toString -> category.v.name)
-                    ),
+            head = "Todo編集",
+            cssSrc = Seq("main.css"),
+            jsSrc = Seq("main.js"),
+            categories = categoriesEmbed.map(
+              category => (category.id.toString -> category.v.name)
+            ),
             todoForm = todoForm.fill(
               TodoForm(
                 todoEmbed.v.title,
                 todoEmbed.v.categoryId,
                 todoEmbed.v.content,
-                todoEmbed.v.state.code,
+                todoEmbed.v.state.code
               )
             )
           )
@@ -217,13 +250,12 @@ class TodoController @Inject()(
             categoriesEmbed <- CategoryRepository.all()
           } yield {
             val vv = ViewValueTodoForm(
-              head     = "進捗ごとのTodo一覧",
-              cssSrc   = Seq("main.css"),
-              jsSrc    = Seq("main.js"),
+              head = "進捗ごとのTodo一覧",
+              cssSrc = Seq("main.css"),
+              jsSrc = Seq("main.js"),
               todoForm = errorForm,
-              category = categoriesEmbed.map(category =>
-                  (category.id.toString -> category.v.name)
-                )
+              categories = categoriesEmbed
+                .map(category => (category.id.toString -> category.v.name))
             )
             BadRequest(views.html.todo.add(vv))
           }
@@ -263,5 +295,5 @@ class TodoController @Inject()(
       }
     }
   }
-  
+
 }

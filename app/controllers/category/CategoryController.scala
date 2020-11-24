@@ -7,23 +7,24 @@ import play.api.data.Form
 import play.api.data.Forms._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import lib.model.{ Todo, Category }
-import model.{ ViewValueCategory, ViewValueCategoryForm }
-import lib.persistence.default.{ TodoRepository, CategoryRepository }
+import lib.model.{Todo, Category}
+import model.{ViewValueCategory, ViewValueCategoryForm}
+import lib.persistence.default.{TodoRepository, CategoryRepository}
 import controllers.todo
 import play.api.i18n.I18nSupport
 import lib.model.Category.CategoryColor
 
 case class CategoryForm(
-    name:  String,
-    slug:  String,
+    name: String,
+    slug: String,
     color: Short
 )
 
 @Singleton
 class CategoryController @Inject()(
     val controllerComponents: ControllerComponents
-) extends BaseController with I18nSupport{
+) extends BaseController
+    with I18nSupport {
 
   //新規登録用のフォームオブジェクト
   val categoryForm: Form[CategoryForm] = Form(
@@ -43,9 +44,9 @@ class CategoryController @Inject()(
       categoriesEmbed <- CategoryRepository.all()
     } yield {
       val vv = ViewValueCategory(
-        head     = "カテゴリー一覧",
-        cssSrc   = Seq("main.css"),
-        jsSrc    = Seq("main.js"),
+        head = "カテゴリー一覧",
+        cssSrc = Seq("main.css"),
+        jsSrc = Seq("main.js"),
         category = categoriesEmbed.map(_.v)
       )
       Ok(views.html.category.list(vv))
@@ -55,9 +56,9 @@ class CategoryController @Inject()(
   //登録画面の表示用
   def register() = Action { implicit request: Request[AnyContent] =>
     val vv = ViewValueCategoryForm(
-      head     = "カテゴリー一覧",
-      cssSrc   = Seq("main.css"),
-      jsSrc    = Seq("main.js"),
+      head = "カテゴリー一覧",
+      cssSrc = Seq("main.css"),
+      jsSrc = Seq("main.js"),
       categoryForm = categoryForm
     )
     Ok(views.html.category.add(vv))
@@ -70,9 +71,9 @@ class CategoryController @Inject()(
       .fold(
         (categoryForm: Form[CategoryForm]) => {
           val vv = ViewValueCategoryForm(
-            head     = "カテゴリー 追加",
-            cssSrc   = Seq("main.css"),
-            jsSrc    = Seq("main.js"),
+            head = "カテゴリー 追加",
+            cssSrc = Seq("main.css"),
+            jsSrc = Seq("main.js"),
             categoryForm = categoryForm
           )
           Future.successful(BadRequest(views.html.category.add(vv)))
@@ -102,10 +103,10 @@ class CategoryController @Inject()(
       categoryEmbed match {
         case Some(categoryEmbed) =>
           val vv = ViewValueCategoryForm(
-                head     = "カテゴリー 編集",
-                cssSrc   = Seq("main.css"),
-                jsSrc    = Seq("main.js"),
-                categoryForm = categoryForm.fill(
+            head = "カテゴリー 編集",
+            cssSrc = Seq("main.css"),
+            jsSrc = Seq("main.js"),
+            categoryForm = categoryForm.fill(
               CategoryForm(
                 categoryEmbed.v.name,
                 categoryEmbed.v.slug,
@@ -129,9 +130,9 @@ class CategoryController @Inject()(
         //処理が失敗した場合
         (errorForm: Form[CategoryForm]) => {
           val vv = ViewValueCategoryForm(
-            head         = "カテゴリー編集",
-            cssSrc       = Seq("main.css"),
-            jsSrc        = Seq("main.js"),
+            head = "カテゴリー編集",
+            cssSrc = Seq("main.css"),
+            jsSrc = Seq("main.js"),
             categoryForm = errorForm
           )
           Future.successful(BadRequest(views.html.category.edit(id, vv)))
@@ -171,6 +172,5 @@ class CategoryController @Inject()(
       }
     }
   }
-
 
 }

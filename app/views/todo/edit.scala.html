@@ -24,14 +24,14 @@
       <div class="inputs">
         <label class="inputs__name">カテゴリー</label>
         <div class="inputs__form">
-          @select(vv.todoForm("categoryId"), vv.category)
+          @select(vv.todoForm("categoryId"), vv.categories)
         </div> 
       </div>
 
       <div class="inputs">
         <label class="inputs__name">進捗</label>
         <div class="inputs__form">
-          @select(vv.todoForm("state"), Todo.todoOptions ) 
+          @select(vv.todoForm("state"), Todo.statuses) 
         </div>
       </div>
     </div>

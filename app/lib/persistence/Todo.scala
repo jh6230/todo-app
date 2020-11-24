@@ -2,7 +2,7 @@ package lib.persistence
 
 import scala.concurrent.Future
 import ixias.persistence.SlickRepository
-import lib.model.{ Todo, Category }
+import lib.model.{Todo, Category}
 import slick.jdbc.JdbcProfile
 import lib.model.Todo.TodoStatus
 
