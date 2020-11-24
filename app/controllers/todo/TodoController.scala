@@ -9,7 +9,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.{Todo, Category}
 import lib.persistence.default.{TodoRepository, CategoryRepository}
-import model.{ViewValueTodo, ViewValueTodoForm}
+import model.{ViewValueTodo, ViewValueTodoAdd}
 import play.api.i18n.I18nSupport
 import lib.model.Todo.TodoStatus
 
@@ -156,7 +156,7 @@ class TodoController @Inject()(
     for {
       categoriesEmbed <- CategoryRepository.all()
     } yield {
-      val vv = ViewValueTodoForm(
+      val vv = ViewValueTodoAdd(
         head = "Todo追加",
         cssSrc = Seq("main.css"),
         jsSrc = Seq("main.js"),
@@ -178,7 +178,7 @@ class TodoController @Inject()(
           for {
             categoriesEmbed <- CategoryRepository.all()
           } yield {
-            val vv = ViewValueTodoForm(
+            val vv = ViewValueTodoAdd(
               head = "進捗ごとのTodo一覧",
               cssSrc = Seq("main.css"),
               jsSrc = Seq("main.js"),
@@ -215,7 +215,7 @@ class TodoController @Inject()(
     } yield {
       todoEmbed match {
         case Some(todoEmbed) =>
-          val vv = ViewValueTodoForm(
+          val vv = ViewValueTodoAdd(
             head = "Todo編集",
             cssSrc = Seq("main.css"),
             jsSrc = Seq("main.js"),

@@ -2,7 +2,7 @@
 @import lib.model.{Todo, Category }
 @import helper._
 
-@(vv: model.ViewValueTodoForm)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
+@(vv: model.ViewValueTodoAdd)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 @implicitField = @{ FieldConstructor(plainFieldConstructor.f) }
 
 @common.Default(vv){
