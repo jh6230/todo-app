@@ -10,6 +10,7 @@ POST     /todo/edit/update       controllers.todo.TodoController.update(id: Long
 GET      /todo/delete/:id        controllers.todo.TodoController.delete(id: Long)
 DELETE   /todo/delete/           controllers.todo.TodoController.delete(id:Long)
 GET      /state/:state           controllers.todo.TodoController.listOfState(state:Int)
+GET      /category/:id           controllers.todo.TodoController.todoCategory(id: Long)
   
 #Categoryに関するルーティング
 GET      /category/list           controllers.category.CategoryController.list()
@@ -19,7 +20,6 @@ GET      /category/edit/:id       controllers.category.CategoryController.edit(i
 POST     /category/edit/update    controllers.category.CategoryController.update(id: Long)
 GET      /category/delete/:id     controllers.category.CategoryController.delete(id: Long)
 DELETE   /category/delete         controllers.category.CategoryController.delete(id:Long)
-GET      /:id                     controllers.category.CategoryController.todoCategory(id:Long)
 
 # CSS,jsファイルへのアクセス
 # Map static resources from the /public folder to the /assets URL path

@@ -19,6 +19,7 @@ import lib.model.Todo.TodoStatus
 import java.lang.ProcessBuilder.Redirect
 import lib.persistence.db.TodoTable
 import akka.http.scaladsl.model.headers.LinkParams.title
+import views.html.defaultpages.todo
 
 case class TodoForm(
     title: String,
@@ -51,19 +52,14 @@ class TodoController @Inject()(
       todosEmbed <- TodoRepository.all()
       categoriesEmbed <- CategoryRepository.all()
     } yield {
-      val todos = 
-        todosEmbed.map(todo =>
-          (todo, categoriesEmbed.filter(_.id == todo.v.categoryId)) 
-        )
-      println(todos)
-      
       val vv:ViewValueTodo = ViewValueTodo(
         head     = "Todo一覧",
         cssSrc   = Seq("main.css"),
         jsSrc    = Seq("main.js"),
-        todo     = Nil
+        todo     = todosEmbed.map(todos =>
+          (todos.v, 
+            Map(todos.v.categoryId -> categoriesEmbed.find(_.id == todos.v.categoryId).get.v)))
       )
-      println(vv)
       Ok(views.html.todo.list(vv))
     }
   }
@@ -78,9 +74,9 @@ class TodoController @Inject()(
           head     = "検索結果",
           cssSrc   = Seq("main.css"),
           jsSrc    = Seq("main.js"),
-          todo     = Nil
-         //  category = categoriesEmbed.map(_.v)  //Seq[Category]
-        //categoryName = categoriesEmbed.map(_.v).filter(_.id.get ==  todosEmbed.map(_.v).map(_.categoryId))  //Seq[Category]
+          todo     =  todosEmbed.map(todos =>
+              (todos.v, 
+                Map(todos.v.categoryId -> categoriesEmbed.find(_.id == todos.v.categoryId).get.v)))
         )
         Ok(views.html.todo.list(vv))
       }
@@ -100,7 +96,9 @@ class TodoController @Inject()(
           head     = "進捗ごとのTodo一覧",
           cssSrc   = Seq("main.css"),
           jsSrc    = Seq("main.js"), 
-          todo = Nil//todosEmbed.map(_.v),
+          todo     = todosEmbed.map(todos =>
+              (todos.v, 
+              Map(todos.v.categoryId -> categoriesEmbed.find(_.id == todos.v.categoryId).get.v)))
         )
         Ok(views.html.todo.list(vv))
       }
@@ -243,6 +241,25 @@ class TodoController @Inject()(
         case _ => Redirect(routes.TodoController.list())
       }
     }
+  }
+  //カテゴリーごとのTodo
+  def todoCategory(id: Long) = Action async {
+    implicit request: Request[AnyContent] =>
+      val categoryId = Category.Id(id)
+      for {
+        todosEmbed <- TodoRepository.todoAllByCategory(categoryId)
+        categoriesEmbed <- CategoryRepository.all()
+      } yield {
+        val vv = ViewValueTodo(
+          head     = "カテゴリーごとのTodo",
+          cssSrc   = Seq("main.css"),
+          jsSrc    = Seq("main.js"),
+          todo     = todosEmbed.map(todos =>
+              (todos.v,
+                Map(todos.v.categoryId -> categoriesEmbed.find(_.id == todos.v.categoryId).get.v)))
+        )
+        Ok(views.html.todo.list(vv))
+      }
   }
 
 }
