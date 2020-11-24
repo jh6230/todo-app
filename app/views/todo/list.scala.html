@@ -1,9 +1,7 @@
 @* コメントはこう書く *@
-@import java.time.format.DateTimeFormatter
 @import helper._
-
-@import lib.model.Todo
-@import lib.model.Category
+@import model._
+@import lib.model.{ Todo, Category }
 
 @(vv: model.ViewValueTodo)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 @common.Default(vv){
@@ -30,7 +28,7 @@
           </a> |
         </p> 
 
-        <p class="todoBox__date">作成・更新日: @todo._1.updatedAt.format(DateTimeFormatter.ofPattern("yyy-MM-dd"))</p>
+        <p class="todoBox__date">作成・更新日: @Format.time(todo._1.updatedAt)</p>
     </div>
 
       <div class="todoBox__down">
@@ -42,7 +40,7 @@
       </div>
 
     </div>
- }
+}
 </div>
   
   

@@ -26,11 +26,11 @@ object Category {
 
   //viewで使用するカテゴリーのselectを定義
   val colors = Seq(
-   "1"  -> "赤",
-   "2"  -> "黄",
-   "3"  -> "青"
+    "1"  -> "赤",
+    "2"  -> "黄",
+    "3"  -> "青"
   )
-
+  
   sealed abstract class CategoryColor(val code: Short, val color: String)
       extends EnumStatus
   object CategoryColor extends EnumStatus.Of[CategoryColor] {

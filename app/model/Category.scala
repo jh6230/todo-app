@@ -19,3 +19,5 @@ case class ViewValueCategoryForm(
     jsSrc: Seq[String],
     categoryForm: Form[CategoryForm]
 ) extends ViewValueCommon
+
+

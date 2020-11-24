@@ -1,4 +1,4 @@
-@import java.time.format.DateTimeFormatter
+@import model._
 @import lib.model.Category
 
 @(vv: model.ViewValueCategory)
@@ -24,7 +24,7 @@
         </td>
         <td>@category.slug</td>
         <td><span class="@category.color">@category.color.color</span></td>
-        <td>@category.createdAt.format(DateTimeFormatter.ofPattern("yyy-MM-dd"))</td>
+        <td>@Format.time(category.updatedAt)</td>
       </tr>
 
     </table>
