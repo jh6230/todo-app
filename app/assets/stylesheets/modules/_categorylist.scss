@@ -1,43 +1,51 @@
-.categoryBox{
-  width:60%;
-  height:80x;
-  margin-top:25px;
+.categoryList{
+  width: 85%;
+  margin:0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  table{
-    width: 450px;
-    height: 35px;
-  }
-  th{
-    padding: 5px;
-  }
-  td{
-    font-size: 18px;;
-    padding: 5px;
-  }
-  &__ope{
-    margin-top:20px;
-  }
-  &__link{
-    font-weight: bold;
-    color: white;
-  }
-  
-}
-.categoryAdd{
-    width: 200px;
-    height: 40px;
-    border-radius: 5px;
-    border:solid 3px;
-    border-color:#00FF00;
-    background-color:#00FF00;
-    margin-top:30px;
-    &__link{
-      color: white;
-      font-weight: bold;
+  .categoryBox{
+    width:60%;
+    height:80x;
+    margin-top:25px;
+
+    table{
+      width: 500px;
+      height: 35px;
     }
-}
-.categoryAdd:hover{
-  background-color:#00DD00;
-}
+    th{
+      padding: 5px;
+    }
+    td{
+      font-size: 18px;;
+      padding: 5px;
+    }
+    &__ope{
+      margin:20px 50px 0 0 ;
+      float: right;
+    }
+    &__link{
+      font-weight: bold;
+      color: white;
+    }
+    
+  }
+  .categoryAdd{
+      width: 500px;
+      height: 50px;
+      border-radius: 5px;
+      border:solid 3px;
+      border-color:#00FF00;
+      background-color:#00FF00;
+      margin:30px 50px 0 0;
+      &__link{
+        color: white;
+        font-weight: bold;
+      }
+  }
+  .categoryAdd:hover{
+    background-color:#00DD00;
+  }
 
-
+}

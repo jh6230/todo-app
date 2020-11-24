@@ -3,7 +3,7 @@
 
 @(vv: model.ViewValueCategory)
 @common.Default(vv){
-  
+<div class="categoryList">  
   @for(category <-vv.category){
   <div class = "categoryBox">
     <table border="1">
@@ -41,5 +41,5 @@
   <button class= "categoryAdd">
     <a class = "categoryAdd__link" href = "@controllers.category.routes.CategoryController.register()">カテゴリー 追加</a>
   </button>
-
+</div>
 }
