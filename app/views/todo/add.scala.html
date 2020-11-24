@@ -2,7 +2,7 @@
 @import lib.model.Category
 @import helper._
 
-@(vv: model.ViewValueTodoForm, categories: Seq[(String, String)])(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
+@(vv: model.ViewValueTodoForm)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 @implicitField = @{ FieldConstructor(plainFieldConstructor.f) }
 
 @common.Default(vv){
@@ -21,7 +21,7 @@
      <div class="inputs">
         <label class="inputs__name">カテゴリー</label>
         <div class="inputs__select">
-          @select(vv.todoForm("categoryId"), categories)
+          @select(vv.todoForm("categoryId"), vv.category)
         </div>
       </div>
     

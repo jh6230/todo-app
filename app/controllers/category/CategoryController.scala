@@ -40,13 +40,13 @@ class CategoryController @Inject()(
   //カテゴリー一覧表示
   def list() = Action async { implicit request: Request[AnyContent] =>
     for {
-      categories <- CategoryRepository.all()
+      categoriesEmbed <- CategoryRepository.all()
     } yield {
       val vv = ViewValueCategory(
         head     = "カテゴリー一覧",
         cssSrc   = Seq("main.css"),
         jsSrc    = Seq("main.js"),
-        category = categories.map(_.v)
+        category = categoriesEmbed.map(_.v)
       )
       Ok(views.html.category.list(vv))
     }
@@ -97,19 +97,19 @@ class CategoryController @Inject()(
   def edit(id: Long) = Action async { implicit request: Request[AnyContent] =>
     val categoryId = Category.Id(id)
     for {
-      category <- CategoryRepository.get(categoryId)
+      categoryEmbed <- CategoryRepository.get(categoryId)
     } yield {
-      category match {
-        case Some(category) =>
+      categoryEmbed match {
+        case Some(categoryEmbed) =>
           val vv = ViewValueCategoryForm(
                 head     = "カテゴリー 編集",
                 cssSrc   = Seq("main.css"),
                 jsSrc    = Seq("main.js"),
                 categoryForm = categoryForm.fill(
               CategoryForm(
-                category.v.name,
-                category.v.slug,
-                category.v.color.code
+                categoryEmbed.v.name,
+                categoryEmbed.v.slug,
+                categoryEmbed.v.color.code
               )
             )
           )
