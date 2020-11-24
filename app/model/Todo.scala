@@ -14,7 +14,7 @@ case class ViewValueTodo(
     head:     String,
     cssSrc:   Seq[String],
     jsSrc:    Seq[String],
-    todo:     Seq[(Todo, Map[Category.Id, Category])] 
+    todo:     Seq[(Todo, Map[Category.Id,Category])] 
 ) extends ViewValueCommon
 
 case class ViewValueTodoForm(

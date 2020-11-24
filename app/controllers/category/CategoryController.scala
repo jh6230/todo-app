@@ -180,22 +180,5 @@ class CategoryController @Inject()(
     }
   }
 
-  def todoCategory(id: Long) = Action async {
-    implicit request: Request[AnyContent] =>
-      val categoryId = Category.Id(id)
-      for {
-        todosEmbed <- TodoRepository.todoAllByCategory(categoryId)
-        categoriesEmbed <- CategoryRepository.all()
-      } yield {
-        //val categories = categoryEmbed.map(_.v)
-        val vv = ViewValueTodo(
-          head     = "カテゴリーごとのTodo",
-          cssSrc   = Seq("main.css"),
-          jsSrc    = Seq("main.js"),
-          todo     = Nil 
-        )
-        Ok(views.html.todo.list(vv))
-      }
-  }
 
 }
