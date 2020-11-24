@@ -7,7 +7,6 @@
 
 @(vv: model.ViewValueTodo)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 @common.Default(vv){
-@*
 <div class="searchForm">
 @form(action = controllers.todo.routes.TodoController.search()){
   <input type = "search" class="searchForm__box" name="keyword" placeholder="タイトル 本文で検索">  
@@ -53,6 +52,5 @@
 </div>
   
   
-*@
 
 }
