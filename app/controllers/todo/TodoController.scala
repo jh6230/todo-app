@@ -8,10 +8,13 @@ import play.api.data.Forms._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.{Todo, Category}
+import model.TodoWithCategory
 import lib.persistence.default.{TodoRepository, CategoryRepository}
 import model.{ViewValueTodo, ViewValueTodoAdd, ViewValueTodoEdit}
 import play.api.i18n.I18nSupport
 import lib.model.Todo.TodoStatus
+import views.html.defaultpages.todo
+import com.twilio.sdk.verbs.Redirect
 
 case class TodoForm(
     title: String,
@@ -44,22 +47,26 @@ class TodoController @Inject()(
       todosEmbed <- TodoRepository.all()
       categoriesEmbed <- CategoryRepository.all()
     } yield {
-      val vv: ViewValueTodo = ViewValueTodo(
+      val categories = todosEmbed.map(todos => categoriesEmbed.find(_.id == todos.v.categoryId))  
+      println(categories)
+      val vv = ViewValueTodo(
         head = "Todo一覧",
         cssSrc = Seq("main.css"),
         jsSrc = Seq("main.js"),
         todos = todosEmbed.map(
-          todos =>
-            (
-              todos,
-              Map(
-                todos.v.categoryId -> categoriesEmbed
-                  .find(_.id == todos.v.categoryId)
-                  .get
-              )
-            )
-        )
-      )
+          todos => TodoWithCategory(
+            todos.id,
+            todos.v.categoryId,
+            todos.v.title,
+            todos.v.content,
+            todos.v.state,
+            todos.v.updatedAt, 
+            categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name), 
+            categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
+          )            
+      )      
+    )
+      
       Ok(views.html.todo.list(vv))
     }
   }
@@ -74,17 +81,7 @@ class TodoController @Inject()(
           head = "検索結果",
           cssSrc = Seq("main.css"),
           jsSrc = Seq("main.js"),
-          todos = todosEmbed.map(
-            todos =>
-              (
-                todos,
-                Map(
-                  todos.v.categoryId -> categoriesEmbed
-                    .find(_.id == todos.v.categoryId)
-                    .get
-                )
-              )
-          )
+          todos = Nil //todosEmbed.map(
         )
         Ok(views.html.todo.list(vv))
       }
@@ -104,17 +101,7 @@ class TodoController @Inject()(
           head = "進捗ごとのTodo一覧",
           cssSrc = Seq("main.css"),
           jsSrc = Seq("main.js"),
-          todos = todosEmbed.map(
-            todos =>
-              (
-                todos,
-                Map(
-                  todos.v.categoryId -> categoriesEmbed
-                    .find(_.id == todos.v.categoryId)
-                    .get
-                )
-              )
-          )
+          todos = Nil //todosEmbed.map(
         )
         Ok(views.html.todo.list(vv))
       }
@@ -131,17 +118,7 @@ class TodoController @Inject()(
           head = "カテゴリーごとのTodo",
           cssSrc = Seq("main.css"),
           jsSrc = Seq("main.js"),
-          todos = todosEmbed.map(
-            todos =>
-              (
-                todos,
-                Map(
-                  todos.v.categoryId -> categoriesEmbed
-                    .find(_.id == todos.v.categoryId)
-                    .get
-                )
-              )
-          )
+          todos =  Nil //todosEmbed.map(
         )
         Ok(views.html.todo.list(vv))
       }
