@@ -212,7 +212,7 @@ class TodoController @Inject()(
           for {
             _ <- TodoRepository.add(todoWithNoId)
           } yield {
-            Redirect(routes.TodoController.list())
+            Redirect(routes.TodoController.list()).flashing("success" -> "Todoの登録が完了しました!!")
           }
         }
       )

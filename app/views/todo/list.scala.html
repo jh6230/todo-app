@@ -3,8 +3,9 @@
 @import model._
 @import lib.model.{ Todo, Category }
 
-@(vv: model.ViewValueTodo)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
+@(vv: model.ViewValueTodo)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider, flash: Flash)
 @common.Default(vv){
+<p class="flash">@flash.get("success").getOrElse("Welcome!!")</p>
 <div class="searchForm">
 @form(action = controllers.todo.routes.TodoController.search()){
   <input type = "search" class="searchForm__box" name="keyword" placeholder="タイトル 本文で検索">  
