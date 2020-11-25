@@ -1,5 +1,6 @@
 error.required=必須入力項目です
 error.number=項目を選択してください
+error.date=期日を入力してください
 
 constraint.required=必須入力項目です
 
