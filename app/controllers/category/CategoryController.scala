@@ -8,7 +8,7 @@ import play.api.data.Forms._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.{Todo, Category}
-import model.{ViewValueCategory, ViewValueCategoryForm}
+import model.{ViewValueCategory, ViewValueCategoryAdd}
 import lib.persistence.default.{TodoRepository, CategoryRepository}
 import controllers.todo
 import play.api.i18n.I18nSupport
@@ -70,7 +70,7 @@ class CategoryController @Inject()(
       .bindFromRequest()
       .fold(
         (categoryForm: Form[CategoryForm]) => {
-          val vv = ViewValueCategoryForm(
+          val vv = ViewValueCategoryAdd(
             head = "カテゴリー 追加",
             cssSrc = Seq("main.css"),
             jsSrc = Seq("main.js"),

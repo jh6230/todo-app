@@ -14,6 +14,13 @@ case class ViewValueCategory(
     categories: Seq[EntityEmbeddedId]
 ) extends ViewValueCommon
 
+case class ViewValueCategoryAdd(
+    head: String,
+    cssSrc: Seq[String],
+    jsSrc: Seq[String],
+    categoryForm: Form[CategoryForm]
+) extends ViewValueCommon
+
 case class ViewValueCategoryForm(
     head: String,
     cssSrc: Seq[String],

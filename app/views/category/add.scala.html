@@ -2,7 +2,7 @@
 @import lib.model.Category
 @import helper._
 
-@(vv: model.ViewValueCategoryForm)(implicit requestHeader: RequestHeader, messagesProvider: MessagesProvider)
+@(vv: model.ViewValueCategoryAdd)(implicit requestHeader: RequestHeader, messagesProvider: MessagesProvider)
 @implicitField = @{ FieldConstructor(plainFieldConstructor.f) }
 @common.Default(vv){
 <div class="form">
