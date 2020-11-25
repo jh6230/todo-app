@@ -14,14 +14,14 @@ import model.{ViewValueTodo, ViewValueTodoAdd, ViewValueTodoEdit}
 import play.api.i18n.I18nSupport
 import lib.model.Todo.TodoStatus
 import views.html.defaultpages.todo
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 case class TodoForm(
     title: String,
     categoryId: Long,
     content: String,
     state: Short,
-    deadline:LocalDateTime
+    deadline:LocalDate
 )
 
 @Singleton
@@ -39,7 +39,7 @@ class TodoController @Inject()(
       "categoryId" -> longNumber,
       "content" -> nonEmptyText,
       "state" -> shortNumber(min = 0, max = 255),
-      "deadline" -> localDateTime
+      "deadline" -> localDate
     )(TodoForm.apply)(TodoForm.unapply)
   )
 

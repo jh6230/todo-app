@@ -2,6 +2,7 @@ package model
 
 import ixias.model._
 import java.time.LocalDateTime
+import java.time.LocalDate
 
 import lib.model.{ Todo, Category }
 import lib.model.Todo.TodoStatus
@@ -21,7 +22,7 @@ case class TodoWithCategory(
   title: String,
   content: String,
   state: TodoStatus,
-  deadline: LocalDateTime,
+  deadline: LocalDate,
   updatedAt: LocalDateTime,
   categoryName:Option[String],
   categoryColor:Option[CategoryColor]

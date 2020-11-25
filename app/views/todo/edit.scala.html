@@ -20,6 +20,12 @@
       <label class="inputs__name">Todo</label>  
       <div class="inputs__form">@textarea(vv.todoForm("content"))</div>
     </div>
+
+   <div class="inputs">
+      <label class="inputs__name">期日</label>
+      <div class="input__date">@inputDate(vv.todoForm("deadline"))
+    </div>
+
     <div class="select">    
       <div class="inputs">
         <label class="inputs__name">カテゴリー</label>
@@ -35,7 +41,8 @@
         </div>
       </div>
     </div>
-
+    
+    
     <input type="submit" value= "更新">
     <input type = "reset" value="リセット">
   }

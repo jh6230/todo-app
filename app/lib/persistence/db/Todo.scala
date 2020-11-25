@@ -3,6 +3,7 @@
 package lib.persistence.db
 
 import java.time.LocalDateTime
+import java.time.LocalDate
 import slick.jdbc.JdbcProfile
 import ixias.persistence.model.Table
 import ixias.model._
@@ -28,7 +29,7 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
     def title = column[String]("title", O.Utf8Char255)
     def content = column[String]("body", O.Text)
     def state = column[TodoStatus]("state", O.UInt8)
-    def deadline= column[LocalDateTime]("deadline", O.Ts)
+    def deadline= column[LocalDate]("deadline", O.Ts)
     def updatedAt = column[LocalDateTime]("updated_at", O.TsCurrent)
     def createdAt = column[LocalDateTime]("created_at", O.Ts)
 
@@ -38,7 +39,7 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
         String,
         String,
         TodoStatus,
-        LocalDateTime,
+        LocalDate,
         LocalDateTime,
         LocalDateTime
     )

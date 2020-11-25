@@ -5,6 +5,7 @@ package lib.model
 import ixias.model._
 import ixias.util.EnumStatus
 import java.time.LocalDateTime
+import java.time.LocalDate
 import lib.model._
 
 import Todo._
@@ -16,7 +17,7 @@ case class Todo(
     title: String,
     content: String,
     state: TodoStatus,
-    deadline: LocalDateTime,
+    deadline: LocalDate,
     updatedAt: LocalDateTime = NOW,
     createdAt: LocalDateTime = NOW
 ) extends EntityModel[Id]
@@ -46,7 +47,7 @@ object Todo {
       title: String,
       content: String,
       state: TodoStatus,
-      deadline: LocalDateTime
+      deadline: LocalDate
   ): WithNoId =
     Entity.WithNoId {
       new Todo(
