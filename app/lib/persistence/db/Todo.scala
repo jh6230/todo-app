@@ -28,6 +28,7 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
     def title = column[String]("title", O.Utf8Char255)
     def content = column[String]("body", O.Text)
     def state = column[TodoStatus]("state", O.UInt8)
+    def deadline= column[LocalDateTime]("deadline", O.Ts)
     def updatedAt = column[LocalDateTime]("updated_at", O.TsCurrent)
     def createdAt = column[LocalDateTime]("created_at", O.Ts)
 
@@ -38,10 +39,11 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
         String,
         TodoStatus,
         LocalDateTime,
+        LocalDateTime,
         LocalDateTime
     )
 
-    def * = (id.?, categoryId, title, content, state, updatedAt, createdAt) <> (
+    def * = (id.?, categoryId, title, content, state, deadline, updatedAt, createdAt) <> (
       (t: TableElementTuple) =>
         Todo(
           t._1,
@@ -50,7 +52,8 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
           t._4,
           t._5,
           t._6,
-          t._7
+          t._7,
+          t._8
         ),
       (v: TableElementType) =>
         Todo.unapply(v).map { t =>
@@ -60,6 +63,7 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
             t._3,
             t._4,
             t._5,
+            t._6,
             LocalDateTime.now(),
             t._7
           )
