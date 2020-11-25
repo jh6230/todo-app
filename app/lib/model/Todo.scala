@@ -6,7 +6,6 @@ import ixias.model._
 import ixias.util.EnumStatus
 import java.time.LocalDateTime
 import java.time.LocalDate
-import lib.model._
 
 import Todo._
 

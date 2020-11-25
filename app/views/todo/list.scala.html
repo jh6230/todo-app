@@ -3,7 +3,7 @@
 @import model._
 @import lib.model.{ Todo, Category }
 
-@(vv: model.ViewValueTodo)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider, flash: Flash)
+@(vv: model.ViewValueTodo)(implicit flash: Flash)
 @common.Default(vv){
 <p class="flash">@flash.get("success").getOrElse("Welcome!!")</p>
 <div class="searchForm">

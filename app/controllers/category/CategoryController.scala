@@ -10,7 +10,6 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.{Todo, Category}
 import model.{ViewValueCategory, ViewValueCategoryAdd, ViewValueCategoryEdit}
 import lib.persistence.default.{TodoRepository, CategoryRepository}
-import controllers.todo
 import play.api.i18n.I18nSupport
 import lib.model.Category.CategoryColor
 
@@ -88,7 +87,7 @@ class CategoryController @Inject()(
           for {
             _ <- CategoryRepository.add(categoryWithNoId)
           } yield {
-            Redirect(routes.CategoryController.list())
+            Redirect(routes.CategoryController.list()).flashing("success" -> "カテゴリーを追加しました!!")
           }
         }
       )
@@ -154,7 +153,8 @@ class CategoryController @Inject()(
               case None =>
                 Redirect(routes.CategoryController.edit(id)) //更新が失敗したら元の画面へリダイレクト
               case Some(_) =>
-                Redirect(routes.CategoryController.list()) //更新できたら一覧へリダイレクト
+                Redirect(routes.CategoryController.list()).flashing("success" -> "カテゴリーを追加しました!!") 
+                //更新できたら一覧へリダイレクト
             }
           }
         }

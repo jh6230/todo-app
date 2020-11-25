@@ -1,8 +1,9 @@
 @import model._
 @import lib.model.Category
 
-@(vv: model.ViewValueCategory)
+@(vv: model.ViewValueCategory)(implicit flash: Flash)
 @common.Default(vv){
+<p class="flash">@flash.get("success").getOrElse("Wellcome!!")
 <div class="categoryList">  
   @for(category <-vv.categories){
   <div class = "categoryBox">

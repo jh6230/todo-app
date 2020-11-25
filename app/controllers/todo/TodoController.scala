@@ -212,7 +212,7 @@ class TodoController @Inject()(
           for {
             _ <- TodoRepository.add(todoWithNoId)
           } yield {
-            Redirect(routes.TodoController.list()).flashing("success" -> "Todoの登録が完了しました!!")
+            Redirect(routes.TodoController.list()).flashing("success" -> "Todoを追加しました!!")
           }
         }
       )
@@ -292,7 +292,8 @@ class TodoController @Inject()(
               case None =>
                 Redirect(routes.TodoController.edit(id)) //更新が失敗した場合元のページにリダイレクト
               case Some(_) =>
-                Redirect(routes.TodoController.list()) //更新できたらトップページにリダイレクト
+                Redirect(routes.TodoController.list()).flashing("success" -> "Todoを更新しました!!")
+                //更新できたらトップページにリダイレクト
             }
           }
         }
