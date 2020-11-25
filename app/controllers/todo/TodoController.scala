@@ -14,12 +14,14 @@ import model.{ViewValueTodo, ViewValueTodoAdd, ViewValueTodoEdit}
 import play.api.i18n.I18nSupport
 import lib.model.Todo.TodoStatus
 import views.html.defaultpages.todo
+import java.time.LocalDateTime
 
 case class TodoForm(
     title: String,
     categoryId: Long,
     content: String,
-    state: Short
+    state: Short,
+    deadline:LocalDateTime
 )
 
 @Singleton
@@ -36,7 +38,8 @@ class TodoController @Inject()(
       "title" -> nonEmptyText,
       "categoryId" -> longNumber,
       "content" -> nonEmptyText,
-      "state" -> shortNumber(min = 0, max = 255)
+      "state" -> shortNumber(min = 0, max = 255),
+      "deadline" -> localDateTime
     )(TodoForm.apply)(TodoForm.unapply)
   )
 
@@ -199,7 +202,8 @@ class TodoController @Inject()(
             categoryId = Category.Id(todoForm.categoryId),
             title = todoForm.title,
             content = todoForm.content,
-            state = TodoStatus.apply(todoForm.state)
+            state = TodoStatus.apply(todoForm.state),
+            deadline= todoForm.deadline
           ).toWithNoId
           for {
             _ <- TodoRepository.add(todoWithNoId)
@@ -232,7 +236,8 @@ class TodoController @Inject()(
                 todoEmbed.v.title,
                 todoEmbed.v.categoryId,
                 todoEmbed.v.content,
-                todoEmbed.v.state.code
+                todoEmbed.v.state.code,
+                todoEmbed.v.deadline
               )
             )
           )
@@ -273,7 +278,8 @@ class TodoController @Inject()(
             categoryId = Category.Id(todoForm.categoryId),
             title = todoForm.title,
             content = todoForm.content,
-            state = TodoStatus.apply(todoForm.state)
+            state = TodoStatus.apply(todoForm.state),
+            deadline= todoForm.deadline
           ).toEmbeddedId //EmbededId型に変換
           for {
             todoUpdate <- TodoRepository.update(todoEmbededId)
