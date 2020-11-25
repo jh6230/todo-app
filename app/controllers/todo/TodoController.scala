@@ -14,7 +14,6 @@ import model.{ViewValueTodo, ViewValueTodoAdd, ViewValueTodoEdit}
 import play.api.i18n.I18nSupport
 import lib.model.Todo.TodoStatus
 import views.html.defaultpages.todo
-import com.twilio.sdk.verbs.Redirect
 
 case class TodoForm(
     title: String,

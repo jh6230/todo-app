@@ -5,7 +5,7 @@ import lib.model.Category.CategoryColor
 import controllers.category.CategoryForm
 import play.api.data.Form
 import play.api.data.Forms._
-import lib.persistence.default.CategoryRepository.EntityEmbeddedId 
+import lib.persistence.default.CategoryRepository.EntityEmbeddedId
 
 case class ViewValueCategory(
     head: String,
@@ -22,11 +22,9 @@ case class ViewValueCategoryAdd(
 ) extends ViewValueCommon
 
 case class ViewValueCategoryEdit(
-    id  : Long,
+    id: Long,
     head: String,
     cssSrc: Seq[String],
     jsSrc: Seq[String],
     categoryForm: Form[CategoryForm]
 ) extends ViewValueCommon
-
-

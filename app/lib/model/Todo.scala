@@ -16,6 +16,7 @@ case class Todo(
     title: String,
     content: String,
     state: TodoStatus,
+    deadline: LocalDateTime,
     updatedAt: LocalDateTime = NOW,
     createdAt: LocalDateTime = NOW
 ) extends EntityModel[Id]
@@ -27,7 +28,7 @@ object Todo {
   type WithNoId = Entity.WithNoId[Id, Todo]
   type EmbeddedId = Entity.EmbeddedId[Id, Todo]
 
-  val statusDefault  = Seq("0" -> "未着手") //新規登録時用、新規追加の時は未着手しか選べない
+  val statusDefault = Seq("0" -> "未着手") //新規登録時用、新規追加の時は未着手しか選べない
   val statuses = Seq("0" -> "未着手", "1" -> "進行中", "2" -> "完了") //編集時用
 
   //TodoのStatusを定義
@@ -44,7 +45,8 @@ object Todo {
       categoryId: Category.Id,
       title: String,
       content: String,
-      state: TodoStatus
+      state: TodoStatus,
+      deadline: LocalDateTime
   ): WithNoId =
     Entity.WithNoId {
       new Todo(
@@ -52,7 +54,8 @@ object Todo {
         categoryId,
         title,
         content,
-        state
+        state,
+        deadline
       )
     }
 

@@ -8,4 +8,3 @@ trait ViewValueCommon {
   val cssSrc: Seq[String]
   val jsSrc: Seq[String]
 }
-

@@ -44,10 +44,10 @@ class CategoryController @Inject()(
       categoriesEmbed <- CategoryRepository.all()
     } yield {
       val vv = ViewValueCategory(
-        head = "カテゴリー一覧",
+        head = "カテゴリー 一覧",
         cssSrc = Seq("main.css"),
         jsSrc = Seq("main.js"),
-        categories = categoriesEmbed 
+        categories = categoriesEmbed
       )
       Ok(views.html.category.list(vv))
     }
@@ -103,7 +103,7 @@ class CategoryController @Inject()(
       categoryEmbed match {
         case Some(categoryEmbed) =>
           val vv = ViewValueCategoryEdit(
-            id  = id,
+            id = id,
             head = "カテゴリー 編集",
             cssSrc = Seq("main.css"),
             jsSrc = Seq("main.js"),
@@ -131,7 +131,7 @@ class CategoryController @Inject()(
         //処理が失敗した場合
         (errorForm: Form[CategoryForm]) => {
           val vv = ViewValueCategoryEdit(
-            id   = id,
+            id = id,
             head = "カテゴリー編集",
             cssSrc = Seq("main.css"),
             jsSrc = Seq("main.js"),
