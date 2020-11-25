@@ -56,7 +56,6 @@ class TodoController @Inject()(
                 todos.v.categoryId -> categoriesEmbed
                   .find(_.id == todos.v.categoryId)
                   .get
-                  .v
               )
             )
         )
@@ -83,7 +82,6 @@ class TodoController @Inject()(
                   todos.v.categoryId -> categoriesEmbed
                     .find(_.id == todos.v.categoryId)
                     .get
-                    .v
                 )
               )
           )
@@ -114,7 +112,6 @@ class TodoController @Inject()(
                   todos.v.categoryId -> categoriesEmbed
                     .find(_.id == todos.v.categoryId)
                     .get
-                    .v
                 )
               )
           )
@@ -142,7 +139,6 @@ class TodoController @Inject()(
                   todos.v.categoryId -> categoriesEmbed
                     .find(_.id == todos.v.categoryId)
                     .get
-                    .v
                 )
               )
           )

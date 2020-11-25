@@ -22,9 +22,9 @@
         <p class="todoBox__title">タイトル: @todo._1.v.title | </p>        
 
         <p class= "todoBox__category">カテゴリー: 
-        <a class="@todo._2.get(todo._1.v.categoryId).get.color"
+        <a class="@todo._2.get(todo._1.v.categoryId).get.v.color"
           href= "@controllers.todo.routes.TodoController.todoCategory(todo._1.v.categoryId)">
-          @todo._2.get(todo._1.v.categoryId).map(_.name)</a> | 
+          @todo._2.get(todo._1.v.categoryId).map(_.v.name)</a> | 
         </p> 
         <p class="todoBox__status">進捗: 
           <a class="todoBox__status-link" href="@controllers.todo.routes.TodoController.listOfState(todo._1.v.state.code.toInt)"> @todo._1.v.state.name

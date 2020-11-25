@@ -4,7 +4,8 @@ import lib.model.Todo
 import lib.model.Todo.TodoStatus
 import lib.model.Category
 import lib.model.Category.CategoryColor
-import lib.persistence.default.TodoRepository.EntityEmbeddedId
+import lib.persistence.default.{ TodoRepository, CategoryRepository }
+import lib.persistence.default.CategoryRepository
 import controllers.todo.TodoForm
 import play.api.data.Form
 import play.api.data.Forms._
@@ -13,7 +14,7 @@ case class ViewValueTodo(
     head: String,
     cssSrc: Seq[String],
     jsSrc: Seq[String],
-    todos: Seq[(EntityEmbeddedId, Map[Category.Id, Category])]
+    todos: Seq[(TodoRepository.EntityEmbeddedId, Map[Category.Id, CategoryRepository.EntityEmbeddedId])]
                //todo
 ) extends ViewValueCommon
 
