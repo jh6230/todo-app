@@ -60,6 +60,7 @@ class TodoController @Inject()(
             todos.v.title,
             todos.v.content,
             todos.v.state,
+            todos.v.deadline,
             todos.v.updatedAt, 
             categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name), 
             categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
@@ -88,6 +89,7 @@ class TodoController @Inject()(
               todos.v.title,
               todos.v.content,
               todos.v.state,
+              todos.v.deadline,
               todos.v.updatedAt, 
               categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name), 
               categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
@@ -119,6 +121,7 @@ class TodoController @Inject()(
               todos.v.title,
               todos.v.content,
               todos.v.state,
+              todos.v.deadline,
               todos.v.updatedAt, 
               categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name), 
               categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
@@ -148,6 +151,7 @@ class TodoController @Inject()(
               todos.v.title,
               todos.v.content,
               todos.v.state,
+              todos.v.deadline,
               todos.v.updatedAt, 
               categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name), 
               categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
