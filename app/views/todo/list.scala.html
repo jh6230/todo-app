@@ -4,6 +4,7 @@
 @import lib.model.{ Todo, Category }
 
 @(vv: model.ViewValueTodo)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
+@* (EntityEmbeddedId, Map[Category.Id, Category])*@
 @common.Default(vv){
 <div class="searchForm">
 @form(action = controllers.todo.routes.TodoController.search()){
@@ -13,29 +14,31 @@
 </div>
 
 <div class = "todoList">
+
+
 @for(todo <- vv.todos){
     <div class="todoBox">
       <div class="todoBox__upper">
-        <p class="todoBox__title">タイトル: @todo._1.title | </p>        
+        <p class="todoBox__title">タイトル: @todo._1.v.title | </p>        
 
         <p class= "todoBox__category">カテゴリー: 
-        <a class="@todo._2.get(todo._1.categoryId).get.color"
-          href= "@controllers.todo.routes.TodoController.todoCategory(todo._1.categoryId)">
-          @todo._2.get(todo._1.categoryId).map(_.name)</a> | 
+        <a class="@todo._2.get(todo._1.v.categoryId).get.color"
+          href= "@controllers.todo.routes.TodoController.todoCategory(todo._1.v.categoryId)">
+          @todo._2.get(todo._1.v.categoryId).map(_.name)</a> | 
         </p> 
         <p class="todoBox__status">進捗: 
-          <a class="todoBox__status-link" href="@controllers.todo.routes.TodoController.listOfState(todo._1.state.code.toInt)"> @todo._1.state.name
+          <a class="todoBox__status-link" href="@controllers.todo.routes.TodoController.listOfState(todo._1.v.state.code.toInt)"> @todo._1.v.state.name
           </a> |
         </p> 
 
-        <p class="todoBox__date">作成・更新日: @Format.time(todo._1.updatedAt)</p>
+        <p class="todoBox__date">作成・更新日: @Format.time(todo._1.v.updatedAt)</p>
     </div>
 
       <div class="todoBox__down">
-        <p class="todoBox__todo">@Html(todo._1.content.replaceAll("(\r\n|\r|\n)","<br>"))</p>
+        <p class="todoBox__todo">@Html(todo._1.v.content.replaceAll("(\r\n|\r|\n)","<br>"))</p>
         <ul class="todoBox__ope">
-          <button><a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.edit(todo._1.id.getOrElse(0))">編集</a></button>
-          <button><a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.delete(todo._1.id.getOrElse(0))">削除</a></button>
+          <button><a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.edit(todo._1.id)">編集</a></button>
+          <button><a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.delete(todo._1.id)">削除</a></button>
         </ul>
       </div>
 

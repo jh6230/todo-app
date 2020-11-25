@@ -2,12 +2,12 @@
 @import lib.model.{ Todo, Category }
 @import helper._
 
-@(id: Long,  vv: model.ViewValueTodoForm)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
+@(vv: model.ViewValueTodoEdit)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 @implicitField = @{ FieldConstructor(plainFieldConstructor.f) }
 
 @common.Default(vv){
 <div class="form">
-    @form(action = controllers.todo.routes.TodoController.update(id)){
+    @form(action = controllers.todo.routes.TodoController.update(vv.id)){
     @CSRF.formField
     
     

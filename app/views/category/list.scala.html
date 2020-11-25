@@ -4,7 +4,7 @@
 @(vv: model.ViewValueCategory)
 @common.Default(vv){
 <div class="categoryList">  
-  @for(category <-vv.category){
+  @for(category <-vv.categories){
   <div class = "categoryBox">
     <table border="1">
     
@@ -17,21 +17,21 @@
 
       <tr>
         <td>
-          <span class="@category.color">
-            <a class="categoryBox__link-category" href= "@controllers.todo.routes.TodoController.todoCategory(category.id.getOrElse(0))">
-              @category.name
+          <span class="@category.v.color">
+            <a class="categoryBox__link-category" href= "@controllers.todo.routes.TodoController.todoCategory(category.id)">
+              @category.v.name
           </span>
         </td>
-        <td>@category.slug</td>
-        <td><span class="@category.color">@category.color.color</span></td>
-        <td>@Format.time(category.updatedAt)</td>
+        <td>@category.v.slug</td>
+        <td><span class="@category.v.color">@category.v.color.color</span></td>
+        <td>@Format.time(category.v.updatedAt)</td>
       </tr>
 
     </table>
 
     <div class="categoryBox__ope">
-      <button><a class = "categoryBox__link" href="@controllers.category.routes.CategoryController.edit(category.id.getOrElse(0))">編集</a></button>
-      <button><a class = "categoryBox__link" href="@controllers.category.routes.CategoryController.delete(category.id.getOrElse(0))">削除</a></button>
+      <button><a class = "categoryBox__link" href="@controllers.category.routes.CategoryController.edit(category.id)">編集</a></button>
+      <button><a class = "categoryBox__link" href="@controllers.category.routes.CategoryController.delete(category.id)">削除</a></button>
     </div>
   
   </div>

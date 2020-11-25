@@ -9,7 +9,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.{Todo, Category}
 import lib.persistence.default.{TodoRepository, CategoryRepository}
-import model.{ViewValueTodo, ViewValueTodoAdd}
+import model.{ViewValueTodo, ViewValueTodoAdd, ViewValueTodoEdit}
 import play.api.i18n.I18nSupport
 import lib.model.Todo.TodoStatus
 
@@ -51,7 +51,7 @@ class TodoController @Inject()(
         todos = todosEmbed.map(
           todos =>
             (
-              todos.v,
+              todos,
               Map(
                 todos.v.categoryId -> categoriesEmbed
                   .find(_.id == todos.v.categoryId)
@@ -78,7 +78,7 @@ class TodoController @Inject()(
           todos = todosEmbed.map(
             todos =>
               (
-                todos.v,
+                todos,
                 Map(
                   todos.v.categoryId -> categoriesEmbed
                     .find(_.id == todos.v.categoryId)
@@ -109,7 +109,7 @@ class TodoController @Inject()(
           todos = todosEmbed.map(
             todos =>
               (
-                todos.v,
+                todos,
                 Map(
                   todos.v.categoryId -> categoriesEmbed
                     .find(_.id == todos.v.categoryId)
@@ -137,7 +137,7 @@ class TodoController @Inject()(
           todos = todosEmbed.map(
             todos =>
               (
-                todos.v,
+                todos,
                 Map(
                   todos.v.categoryId -> categoriesEmbed
                     .find(_.id == todos.v.categoryId)
@@ -215,7 +215,8 @@ class TodoController @Inject()(
     } yield {
       todoEmbed match {
         case Some(todoEmbed) =>
-          val vv = ViewValueTodoAdd(
+          val vv = ViewValueTodoEdit(
+            id  = id,
             head = "Todo編集",
             cssSrc = Seq("main.css"),
             jsSrc = Seq("main.js"),
@@ -231,7 +232,7 @@ class TodoController @Inject()(
               )
             )
           )
-          Ok(views.html.todo.edit(id, vv))
+          Ok(views.html.todo.edit(vv))
         //idが見つからない場合はトップページにリダイレクト
         case None =>
           Redirect(routes.TodoController.list())
@@ -249,8 +250,8 @@ class TodoController @Inject()(
           for {
             categoriesEmbed <- CategoryRepository.all()
           } yield {
-            val vv = ViewValueTodoForm(
-              head = "進捗ごとのTodo一覧",
+            val vv = ViewValueTodoAdd(
+              head = "Todo編集",
               cssSrc = Seq("main.css"),
               jsSrc = Seq("main.js"),
               todoForm = errorForm,

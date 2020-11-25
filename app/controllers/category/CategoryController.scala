@@ -47,7 +47,7 @@ class CategoryController @Inject()(
         head = "カテゴリー一覧",
         cssSrc = Seq("main.css"),
         jsSrc = Seq("main.js"),
-        category = categoriesEmbed.map(_.v)
+        categories = categoriesEmbed 
       )
       Ok(views.html.category.list(vv))
     }
