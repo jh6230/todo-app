@@ -21,7 +21,8 @@ case class ViewValueCategoryAdd(
     categoryForm: Form[CategoryForm]
 ) extends ViewValueCommon
 
-case class ViewValueCategoryForm(
+case class ViewValueCategoryEdit(
+    id  : Long,
     head: String,
     cssSrc: Seq[String],
     jsSrc: Seq[String],

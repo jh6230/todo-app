@@ -8,7 +8,7 @@ import play.api.data.Forms._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import lib.model.{Todo, Category}
-import model.{ViewValueCategory, ViewValueCategoryAdd}
+import model.{ViewValueCategory, ViewValueCategoryAdd, ViewValueCategoryEdit}
 import lib.persistence.default.{TodoRepository, CategoryRepository}
 import controllers.todo
 import play.api.i18n.I18nSupport
@@ -55,7 +55,7 @@ class CategoryController @Inject()(
 
   //登録画面の表示用
   def register() = Action { implicit request: Request[AnyContent] =>
-    val vv = ViewValueCategoryForm(
+    val vv = ViewValueCategoryAdd(
       head = "カテゴリー一覧",
       cssSrc = Seq("main.css"),
       jsSrc = Seq("main.js"),
@@ -102,7 +102,8 @@ class CategoryController @Inject()(
     } yield {
       categoryEmbed match {
         case Some(categoryEmbed) =>
-          val vv = ViewValueCategoryForm(
+          val vv = ViewValueCategoryEdit(
+            id  = id,
             head = "カテゴリー 編集",
             cssSrc = Seq("main.css"),
             jsSrc = Seq("main.js"),
@@ -114,7 +115,7 @@ class CategoryController @Inject()(
               )
             )
           )
-          Ok(views.html.category.edit(id, vv))
+          Ok(views.html.category.edit(vv))
         //idが見つからない場合はトップページにリダイレクト
         case None =>
           Redirect(routes.CategoryController.list())
@@ -129,13 +130,14 @@ class CategoryController @Inject()(
       .fold(
         //処理が失敗した場合
         (errorForm: Form[CategoryForm]) => {
-          val vv = ViewValueCategoryForm(
+          val vv = ViewValueCategoryEdit(
+            id   = id,
             head = "カテゴリー編集",
             cssSrc = Seq("main.css"),
             jsSrc = Seq("main.js"),
             categoryForm = errorForm
           )
-          Future.successful(BadRequest(views.html.category.edit(id, vv)))
+          Future.successful(BadRequest(views.html.category.edit(vv)))
         },
         //処理が成功した場合
         (categoryForm: CategoryForm) => {

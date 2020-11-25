@@ -3,11 +3,11 @@
 @import helper._
 
 
-@(id: Long, vv: model.ViewValueCategoryForm)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
+@(vv: model.ViewValueCategoryEdit)(implicit requestHeader: RequestHeader, messagesPrivider: MessagesProvider)
 @implicitField = @{ FieldConstructor(plainFieldConstructor.f) }
 @common.Default(vv){
 <div class="form">  
-  @form(action = controllers.category.routes.CategoryController.update(id)){
+  @form(action = controllers.category.routes.CategoryController.update(vv.id)){
   @CSRF.formField
   <div class="inputs">
     <label class= "inputs__name">カテゴリー名</label>
