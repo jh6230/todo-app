@@ -39,6 +39,14 @@
     }
   }
 
+  &__time{
+    margin-right:8px;
+  }
+
+  &__deadLine{
+    margin-left:8px;
+  }
+
   &__down{
     display: flex;
     justify-content: space-between;
