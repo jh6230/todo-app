@@ -11,11 +11,11 @@
     @CSRF.formField
     <div class="inputs">
       <label class="inputs__name">タイトル</label>
-      <div class = "inputs__form">@inputText(vv.todoForm("title"))</div>
+      <div class = "inputs__form">@inputText(vv.todoForm("title"), 'placeholder -> "タイトルを入力して下さい")</div>
     </div>
     <div class="inputs">
       <label class="inputs__name">Todo</label>
-      <div class="inputs__form">@textarea(vv.todoForm("content"))</div>
+      <div class="inputs__form">@textarea(vv.todoForm("content"), 'placeholder -> "Todoの内容を入力して下さい")</div>
     </div>
     
     <div class="inputs">
