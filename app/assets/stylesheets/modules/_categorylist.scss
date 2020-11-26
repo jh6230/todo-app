@@ -9,6 +9,12 @@
     width:60%;
     height:80x;
     margin-top:25px;
+    display: flex;
+
+    &__left{
+      width: 700px;
+      height: 80px;
+    }
 
     table{
       width: 500px;
@@ -25,8 +31,12 @@
       margin:20px 50px 0 0 ;
       float: right;
     }
+
+    &__icon{
+      list-style: none;
+      margin-top: 10px;
+    }
     &__link{
-      font-weight: bold;
       color: black;
       size: 130%;
     }
