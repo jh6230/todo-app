@@ -18,31 +18,39 @@
 
 @for(todo <- vv.todos){
     <div class="todoBox">
-      <div class="todoBox__upper">
-        <p class="todoBox__title">タイトル: @todo.title | </p>        
+      <div class="todoBox__left">
 
-        <p class= "todoBox__category">カテゴリー: 
-        <a class="@todo.categoryColor"
-          href= "@controllers.todo.routes.TodoController.todoCategory(todo.categoryId)">
-          @todo.categoryName.getOrElse("未設定")</a> | 
-        </p> 
-        <p class="todoBox__status">進捗: 
-          <a class="todoBox__status-link" href="@controllers.todo.routes.TodoController.listOfState(todo.state.code.toInt)"> @todo.state.name
-          </a> |
-        </p> 
+        <div class="todoBox__upper">
+          <p class="todoBox__title">タイトル: @todo.title | </p>        
 
-        <p class="todoBox__date">作成・更新日: @Format.localDataTime(todo.updatedAt) | </p>
-        <p class="todoBox__deadLine">期日: @Format.localDate(todo.deadline)</p>
-    </div>
+          <p class= "todoBox__category">カテゴリー: 
+          <a class="@todo.categoryColor"
+            href= "@controllers.todo.routes.TodoController.todoCategory(todo.categoryId)">
+            @todo.categoryName.getOrElse("未設定")</a> | 
+          </p> 
+          <p class="todoBox__status">進捗: 
+            <a class="todoBox__status-link" href="@controllers.todo.routes.TodoController.listOfState(todo.state.code.toInt)"> @todo.state.name
+            </a> |
+          </p> 
 
-      <div class="todoBox__down">
-        <p class="todoBox__todo">@Html(todo.content.replaceAll("(\r\n|\r|\n)","<br>"))</p>
-        <ul class="todoBox__ope">
-          <a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.edit(todo.id)"><i class="far fa-edit"></i></a>
-          <a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.delete(todo.id)"><i class="fas fa-trash"></i></a>
-        </ul>
+          <p class="todoBox__date">作成・更新日: @Format.localDataTime(todo.updatedAt) | </p>
+          <p class="todoBox__deadLine">期日: @Format.localDate(todo.deadline)</p>
+        </div>
+
+        <div class="todoBox__down">
+          <p class="todoBox__todo">@Html(todo.content.replaceAll("(\r\n|\r|\n)","<br>"))</p>
+        </div>
+
       </div>
-
+      
+      <div class="todoBox__right">
+          <li class="todoBox__icon">
+            <a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.edit(todo.id)"><i class="far fa-edit"></i></a>
+          </li>
+          <li class="todoBox__icon">
+            <a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.delete(todo.id)"><i class="fas fa-trash"></i></a>
+          </li>
+      </div>
     </div>
 }
 </div>
