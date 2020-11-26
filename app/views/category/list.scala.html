@@ -30,11 +30,14 @@
 
     </table>
 
-    <div class="categoryBox__ope">
-      <button><a class = "categoryBox__link" href="@controllers.category.routes.CategoryController.edit(category.id)">編集</a></button>
-      <button><a class = "categoryBox__link" href="@controllers.category.routes.CategoryController.delete(category.id)">削除</a></button>
-    </div>
-  
+
+      <li class="categoryBox__icon">
+        <a class = "categoryBox__link" href = "@controllers.category.routes.CategoryController.edit(category.id)"><i class="far fa-edit"></i></a>
+      </li>
+      <li class="categoryBox__icon">
+        <a class = "categoryBox__link" href = "@controllers.category.routes.CategoryController.delete(category.id)"><i class="fas fa-trash"></i></a>
+      </li>
+ 
   </div>
 
   } 
