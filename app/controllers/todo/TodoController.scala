@@ -307,7 +307,7 @@ class TodoController @Inject()(
       todoDelete <- TodoRepository.remove(todoId)
     } yield {
       todoDelete match {
-        case _ => Redirect(routes.TodoController.list())
+        case _ => Redirect(routes.TodoController.list()).flashing("success" -> "Todoを削除しました")
       }
     }
   }

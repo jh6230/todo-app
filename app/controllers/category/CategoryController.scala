@@ -153,7 +153,7 @@ class CategoryController @Inject()(
               case None =>
                 Redirect(routes.CategoryController.edit(id)) //更新が失敗したら元の画面へリダイレクト
               case Some(_) =>
-                Redirect(routes.CategoryController.list()).flashing("success" -> "カテゴリーを追加しました!!") 
+                Redirect(routes.CategoryController.list()).flashing("success" -> "カテゴリーを編集しました!!") 
                 //更新できたら一覧へリダイレクト
             }
           }
@@ -170,7 +170,7 @@ class CategoryController @Inject()(
     } yield {
 
       (todosDelete, categoryDelete) match {
-        case _ => Redirect(routes.CategoryController.list()) //削除へのルーティング
+        case _ => Redirect(routes.CategoryController.list()).flashing("success" -> "カテゴリーを削除しました!!") //削除へのルーティング
       }
     }
   }
