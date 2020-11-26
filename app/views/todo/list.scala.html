@@ -38,8 +38,10 @@
       <div class="todoBox__down">
         <p class="todoBox__todo">@Html(todo.content.replaceAll("(\r\n|\r|\n)","<br>"))</p>
         <ul class="todoBox__ope">
-          <button><a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.edit(todo.id)">編集</a></button>
-          <button><a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.delete(todo.id)">削除</a></button>
+          @*<button><a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.edit(todo.id)">編集</a></button>*@
+          <a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.edit(todo.id)"><i class="far fa-edit"></i></a>
+          @*<button><a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.delete(todo.id)">削除</a></button>*@
+          <a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.delete(todo.id)"><i class="fas fa-trash"></i></a>
         </ul>
       </div>
 
