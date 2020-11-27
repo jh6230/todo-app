@@ -10,6 +10,17 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.12.11"
 
+scalacOptions ++= Seq(
+  "-encoding", "utf8", // Option and arguments on same line
+  "-Xfatal-warnings",  // New lines for each options
+  "-deprecation",
+  "-unchecked",
+  "-language:implicitConversions",
+  "-language:higherKinds",
+  "-language:existentials",
+  "-language:postfixOps"
+)
+
 libraryDependencies += guice
 libraryDependencies += jdbc
 libraryDependencies += "org.webjars.bower" % "compass-mixins" % "0.12.7"

@@ -30,7 +30,6 @@ class TodoController @Inject()(
 ) extends BaseController
     with I18nSupport {
 
-  val Home = Redirect(routes.TodoController.list())
 
   //新規追加機能用のフォームオブジェクト
   val todoForm: Form[TodoForm] = Form(

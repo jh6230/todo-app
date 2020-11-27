@@ -44,7 +44,9 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
         LocalDateTime
     )
 
-    def * = (id.?, categoryId, title, content, state, deadline, updatedAt, createdAt) <> (
+    //Slick.liftedに定義されている抽象メソッド
+    //BasicQueryTableの型がSlick .lsftedを継承しているため
+    def *  = (id.?, categoryId, title, content, state, deadline, updatedAt, createdAt) <> (
       (t: TableElementTuple) =>
         Todo(
           t._1,
