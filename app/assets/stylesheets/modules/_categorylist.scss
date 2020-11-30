@@ -6,49 +6,49 @@
   align-items: center;
 
   .categoryBox{
-    width:60%;
     margin-top:25px;
     display: flex;
 
     &__left{
-      width: 700px;
+      //width: 800px;
       height: 80px;
     }
 
     &__right{
-      padding-right:20px;
+      padding-right:30px;
     }
 
     table{
-      width: 500px;
-      height: 35px;
+      width: 700px;
+      height: 80px;
     }
     th{
       padding: 5px;
     }
     td{
-      font-size: 18px;;
+      font-size: 18px;
       padding: 5px;
     }
 
     &__icon{
       list-style: none;
       margin-top: 10px;
+      margin-left: 20px;
     }
     &__link{
       color: black;
-      size: 130%;
+      font-size: 130%;
     }
     
   }
   .categoryAdd{
-      width: 500px;
+      width: 700px;
       height: 50px;
       border-radius: 5px;
       border:solid 3px;
       border-color:#00FF00;
       background-color:#00FF00;
-      margin:30px 50px 0 0;
+      margin:30px 70px 0 0;
       &__link{
         color: white;
         font-weight: bold;
