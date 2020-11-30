@@ -7,13 +7,16 @@
 
   .categoryBox{
     width:60%;
-    height:80x;
     margin-top:25px;
     display: flex;
 
     &__left{
       width: 700px;
       height: 80px;
+    }
+
+    &__right{
+      padding-right:20px;
     }
 
     table{
@@ -26,10 +29,6 @@
     td{
       font-size: 18px;;
       padding: 5px;
-    }
-    &__ope{
-      margin:20px 50px 0 0 ;
-      float: right;
     }
 
     &__icon{
