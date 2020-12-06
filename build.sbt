@@ -4,8 +4,6 @@ import sbt._
 name := """to-do-sample"""
 organization := "com.example"
 
-version := "1.0-SNAPSHOT"
-
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.12.11"
@@ -41,3 +39,4 @@ libraryDependencies ++= Seq(
 
 // Adds additional packages into conf/routes
 // play.sbt.routes.RoutesKeys.routesImport += "com.example.binders._"
+

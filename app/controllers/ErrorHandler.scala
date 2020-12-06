@@ -18,7 +18,6 @@ class ErrorHandler extends HttpErrorHandler {
   def onServerError(request: RequestHeader, exception: Throwable) = {
     Future.successful(
       InternalServerError("A server error occurred: " + exception.getMessage)
-//      InternalServerError(Redirect(controllers.todo.routes.TodoController.list()))
     )
   }
 }

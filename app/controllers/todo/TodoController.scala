@@ -1,20 +1,20 @@
 package controllers.todo
 
-import javax.inject._
 import ixias.model._
-import play.api.mvc._
+import java.time.LocalDate
+import javax.inject._
+import lib.model.Todo.TodoStatus
+import lib.model.{Todo, Category}
+import lib.persistence.default.{TodoRepository, CategoryRepository}
+import model.TodoWithCategory
+import model.{ViewValueTodo, ViewValueTodoAdd, ViewValueTodoEdit}
 import play.api.data.Form
 import play.api.data.Forms._
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
-import lib.model.{Todo, Category}
-import model.TodoWithCategory
-import lib.persistence.default.{TodoRepository, CategoryRepository}
-import model.{ViewValueTodo, ViewValueTodoAdd, ViewValueTodoEdit}
 import play.api.i18n.I18nSupport
-import lib.model.Todo.TodoStatus
+import play.api.mvc._
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import views.html.defaultpages.todo
-import java.time.LocalDate
 
 case class TodoForm(
     title: String,
@@ -60,13 +60,13 @@ class TodoController @Inject()(
             todos.v.content,
             todos.v.state,
             todos.v.deadline,
-            todos.v.updatedAt, 
-            categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name), 
+            todos.v.updatedAt,
+            categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name),
             categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
-          )            
-      )      
+          )
+      )
     )
-      
+
       Ok(views.html.todo.list(vv))
     }
   }
@@ -89,10 +89,10 @@ class TodoController @Inject()(
               todos.v.content,
               todos.v.state,
               todos.v.deadline,
-              todos.v.updatedAt, 
-              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name), 
+              todos.v.updatedAt,
+              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name),
               categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
-            )       
+            )
         )
       )
         Ok(views.html.todo.list(vv))
@@ -121,10 +121,10 @@ class TodoController @Inject()(
               todos.v.content,
               todos.v.state,
               todos.v.deadline,
-              todos.v.updatedAt, 
-              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name), 
+              todos.v.updatedAt,
+              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name),
               categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
-            )       
+            )
         )
       )
 
@@ -151,10 +151,10 @@ class TodoController @Inject()(
               todos.v.content,
               todos.v.state,
               todos.v.deadline,
-              todos.v.updatedAt, 
-              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name), 
+              todos.v.updatedAt,
+              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name),
               categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
-            )       
+            )
         )
       )
         Ok(views.html.todo.list(vv))

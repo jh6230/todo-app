@@ -12,3 +12,4 @@ project/metals.sbt
 project/project/metals.sbt
 docker/
 init-mysql.sh
+.vscode
