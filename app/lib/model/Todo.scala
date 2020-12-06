@@ -38,9 +38,9 @@ object Todo {
     case object Notyet extends TodoStatus(0, "未着手")
     case object Active extends TodoStatus(1, "進行中")
     case object Finished extends TodoStatus(2, "完了")
-    
+
   }
-  
+
 
   //INSERT時のIDがAutoincrementのため,IDなしであることを示すオブジェクトに変換
   def apply(
