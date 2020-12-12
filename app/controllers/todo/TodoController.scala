@@ -21,7 +21,7 @@ case class TodoForm(
     categoryId: Long,
     content: String,
     state: Short,
-    deadline:LocalDate
+    deadline: LocalDate
 )
 
 @Singleton
@@ -29,7 +29,6 @@ class TodoController @Inject()(
     val controllerComponents: ControllerComponents
 ) extends BaseController
     with I18nSupport {
-
 
   //新規追加機能用のフォームオブジェクト
   val todoForm: Form[TodoForm] = Form(
@@ -53,19 +52,20 @@ class TodoController @Inject()(
         cssSrc = Seq("main.css"),
         jsSrc = Seq("main.js"),
         todos = todosEmbed.map(
-          todos => TodoWithCategory(
-            todos.id,
-            todos.v.categoryId,
-            todos.v.title,
-            todos.v.content,
-            todos.v.state,
-            todos.v.deadline,
-            todos.v.updatedAt,
-            categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name),
-            categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
-          )
+          todos =>
+            TodoWithCategory(
+              todos.id,
+              todos.v.categoryId,
+              todos.v.title,
+              todos.v.content,
+              todos.v.state,
+              todos.v.deadline,
+              todos.v.updatedAt,
+              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name),
+              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
+            )
+        )
       )
-    )
 
       Ok(views.html.todo.list(vv))
     }
@@ -82,19 +82,20 @@ class TodoController @Inject()(
           cssSrc = Seq("main.css"),
           jsSrc = Seq("main.js"),
           todos = todosEmbed.map(
-            todos => TodoWithCategory(
-              todos.id,
-              todos.v.categoryId,
-              todos.v.title,
-              todos.v.content,
-              todos.v.state,
-              todos.v.deadline,
-              todos.v.updatedAt,
-              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name),
-              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
-            )
+            todos =>
+              TodoWithCategory(
+                todos.id,
+                todos.v.categoryId,
+                todos.v.title,
+                todos.v.content,
+                todos.v.state,
+                todos.v.deadline,
+                todos.v.updatedAt,
+                categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name),
+                categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
+              )
+          )
         )
-      )
         Ok(views.html.todo.list(vv))
       }
 
@@ -114,19 +115,20 @@ class TodoController @Inject()(
           cssSrc = Seq("main.css"),
           jsSrc = Seq("main.js"),
           todos = todosEmbed.map(
-            todos => TodoWithCategory(
-              todos.id,
-              todos.v.categoryId,
-              todos.v.title,
-              todos.v.content,
-              todos.v.state,
-              todos.v.deadline,
-              todos.v.updatedAt,
-              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name),
-              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
-            )
+            todos =>
+              TodoWithCategory(
+                todos.id,
+                todos.v.categoryId,
+                todos.v.title,
+                todos.v.content,
+                todos.v.state,
+                todos.v.deadline,
+                todos.v.updatedAt,
+                categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name),
+                categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
+              )
+          )
         )
-      )
 
         Ok(views.html.todo.list(vv))
       }
@@ -144,19 +146,20 @@ class TodoController @Inject()(
           cssSrc = Seq("main.css"),
           jsSrc = Seq("main.js"),
           todos = todosEmbed.map(
-            todos => TodoWithCategory(
-              todos.id,
-              todos.v.categoryId,
-              todos.v.title,
-              todos.v.content,
-              todos.v.state,
-              todos.v.deadline,
-              todos.v.updatedAt,
-              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name),
-              categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
-            )
+            todos =>
+              TodoWithCategory(
+                todos.id,
+                todos.v.categoryId,
+                todos.v.title,
+                todos.v.content,
+                todos.v.state,
+                todos.v.deadline,
+                todos.v.updatedAt,
+                categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.name),
+                categoriesEmbed.find(_.id == todos.v.categoryId).map(_.v.color)
+              )
+          )
         )
-      )
         Ok(views.html.todo.list(vv))
       }
   }
@@ -206,12 +209,13 @@ class TodoController @Inject()(
             title = todoForm.title,
             content = todoForm.content,
             state = TodoStatus.apply(todoForm.state),
-            deadline= todoForm.deadline
+            deadline = todoForm.deadline
           ).toWithNoId
           for {
             _ <- TodoRepository.add(todoWithNoId)
           } yield {
-            Redirect(routes.TodoController.list()).flashing("success" -> "Todoを追加しました!!")
+            Redirect(routes.TodoController.list())
+              .flashing("success" -> "Todoを追加しました!!")
           }
         }
       )
@@ -227,7 +231,7 @@ class TodoController @Inject()(
       todoEmbed match {
         case Some(todoEmbed) =>
           val vv = ViewValueTodoEdit(
-            id  = id,
+            id = id,
             head = "Todo編集",
             cssSrc = Seq("main.css"),
             jsSrc = Seq("main.js"),
@@ -282,7 +286,7 @@ class TodoController @Inject()(
             title = todoForm.title,
             content = todoForm.content,
             state = TodoStatus.apply(todoForm.state),
-            deadline= todoForm.deadline
+            deadline = todoForm.deadline
           ).toEmbeddedId //EmbededId型に変換
           for {
             todoUpdate <- TodoRepository.update(todoEmbededId)
@@ -291,8 +295,9 @@ class TodoController @Inject()(
               case None =>
                 Redirect(routes.TodoController.edit(id)) //更新が失敗した場合元のページにリダイレクト
               case Some(_) =>
-                Redirect(routes.TodoController.list()).flashing("success" -> "Todoを更新しました!!")
-                //更新できたらトップページにリダイレクト
+                Redirect(routes.TodoController.list())
+                  .flashing("success" -> "Todoを更新しました!!")
+              //更新できたらトップページにリダイレクト
             }
           }
         }
@@ -306,10 +311,11 @@ class TodoController @Inject()(
       todoDelete <- TodoRepository.remove(todoId)
     } yield {
       todoDelete match {
-        case _ => Redirect(routes.TodoController.list()).flashing("success" -> "Todoを削除しました")
+        case _ =>
+          Redirect(routes.TodoController.list())
+            .flashing("success" -> "Todoを削除しました")
       }
     }
   }
-
 
 }

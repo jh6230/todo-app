@@ -41,7 +41,6 @@ object Todo {
 
   }
 
-
   //INSERT時のIDがAutoincrementのため,IDなしであることを示すオブジェクトに変換
   def apply(
       categoryId: Category.Id,
