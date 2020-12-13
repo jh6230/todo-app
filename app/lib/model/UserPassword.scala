@@ -27,8 +27,9 @@ object UserPassword {
   def verify(input: String, hash: String): Boolean = PBKDF2.compare(input, hash)
 
   def verifyOption(input: String, hash: String): Option[Unit] =
-    verify(input, hash) match {
-      case true  => Some(())
-      case false => None
+    if (verify(input, hash)) {
+      Some(())
+    } else {
+      None
     }
 }

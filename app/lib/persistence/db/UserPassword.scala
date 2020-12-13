@@ -4,7 +4,6 @@ import java.time.LocalDateTime
 import slick.jdbc.JdbcProfile
 import lib.model.{User, UserPassword}
 import ixias.persistence.model.Table
-import slick.ast.ColumnOption.PrimaryKey
 
 case class UserPasswordTable[P <: JdbcProfile]()(implicit val driver: P)
     extends Table[UserPassword, P] {
