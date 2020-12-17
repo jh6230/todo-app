@@ -8,7 +8,6 @@ import play.api.mvc.RequestHeader
 import scala.concurrent.{Future, ExecutionContext}
 import scala.concurrent.duration.Duration
 
-import ixias.model._
 import ixias.security.TokenGenerator
 import ixias.play.api.auth.container.Container
 import ixias.play.api.auth.token.Token.AuthenticityToken
@@ -30,13 +29,12 @@ case class AuthTokenContainer @Inject()(
       authTokenOpt <- AuthTokenRepository.getByUserId(userId)
     } yield authTokenOpt).flatMap {
       case Some(authToken) => Future.successful(authToken.v.token)
-      case None => {
+      case None =>
         val token = AuthenticityToken(TokenGenerator().next(TOKEN_LENGTH))
         val authToken = AuthToken(userId, token, expiry)
         for {
           _ <- AuthTokenRepository.add(authToken)
         } yield token
-      }
     }
   }
 
