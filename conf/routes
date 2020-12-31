@@ -21,6 +21,8 @@ POST     /category/edit/update    controllers.category.CategoryController.update
 GET      /category/delete/:id     controllers.category.CategoryController.delete(id: Long)
 DELETE   /category/delete         controllers.category.CategoryController.delete(id:Long)
 
+#Userに関するルーティング
+
 # CSS,jsファイルへのアクセス
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file           controllers.Assets.versioned(path="/public", file: Asset)
