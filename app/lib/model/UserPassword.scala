@@ -7,6 +7,7 @@ import java.time.LocalDateTime
 import UserPassword._
 import ixias.model.Entity
 import ixias.model.EntityModel
+
 case class UserPassword(
     id: Option[User.Id],
     hash: String,
@@ -21,6 +22,7 @@ object UserPassword {
       hash = hash(password)
     ).toWithNoId
   }
+
   //パスワードをチェックする
   def hash(password: String): String = PBKDF2.hash(password)
 

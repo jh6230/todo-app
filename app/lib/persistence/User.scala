@@ -19,6 +19,11 @@ case class UserRepository[P <: JdbcProfile]()(implicit val driver: P)
   def get(id: Id): Future[Option[EntityEmbeddedId]] =
     RunDBAction(UserTable, "slave") { _.filter(_.id === id).result.headOption }
 
+  def getByEmail(email: String): Future[Option[EntityEmbeddedId]] =
+    RunDBAction(UserTable, "slave") { slick =>
+      slick.filter(_.email === email).result.headOption
+    }
+
   /**
     * Add User Data
     */

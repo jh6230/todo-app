@@ -1,8 +1,27 @@
+@import model.SignupFormData
 @import helper._
 @import model._
 
 @(vv: ViewValueSignup)(implicit messages: Messages, requestHeader: RequestHeader)
 @common.Default(vv){
+  <div class="form">
+    @form(action = controllers.user.routes.UserController.signup()){
+    @CSRF.formField
+    <div class="inputs">
+      <label class="inputs__name">メールアドレス</label>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    }
+  </div>
 
 
 }

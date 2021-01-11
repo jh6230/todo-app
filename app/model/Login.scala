@@ -9,7 +9,7 @@ case class ViewValueLogin(
     cssSrc: Seq[String],
     jsSrc: Seq[String],
     title: String = "ログイン",
-//    action: Call = controllers.routes.UserController.login(),
+    action: Call = controllers.user.routes.UserController.login(),
     submit: String = "ログイン",
     form: Form[LoginFormData]
 ) extends ViewValueCommon

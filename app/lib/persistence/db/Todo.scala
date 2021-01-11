@@ -25,6 +25,7 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
     import Todo._
     //Columns
     def id = column[Id]("id", O.UInt64, O.PrimaryKey, O.AutoInc)
+//    def userId = column[User.Id]("userId", O.UInt64)
     def categoryId = column[Category.Id]("category_id", O.UInt64)
     def title = column[String]("title", O.Utf8Char255)
     def content = column[String]("body", O.Text)
@@ -35,6 +36,7 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
 
     type TableElementTuple = (
         Option[Id],
+//        User.Id,
         Category.Id,
         String,
         String,
@@ -58,6 +60,7 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
             t._6,
             t._7,
             t._8
+//            t._9
           ),
         (v: TableElementType) =>
           Todo.unapply(v).map { t =>
@@ -69,7 +72,7 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
               t._5,
               t._6,
               LocalDateTime.now(),
-              t._7
+              t._8
             )
           }
       )

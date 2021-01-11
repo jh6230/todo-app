@@ -6,6 +6,7 @@ import mvc.auth.UserAuthProfile
 import controllers.todo._
 import model.{ViewValueLogin, ViewValueSignup}
 import model.{LoginForm, SignupForm}
+import model.FormErrors._
 
 import javax.inject._
 import play.api.mvc._
@@ -37,7 +38,7 @@ case class UserController @Inject()(
   //サインアップフォーム
   def showSignupForm() = AuthenticatedOrNot(authProfile) { implicit req =>
     authProfile.loggedIn match {
-      case Some(user) => Redirect(routes.TodoController.list())
+      case Some(user) => Redirect(controllers.todo.routes.TodoController.list())
       case None =>
         val vv = ViewValueSignup(
           head = "ユーザー登録",
@@ -53,7 +54,7 @@ case class UserController @Inject()(
   def showLoginForm(): Action[AnyContent] = AuthenticatedOrNot(authProfile) {
     implicit req =>
       authProfile.loggedIn match {
-        case Some(user) => Redirect(routes.TodoController.list())
+        case Some(user) => Redirect(controllers.todo.routes.TodoController.list())
         case None =>
           val vv = ViewValueLogin(
             head = "ログインフォーム",
@@ -65,6 +66,87 @@ case class UserController @Inject()(
       }
   }
 
+  //アカウント登録
+  def signup() = Action.async { implicit request =>
+    signupForm.bindFromRequest.fold(
+      formWithErrors => {
+        val signupError = ViewValueSignup(
+          head = "アカウント登録",
+          cssSrc = Seq("main.css"),
+          jsSrc = Seq("main.js"),
+          form = formWithErrors
+        )
+        Future.successful(BadRequest(views.html.auth.signup(signupError)))
+      },
+      userData => {
+        val hash = UserPassword.hash(userData.password)
+        val user = User(userData.name, userData.email)
+        UserRepository.getByEmail(user.v.email).flatMap {
+          case Some(emai) =>
+            val vv = ViewValueSignup(
+              head = "アカウント登録",
+              cssSrc = Seq("main.css"),
+              jsSrc = Seq("main.js"),
+              form = signupForm.withError(errorEmailDuplicated).fill(userData)
+            )
+            Future.successful(BadRequest(views.html.auth.signup(vv)))
+          case None =>
+            for {
+              uid_1 <- UserRepository.add(user)
+              uid_2 <- UserPasswordRepository.add(UserPassword(uid_1, hash))
+              result <- authProfile.loginSucceeded(uid_1, { token =>
+                Redirect(controllers.todo.routes.TodoController.list())
+              })
+            } yield result
+        }
+      }
+    )
+  }
+
   //ログイン
+  def login() = Action.async { implicit request =>
+    loginForm.bindFromRequest.fold(
+      formWithErrors => {
+        val loginError = ViewValueLogin(
+          head = "ログイン",
+          cssSrc = Seq("main.css"),
+          jsSrc = Seq("main.js"),
+          form = formWithErrors
+        )
+        Future.successful(BadRequest(views.html.auth.login(loginError)))
+      },
+      userData => {
+        ((for {
+          user <- OptionT(UserRepository.getByEmail(userData.email))
+          pass <- OptionT(UserPasswordRepository.get(user.id))
+          _ <- OptionT(
+            Future.successful(
+              UserPassword.verifyOption(userData.password, pass.v.hash) //パスワードを検証する
+            )
+          )
+        } yield user.id).semiflatMap {
+          case uid =>
+            authProfile.loginSucceeded(uid, { token =>
+              Redirect(controllers.todo.routes.TodoController.list())
+            })
+        }).toRight(
+          BadRequest(views.html.auth.login(ViewValueLogin(
+            head = "ログイン",
+            cssSrc = Seq("main.css"),
+            jsSrc = Seq("main.js"),
+            form  = loginForm.withError(errorLoginEmail).withError(errorLoginPassword).fill(userData)
+          )))
+        ).value
+      }
+    )
+  }
+
+  def logout() = Authenticated(authProfile).async( implicit request =>
+    authProfile.loggedIn { user =>
+      authProfile.logoutSucceeded(user.id, {
+        Redirect(controllers.todo.routes.TodoController.list())
+      })
+    }
+  )
 
 }

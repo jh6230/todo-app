@@ -12,6 +12,7 @@ import Todo._
 //Todoを表すモデル
 case class Todo(
     id: Option[Id],
+//    userId: User.Id,
     categoryId: Category.Id,
     title: String,
     content: String,
@@ -43,6 +44,7 @@ object Todo {
 
   //INSERT時のIDがAutoincrementのため,IDなしであることを示すオブジェクトに変換
   def apply(
+//      userId: User.Id,
       categoryId: Category.Id,
       title: String,
       content: String,
@@ -52,6 +54,7 @@ object Todo {
     Entity.WithNoId {
       new Todo(
         None,
+//        userId,
         categoryId,
         title,
         content,
@@ -59,5 +62,4 @@ object Todo {
         deadline
       )
     }
-
 }
