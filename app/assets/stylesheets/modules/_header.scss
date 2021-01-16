@@ -23,7 +23,6 @@
 
   &__item{
     list-style: none;
-    @include border;
     border-color:#008080;
     background-color:#00FF00;
 
@@ -40,7 +39,3 @@
     background-color:#008080;
   }
 }
-
-
-
-

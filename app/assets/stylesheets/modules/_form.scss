@@ -28,7 +28,6 @@
       input[type="date"]{
         width: 450px;
         height: 35px;
-        @include border;
         margin:5px 0 8px 30px;
       }
 
@@ -36,7 +35,6 @@
          width: 450px;
          height:35px;
          font-size: 15px;
-         @include border;
          margin:5px 0 8px 30px;
       }
 
@@ -45,13 +43,11 @@
         height: 120px;
         margin:10px 0 10px 30px;
         font-size: 20px;
-        @include border;
         resize: vertical;
       }
       select{
         width: 100px;
         height: 35px;
-        @include border;
         margin:10px 0 10px 30px;
         font-size: 15px;
       }

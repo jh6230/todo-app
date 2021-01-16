@@ -35,6 +35,7 @@ case class ViewValueTodoAdd(
     head: String,
     cssSrc: Seq[String],
     jsSrc: Seq[String],
+    override val user: Option[ViewValueUser],
     todoForm: Form[TodoForm],
     categories: Seq[(String, String)]
 ) extends ViewValueCommon
@@ -44,6 +45,7 @@ case class ViewValueTodoEdit(
     head: String,
     cssSrc: Seq[String],
     jsSrc: Seq[String],
+    override val user: Option[ViewValueUser],
     todoForm: Form[TodoForm],
     categories: Seq[(String, String)]
 ) extends ViewValueCommon

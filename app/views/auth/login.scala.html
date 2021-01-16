@@ -1,12 +1,26 @@
+@import model.LoginFormData
 @import helper._
 @import model._
 
 
 @(vv: model.ViewValueLogin)(implicit messages: Messages, requestHeader: RequestHeader)
+@implicitField = @{ FieldConstructor(plainFieldConstructor.f)}
 @common.Default(vv) {
+  <div class="form">
+    @form(action = controllers.user.routes.UserController.login()){
+    @CSRF.formField
+      <div class="inputs">
+        <label class="inputs__name">メールアドレス</label>
+        <div class="inputs__form">@inputText(vv.form("email"), 'placeholder -> "メールアドレス")</div>
+      </div>
 
+      <div class="inputs">
+        <label class="inputs__name">パスワード</label>
+        <div class="inputs__form">@inputText(vv.form("password"), 'placeholder -> "パスワード")</div>
+      </div>
 
-
-
-
+      <input type="submit" value ="@vv.submit">
+      <input type="reset" value="リセット">
+    }
+  </div>
 }
