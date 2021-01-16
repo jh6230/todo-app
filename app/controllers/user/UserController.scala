@@ -54,7 +54,8 @@ case class UserController @Inject()(
   def showLoginForm(): Action[AnyContent] = AuthenticatedOrNot(authProfile) {
     implicit req =>
       authProfile.loggedIn match {
-        case Some(user) => Redirect(controllers.todo.routes.TodoController.list())
+        case Some(user) =>
+          Redirect(controllers.todo.routes.TodoController.list())
         case None =>
           val vv = ViewValueLogin(
             head = "ログインフォーム",
@@ -78,28 +79,38 @@ case class UserController @Inject()(
         )
         Future.successful(BadRequest(views.html.auth.signup(signupError)))
       },
-      userData => {
-        val hash = UserPassword.hash(userData.password)
-        val user = User(userData.name, userData.email)
-        UserRepository.getByEmail(user.v.email).flatMap {
-          case Some(emai) =>
-            val vv = ViewValueSignup(
-              head = "アカウント登録",
-              cssSrc = Seq("main.css"),
-              jsSrc = Seq("main.js"),
-              form = signupForm.withError(errorEmailDuplicated).fill(userData)
-            )
-            Future.successful(BadRequest(views.html.auth.signup(vv)))
-          case None =>
+      userData =>
+        EitherT(
+          for {
+            userOpt <- UserRepository.getByEmail(userData.email)
+          } yield userOpt match {
+            case None => Right(userData)
+            case Some(email) =>
+              Left(
+                BadRequest(
+                  views.html.auth.signup(
+                    ViewValueSignup(
+                      head = "サインアップ",
+                      cssSrc = Seq("main.css"),
+                      jsSrc = Seq("main.js"),
+                      form = signupForm
+                        .withError(errorEmailDuplicated)
+                        .fill(userData)
+                    )
+                  )
+                )
+              )
+          }
+        ) semiflatMap {
+          case userData =>
             for {
-              uid_1 <- UserRepository.add(user)
-              uid_2 <- UserPasswordRepository.add(UserPassword(uid_1, hash))
-              result <- authProfile.loginSucceeded(uid_1, { token =>
+              uid <- UserRepository.add(userData.createUser)
+              _ <- UserPasswordRepository.insert(userData.createUserPassword(uid))
+              result <- authProfile.loginSucceeded(uid, { _ =>
                 Redirect(controllers.todo.routes.TodoController.list())
               })
             } yield result
         }
-      }
     )
   }
 
@@ -121,7 +132,8 @@ case class UserController @Inject()(
           pass <- OptionT(UserPasswordRepository.get(user.id))
           _ <- OptionT(
             Future.successful(
-              UserPassword.verifyOption(userData.password, pass.v.hash) //パスワードを検証する
+              UserPassword
+                .verifyOption(userData.password, pass.v.hash) //パスワードを検証する
             )
           )
         } yield user.id).semiflatMap {
@@ -130,23 +142,33 @@ case class UserController @Inject()(
               Redirect(controllers.todo.routes.TodoController.list())
             })
         }).toRight(
-          BadRequest(views.html.auth.login(ViewValueLogin(
-            head = "ログイン",
-            cssSrc = Seq("main.css"),
-            jsSrc = Seq("main.js"),
-            form  = loginForm.withError(errorLoginEmail).withError(errorLoginPassword).fill(userData)
-          )))
-        ).value
+            BadRequest(
+              views.html.auth.login(
+                ViewValueLogin(
+                  head = "ログイン",
+                  cssSrc = Seq("main.css"),
+                  jsSrc = Seq("main.js"),
+                  form = loginForm
+                    .withError(errorLoginEmail)
+                    .withError(errorLoginPassword)
+                    .fill(userData)
+                )
+              )
+            )
+          )
+          .value
       }
     )
   }
 
-  def logout() = Authenticated(authProfile).async( implicit request =>
-    authProfile.loggedIn { user =>
-      authProfile.logoutSucceeded(user.id, {
-        Redirect(controllers.todo.routes.TodoController.list())
-      })
-    }
-  )
+  def logout() =
+    Authenticated(authProfile).async(
+      implicit request =>
+        authProfile.loggedIn { user =>
+          authProfile.logoutSucceeded(user.id, {
+            Redirect(controllers.todo.routes.TodoController.list())
+          })
+        }
+    )
 
 }

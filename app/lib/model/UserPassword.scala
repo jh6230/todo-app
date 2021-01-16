@@ -5,9 +5,6 @@ import ixias.security.PBKDF2
 import java.time.LocalDateTime
 
 import UserPassword._
-import ixias.model.Entity
-import ixias.model.EntityModel
-
 case class UserPassword(
     id: Option[User.Id],
     hash: String,
@@ -16,12 +13,11 @@ case class UserPassword(
 ) extends EntityModel[User.Id]
 
 object UserPassword {
-  def apply(id: User.Id, password: String): UserPassword#WithNoId = {
-    new UserPassword(
-      id = Some(id),
-      hash = hash(password)
-    ).toWithNoId
-  }
+  def build(id: User.Id, password: String): UserPassword#EmbeddedId =
+    UserPassword(
+      Some(id),
+      hash(password)
+    ).toEmbeddedId
 
   //パスワードをチェックする
   def hash(password: String): String = PBKDF2.hash(password)

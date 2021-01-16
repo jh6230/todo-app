@@ -7,20 +7,26 @@ import play.api.data.validation._
 import play.api.mvc.Call
 import scala.util.matching.Regex
 
+import lib.model.{User, UserPassword}
+
+case class SignupFormData(name: String, email: String, password: String) {
+  def createUser(): User#WithNoId = User(None, name, email).toWithNoId
+  def createUserPassword(uid: User.Id): UserPassword#EmbeddedId =
+    UserPassword.build(uid, password)
+}
+
 case class ViewValueSignup(
     head: String,
     cssSrc: Seq[String],
     jsSrc: Seq[String],
     title: String = "サインアップ",
-    action: Call  = controllers.user.routes.UserController.signup(),
+    action: Call = controllers.user.routes.UserController.signup(),
     submit: String = "サインアップ",
     form: Form[SignupFormData]
 ) extends ViewValueCommon
 
-case class SignupFormData(name: String, email: String, password: String)
-
 object SignupForm {
-  val passwordPattern: Regex = """^[\x20-\x7e]{8,}$""".r
+  val passwordPattern = """^[\x20-\x7e]{8,}$""".r
 
   val passwordConstraint: Constraint[String] =
     Constraint("constraints.passwordpatterncheck")({ password =>
@@ -37,7 +43,7 @@ object SignupForm {
       }
     })
 
-  val dataMapping: Mapping[SignupFormData] =
+  val dataMapping =
     mapping(
       "name" -> nonEmptyText,
       "email" -> email,
