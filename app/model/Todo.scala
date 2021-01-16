@@ -8,6 +8,7 @@ import lib.model.Todo.TodoStatus
 import lib.model.Category.CategoryColor
 import controllers.todo.TodoForm
 import play.api.data.Form
+import model.component.ViewValueUser
 
 //todo.listで使用するカテゴリーの情報を持ったcase class
 case class TodoWithCategory(
@@ -26,6 +27,7 @@ case class ViewValueTodo(
     head: String,
     cssSrc: Seq[String],
     jsSrc: Seq[String],
+    override val user: Option[ViewValueUser],
     todos: Seq[TodoWithCategory]
 ) extends ViewValueCommon
 

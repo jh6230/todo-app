@@ -7,11 +7,14 @@ import lib.model.{Todo, Category}
 import lib.persistence.default.{TodoRepository, CategoryRepository}
 import model.TodoWithCategory
 import model.{ViewValueTodo, ViewValueTodoAdd, ViewValueTodoEdit}
+import model.component.ViewValueUser
+import mvc.auth._
+import ixias.play.api.auth.mvc.AuthExtensionMethods
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.I18nSupport
 import play.api.mvc._
-import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent._
 
 case class TodoForm(
     title: String,
@@ -23,10 +26,11 @@ case class TodoForm(
 
 @Singleton
 class TodoController @Inject()(
-    val controllerComponents: ControllerComponents
-) extends BaseController
-    with I18nSupport {
-
+    val controllerComponents: ControllerComponents,
+    val authProfile: UserAuthProfile
+)(implicit ec: ExecutionContext) extends BaseController
+    with I18nSupport
+    with AuthExtensionMethods {
   //新規追加機能用のフォームオブジェクト
   val todoForm: Form[TodoForm] = Form(
     mapping(
@@ -39,8 +43,9 @@ class TodoController @Inject()(
   )
 
   //Todo一覧表示
-  def list(): Action[AnyContent] = Action async {
+  def list() = Authenticated(authProfile).async {
     implicit request: Request[AnyContent] =>
+      authProfile.loggedIn { user =>
       for {
         todosEmbed <- TodoRepository.all()
         categoriesEmbed <- CategoryRepository.all()
@@ -49,6 +54,7 @@ class TodoController @Inject()(
           head = "Todo一覧",
           cssSrc = Seq("main.css"),
           jsSrc = Seq("main.js"),
+          user  = Some(ViewValueUser.from(user)),
           todos = todosEmbed.map(
             todos =>
               TodoWithCategory(
@@ -67,10 +73,12 @@ class TodoController @Inject()(
 
         Ok(views.html.todo.list(vv))
       }
+    }
   }
   //あいまい検索
-  def search(keyword: String): Action[AnyContent] = Action async {
+  def search(keyword: String) = Authenticated(authProfile) async {
     implicit request: Request[AnyContent] =>
+      authProfile.loggedIn { user  =>
       for {
         todosEmbed <- TodoRepository.search(keyword)
         categoriesEmbed <- CategoryRepository.all()
@@ -79,6 +87,7 @@ class TodoController @Inject()(
           head = "検索結果",
           cssSrc = Seq("main.css"),
           jsSrc = Seq("main.js"),
+          user = Some(ViewValueUser.from(user)),
           todos = todosEmbed.map(
             todos =>
               TodoWithCategory(
@@ -96,12 +105,13 @@ class TodoController @Inject()(
         )
         Ok(views.html.todo.list(vv))
       }
-
+    }
   }
 
   //stateごとの一覧表示
-  def listOfState(state: Int): Action[AnyContent] = Action async {
+  def listOfState(state: Int) = Authenticated(authProfile) async {
     implicit request: Request[AnyContent] =>
+    authProfile.loggedIn { user =>
       val stateCode: Short = state.toShort
       val todoStatus = TodoStatus.apply(stateCode)
       for {
@@ -112,6 +122,7 @@ class TodoController @Inject()(
           head = "進捗ごとのTodo一覧",
           cssSrc = Seq("main.css"),
           jsSrc = Seq("main.js"),
+          user   = Some(ViewValueUser.from(user)),
           todos = todosEmbed.map(
             todos =>
               TodoWithCategory(
@@ -127,13 +138,14 @@ class TodoController @Inject()(
               )
           )
         )
-
         Ok(views.html.todo.list(vv))
       }
+    }
   }
   //カテゴリーごとのTodo
-  def todoCategory(id: Long) = Action async {
+  def todoCategory(id: Long) = Authenticated(authProfile) async {
     implicit request: Request[AnyContent] =>
+    authProfile.loggedIn { user =>
       val categoryId = Category.Id(id)
       for {
         todosEmbed <- TodoRepository.filterByCategory(categoryId)
@@ -143,6 +155,7 @@ class TodoController @Inject()(
           head = "カテゴリーごとのTodo",
           cssSrc = Seq("main.css"),
           jsSrc = Seq("main.js"),
+          user  = Some(ViewValueUser.from(user)),
           todos = todosEmbed.map(
             todos =>
               TodoWithCategory(
@@ -160,6 +173,7 @@ class TodoController @Inject()(
         )
         Ok(views.html.todo.list(vv))
       }
+    }
   }
 
   //登録画面の表示用

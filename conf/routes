@@ -1,7 +1,8 @@
 
 
 #Todoに関するルーティング
-GET      /                       controllers.todo.TodoController.list()
+GET      /todo/list                       controllers.todo.TodoController.list()
+GET      /                       controllers.user.UserController.showSignupForm
 GET      /todo/search            controllers.todo.TodoController.search(keyword:String ?= "")
 GET      /todo/add               controllers.todo.TodoController.register()
 POST     /todo/add               controllers.todo.TodoController.add()

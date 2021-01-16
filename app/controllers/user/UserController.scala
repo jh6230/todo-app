@@ -166,7 +166,7 @@ case class UserController @Inject()(
       implicit request =>
         authProfile.loggedIn { user =>
           authProfile.logoutSucceeded(user.id, {
-            Redirect(controllers.todo.routes.TodoController.list())
+            Redirect(controllers.user.routes.UserController.signup())
           })
         }
     )

@@ -17,12 +17,28 @@
           <a class="header__logo-link" href = "/">My Todo App</a>
         </span>
         <ul class = "header__nav">
-          <li class = "header__item">
-            <a class = "header__item-link" href = "@controllers.todo.routes.TodoController.add()">Todo新規追加</a>
-          </li>
-          <li class = "header__item">
-            <a class = "header__item-link" href = "@controllers.category.routes.CategoryController.list()">カテゴリー</a>
-          </li>
+          @vv.user match {
+            case Some(user) => {
+              <li class = "header__item">
+                <a class="header__item-link" href="@controllers.user.routes.UserController.logout()">ログアウト</a>
+              </li>
+              <li class = "header__item">
+                <a class = "header__item-link" href = "@controllers.todo.routes.TodoController.add()">Todo新規追加</a>
+              </li>
+              <li class = "header__item">
+                <a class = "header__item-link" href = "@controllers.category.routes.CategoryController.list()">カテゴリー</a>
+              </li>
+            }
+            case None => {
+              <li class = "header__item">
+                <a class="header__item-link" href="@controllers.user.routes.UserController.signup()">ユーザー登録</a>
+              </li>
+              <li class = "header__item">
+                <a class="header__item-link" href="@controllers.user.routes.UserController.login()">ログイン</a>
+              </li>
+            }
+          }
+    </ul>
       </div>
     </header>
     <main class="main">

@@ -8,30 +8,28 @@
 <p class="flash">@flash.get("success").getOrElse("Welcome!!")</p>
 <div class="searchForm">
 @form(action = controllers.todo.routes.TodoController.search()){
-  <input type = "search" class="searchForm__box" name="keyword" placeholder="タイトル 本文で検索">  
+  <input type = "search" class="searchForm__box" name="keyword" placeholder="タイトル 本文で検索">
   <input type = "submit" class="searchForm__btn" value="検索">
 }
 </div>
 
 <div class = "todoList">
-
-
 @for(todo <- vv.todos){
     <div class="todoBox">
       <div class="todoBox__left">
 
         <div class="todoBox__upper">
-          <p class="todoBox__title">タイトル: @todo.title | </p>        
+          <p class="todoBox__title">タイトル: @todo.title | </p>
 
-          <p class= "todoBox__category">カテゴリー: 
+          <p class= "todoBox__category">カテゴリー:
           <a class="@todo.categoryColor"
             href= "@controllers.todo.routes.TodoController.todoCategory(todo.categoryId)">
-            @todo.categoryName.getOrElse("未設定")</a> | 
-          </p> 
-          <p class="todoBox__status">進捗: 
+            @todo.categoryName.getOrElse("未設定")</a> |
+          </p>
+          <p class="todoBox__status">進捗:
             <a class="todoBox__status-link" href="@controllers.todo.routes.TodoController.listOfState(todo.state.code.toInt)"> @todo.state.name
             </a> |
-          </p> 
+          </p>
 
           <p class="todoBox__date">設定日: @Format.localDataTime(todo.updatedAt) | </p>
           <p class="todoBox__deadLine">期日: @Format.localDate(todo.deadline)</p>
@@ -42,7 +40,7 @@
         </div>
 
       </div>
-      
+
       <div class="todoBox__right">
           <li class="todoBox__icon">
             <a class = "todoBox__link" href = "@controllers.todo.routes.TodoController.edit(todo.id)"><i class="far fa-edit"></i></a>
@@ -54,7 +52,7 @@
     </div>
 }
 </div>
-  
-  
+
+
 
 }
