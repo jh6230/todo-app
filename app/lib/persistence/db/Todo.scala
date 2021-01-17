@@ -60,7 +60,6 @@ case class TodoTable[P <: JdbcProfile]()(implicit val driver: P)
             t._6,
             t._7,
             t._8
-//            t._9
           ),
         (v: TableElementType) =>
           Todo.unapply(v).map { t =>

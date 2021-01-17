@@ -75,7 +75,6 @@ class TodoController @Inject()(
                 )
             )
           )
-
           Ok(views.html.todo.list(vv))
         }
       }
