@@ -1,7 +1,7 @@
 
 
 #Todoに関するルーティング
-GET      /todo/list                       controllers.todo.TodoController.list()
+GET      /todo/list              controllers.todo.TodoController.list()
 GET      /                       controllers.user.UserController.showSignupForm
 GET      /todo/search            controllers.todo.TodoController.search(keyword:String ?= "")
 GET      /todo/add               controllers.todo.TodoController.register()
@@ -28,6 +28,10 @@ POST     /login                   controllers.user.UserController.login()
 GET      /signup                  controllers.user.UserController.showSignupForm
 POST     /signup                  controllers.user.UserController.signup()
 GET      /logout                  controllers.user.UserController.logout()
+
+# API
+GET     /api/todo/list            controllers.api.TodoApi.list()
+GET     /api/todo/detail/:id      controllers.api.TodoApi.get(id: Long)
 
 # CSS,jsファイルへのアクセス
 # Map static resources from the /public folder to the /assets URL path

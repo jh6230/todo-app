@@ -1,0 +1,6 @@
+<h1>Todo 一覧</h1>
+
+<div *ngFor= "let todo of todos">
+	<span>id:<a routerLink = "/todo/{{ todo.id }}">{{ todo.id }}</a></span>
+ 	タイトル: {{ todo.title }}
+</div>
