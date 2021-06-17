@@ -12,8 +12,8 @@ import { TodoService } from '../todo.service';
 export class TodoDetailComponent implements OnInit {
 
   constructor(
-		private todoService: TodoService,
-		private router:      ActivatedRoute
+		private todoService:  TodoService,
+		private activeRouter: ActivatedRoute
 		) { }
 
 	todo: any = []
@@ -23,10 +23,9 @@ export class TodoDetailComponent implements OnInit {
   }
 
 	getDetail(): void {
-		const id = Number(this.router.snapshot.paramMap.get('id'))
+		const id = Number(this.activeRouter.snapshot.paramMap.get('id'))
 		this.todoService.getTodoDetail(id)
 			.subscribe(todo => this.todo = todo)
-
 	}
 
 }

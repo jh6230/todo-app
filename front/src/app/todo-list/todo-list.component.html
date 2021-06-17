@@ -3,4 +3,5 @@
 <div *ngFor= "let todo of todos">
 	<span>id:<a routerLink = "/todo/{{ todo.id }}">{{ todo.id }}</a></span>
  	タイトル: {{ todo.title }}
+	 <button (click)="delete(todo.id)">削除</button>
 </div>

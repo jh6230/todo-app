@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { map  } from 'rxjs/operators'
+import { catchError, map  } from 'rxjs/operators'
 import { Observable } from 'rxjs/index'
 
 
@@ -14,17 +14,26 @@ export class TodoService  {
   constructor(private http: HttpClient) { }
 
 	// Todo一覧取得
-	getTodoList() {
+	getTodoList(): Observable<any> {
 		return this.http.get('/api/todo/list', this.httpOptions ).pipe(
 			map(response => response)
 		)
 	}
 
 	// idからTodoを取得
-	getTodoDetail(id: number) {
+	getTodoDetail(id: number): Observable<any> {
 		return this.http.get(`api/todo/detail/${id}`, this.httpOptions).pipe(
 			map(response => response)
 		)
+	}
+
+
+	deleteTodo(id: number): Observable<any> {
+		return this.http.delete(`api/todo/delete/${id}`, this.httpOptions).pipe(
+			map(response => response)
+		)
+
+
 
 	}
 

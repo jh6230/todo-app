@@ -12,7 +12,7 @@ export class TodoListComponent implements OnInit {
   constructor(private todoService: TodoService ) { }
 
 	// todoの一覧
-	todos: any = []
+	todos: any[] = []
 
   ngOnInit(): void {
 		this.getList()
@@ -23,4 +23,9 @@ export class TodoListComponent implements OnInit {
 		this.todoService.getTodoList()
 			.subscribe(todos  => this.todos = todos)
 		}
+
+	delete(id: number): void {
+		this.todos = this.todos.filter(t => t.id !== id)
+		this.todoService.deleteTodo(id).subscribe()
+	}
 }
