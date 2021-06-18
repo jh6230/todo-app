@@ -35,20 +35,41 @@ class TodoApi @Inject()(
 		} yield Ok(Json.toJson(jsval))
 	}
 
+  // Todoの追加
+	def add() = Action.async { implicit request =>
+		JsValueTodo.form.bindFromRequest.fold(
+			formWithErros => Future.successful(BadRequest),
+
+			form => {
+				val todo = new Todo(
+					id = None,
+					// categoryId = Category.Id(form.categoryId),
+					title      = form.title,
+					content    = form.content
+					// state      = TodoStatus.apply(form.state),
+					// deadline   = form.deadline
+				).toWithNoId
+				for {
+					_ <- TodoRepository.add(todo)
+				} yield NoContent
+			}
+		)
+	}
+
 	// Todoの更新
 	def update(id: Long) = Action.async { implicit request =>
 		JsValueTodo.form.bindFromRequest.fold(
 		  // リクエストエラーの時(要修正)
-			formWithErros => Future.successful(Redirect(controllers.todo.routes.TodoController.list())),
+			formWithErros => Future.successful(BadRequest),
 
 			form => {
 				val todo = new Todo(
 					id         = Some(Todo.Id(id)),
-					categoryId = Category.Id(form.categoryId),
+					// categoryId = Category.Id(form.categoryId),
 					title      = form.title,
-					content    = form.content,
-					state      = TodoStatus.apply(form.state),
-					deadline   = form.deadline
+					content    = form.content
+					// state      = TodoStatus.apply(form.state),
+					// deadline   = form.deadline
 				).toEmbeddedId
 				for {
 					_ <- TodoRepository.update(todo)

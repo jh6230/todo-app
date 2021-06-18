@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { Todo } from '../todo';
 import { TodoService } from '../todo.service';
 
 
@@ -16,13 +17,14 @@ export class TodoDetailComponent implements OnInit {
 		private activeRouter: ActivatedRoute
 		) { }
 
+	// todoの初期化
 	todo: any = []
 
   ngOnInit(): void {
-		this.getDetail()
+		this.getTodo()
   }
 
-	getDetail(): void {
+	getTodo(): void {
 		const id = Number(this.activeRouter.snapshot.paramMap.get('id'))
 		this.todoService.getTodoDetail(id)
 			.subscribe(todo => this.todo = todo)

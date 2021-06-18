@@ -32,6 +32,12 @@ GET      /logout                  controllers.user.UserController.logout()
 # API
 GET     /api/todo/list            controllers.api.TodoApi.list()
 GET     /api/todo/detail/:id      controllers.api.TodoApi.get(id: Long)
++nocsrf
+POST   /api/todo/add              controllers.api.TodoApi.add()
++nocsrf
+POST   /api/todo/edit/:id          controllers.api.TodoApi.update(id: Long)
++nocsrf
+DELETE  /api/todo/delete/:id      controllers.api.TodoApi.delete(id: Long)
 
 # CSS,jsファイルへのアクセス
 # Map static resources from the /public folder to the /assets URL path

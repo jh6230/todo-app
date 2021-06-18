@@ -13,11 +13,11 @@ import Todo._
 case class Todo(
     id: Option[Id],
 //    userId: User.Id,
-    categoryId: Category.Id,
+    categoryId: Category.Id  = Category.Id(14),
     title: String,
     content: String,
-    state: TodoStatus,
-    deadline: LocalDate,
+    state: TodoStatus        = TodoStatus.Notyet,
+    deadline: LocalDate      = LocalDate.now(),
     updatedAt: LocalDateTime = NOW,
     createdAt: LocalDateTime = NOW
 ) extends EntityModel[Id]

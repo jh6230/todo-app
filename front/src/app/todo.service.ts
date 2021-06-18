@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { catchError, map  } from 'rxjs/operators'
+import { catchError, map, tap  } from 'rxjs/operators'
 import { Observable } from 'rxjs/index'
 
 
@@ -27,11 +27,17 @@ export class TodoService  {
 		)
 	}
 
+	addTodo(todo: any): Observable<any> {
+		return this.http.post('api/todo/add', todo, this.httpOptions).pipe(
+			map(response => response)
+		)
+	}
 
 	deleteTodo(id: number): Observable<any> {
 		return this.http.delete(`api/todo/delete/${id}`, this.httpOptions).pipe(
 			map(response => response)
-		)
+	)
+
 
 
 

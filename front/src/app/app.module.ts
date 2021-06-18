@@ -2,22 +2,26 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoService } from './todo.service';
 import { TodoDetailComponent } from './todo-detail/todo-detail.component';
+import { TodoAddComponent } from './todo-add/todo-add.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoListComponent,
-    TodoDetailComponent
+    TodoDetailComponent,
+    TodoAddComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-		HttpClientModule
+		HttpClientModule,
+		FormsModule
   ],
   providers: [
 		TodoService
