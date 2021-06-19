@@ -1,8 +1,9 @@
 <h1>Todo 詳細</h1>
 <p>id: {{ todo.id }}</p>
-<p>タイトル: {{ todo.title }}</p>
-<p>コンテンツ: {{ todo.content }}</p>
+<p>Title: {{ todo.title }}</p>
+<p>Content: {{ todo.content }}</p>
 <!-- <p>ステータス: {{ todo.state }}</p>
 <p>カテゴリー: {{ todo.categoryName }}</p> -->
 
+<button (click)="delete(todo.id)">削除</button>
 <button routerLink = "/todo/list">一覧へ戻る</button>

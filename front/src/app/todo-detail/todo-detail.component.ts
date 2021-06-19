@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { Todo } from '../todo';
 import { TodoService } from '../todo.service';
@@ -14,10 +15,12 @@ export class TodoDetailComponent implements OnInit {
 
   constructor(
 		private todoService:  TodoService,
-		private activeRouter: ActivatedRoute
+		private activeRouter: ActivatedRoute,
+		private location:     Location
 		) { }
 
 	// todoの初期化
+	todos: Todo[] = []
 	todo: any = []
 
   ngOnInit(): void {
@@ -29,5 +32,18 @@ export class TodoDetailComponent implements OnInit {
 		this.todoService.getTodoDetail(id)
 			.subscribe(todo => this.todo = todo)
 	}
+
+	getList(): void {
+		this.todoService.getTodoList()
+			.subscribe(todos  => this.todos = todos)
+		}
+
+	delete(id: number): void {
+		this.todoService.deleteTodo(id).subscribe()
+		this.location.back()
+		this.getList()
+	}
+
+
 
 }

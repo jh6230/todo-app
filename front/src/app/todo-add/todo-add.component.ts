@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
-import { Todo } from '../todo';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-todo-add',
@@ -9,7 +10,10 @@ import { Todo } from '../todo';
 })
 export class TodoAddComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+		private todoService: TodoService,
+		private location:    Location
+		) { }
 
 	todo =  {
 		id: null,
@@ -19,6 +23,11 @@ export class TodoAddComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+	addTodo(todo: any): void {
+		this.todoService.addTodo(todo).subscribe()
+		this.location.back()
+	}
 
 
 }

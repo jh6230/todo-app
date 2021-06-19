@@ -1,8 +1,9 @@
 <h1>Todo新規追加</h1>
 
 <div>
-	<p>タイトル<input type="text" [(ngModel)]="todo.title" required ></p>
-	<p>コンテント<input type="text" [(ngModel)] = "todo.content" required ></p>
+	<p>Title <input type="text" [(ngModel)]="todo.title" required ></p>
+	<p>Content <input type="text" [(ngModel)] = "todo.content" required ></p>
 
-	<button>Add</button>
+	<button (click)="addTodo(todo)">追加</button>
+	<button routerLink="/todo/list">一覧へ戻る</button>
 </div>

@@ -1,9 +1,9 @@
 <h1>Todo 一覧</h1>
 
 <div *ngFor= "let todo of todos">
-	<span>id:<a routerLink = "/todo/{{ todo.id }}">{{ todo.id }}</a></span>
- 	タイトル: {{ todo.title }}
-	 <button (click)="delete(todo.id)">削除</button>
+	<span>id: {{ todo.id }}</span>
+ 	<span>Title: {{ todo.title }}</span>
+	 <button routerLink="/todo/{{ todo.id }}">詳細</button>
 </div>
 
 <button><a routerLink = "/todo/add">追加</a></button>
