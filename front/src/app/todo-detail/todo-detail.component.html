@@ -1,9 +1,10 @@
 <h1>Todo 詳細</h1>
 <p>id: {{ todo.id }}</p>
-<p>Title: {{ todo.title }}</p>
-<p>Content: {{ todo.content }}</p>
+<p>Title: <input type="text" [(ngModel)]="todo.title"></p>
+<p>Content: <input type="text" [(ngModel)]="todo.content"></p>
 <!-- <p>ステータス: {{ todo.state }}</p>
 <p>カテゴリー: {{ todo.categoryName }}</p> -->
 
 <button (click)="delete(todo.id)">削除</button>
+<button (click)="update(todo)">更新</button>
 <button routerLink = "/todo/list">一覧へ戻る</button>

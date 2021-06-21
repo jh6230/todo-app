@@ -21,7 +21,7 @@ export class TodoDetailComponent implements OnInit {
 
 	// todoの初期化
 	todos: Todo[] = []
-	todo: any = []
+	todo: any
 
   ngOnInit(): void {
 		this.getTodo()
@@ -36,12 +36,19 @@ export class TodoDetailComponent implements OnInit {
 	getList(): void {
 		this.todoService.getTodoList()
 			.subscribe(todos  => this.todos = todos)
-		}
+	}
+
+	update(todo: any): void {
+		this.todoService.updateTodo(todo)
+			.subscribe()
+			this.getList()
+			this.location.back()
+	}
 
 	delete(id: number): void {
 		this.todoService.deleteTodo(id).subscribe()
-		this.location.back()
 		this.getList()
+		this.location.back()
 	}
 
 

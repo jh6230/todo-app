@@ -33,6 +33,12 @@ export class TodoService  {
 		)
 	}
 
+	updateTodo(todo: any): Observable<any> {
+		return this.http.post(`api/todo/edit/${todo.id}`, todo, this.httpOptions).pipe(
+			map(response => response)
+		)
+	}
+
 	deleteTodo(id: number): Observable<any> {
 		return this.http.delete(`api/todo/delete/${id}`, this.httpOptions).pipe(
 			map(response => response)
