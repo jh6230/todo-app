@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Todo } from '../todo';
 import { TodoService } from '../todo.service';
+import { CategoryService } from '../category.service';
 
 
 @Component({
@@ -14,14 +15,17 @@ import { TodoService } from '../todo.service';
 export class TodoDetailComponent implements OnInit {
 
   constructor(
-		private todoService:  TodoService,
-		private activeRouter: ActivatedRoute,
-		private location:     Location
+		private todoService:     TodoService,
+		private categoryService: CategoryService,
+		private activeRouter:    ActivatedRoute,
+		private location:        Location
 		) { }
 
 	// todoの初期化
 	todos: Todo[] = []
 	todo: any
+
+	categories: any = []
 
   ngOnInit(): void {
 		this.getTodo()
@@ -49,6 +53,11 @@ export class TodoDetailComponent implements OnInit {
 		this.todoService.deleteTodo(id).subscribe()
 		this.getList()
 		this.location.back()
+	}
+
+	getCategoryList(): void {
+		this.categoryService.getCategoryList()
+			.subscribe(categories => this.categories = categories)
 	}
 
 

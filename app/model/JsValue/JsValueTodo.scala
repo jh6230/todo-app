@@ -6,17 +6,21 @@ import play.api.data.Form
 import play.api.data.Forms._
 
   case class FormTodo(
-		title:   String,
-		content: String
+		title:      String,
+		content:    String,
+		categoryId: Long
+
 	)
 
   case class JsValueTodo(
     id:           Long,
     title:        String,
-    content:      String
+    content:      String,
 		// state:        String,
-    // categoryName: String
+    categoryName: String
   )
+
+
 
   object  JsValueTodo {
 
@@ -26,8 +30,8 @@ import play.api.data.Forms._
 	val form: Form[FormTodo] = Form(
 		mapping(
       "title"       -> nonEmptyText,
-      // "categoryId"  -> longNumber,
-      "content"     -> nonEmptyText
+      "content"     -> nonEmptyText,
+      "categoryId"  -> longNumber
 			// "state"       -> shortNumber(min = 0, max = 255),
       // "deadline"    -> localDate
     )(FormTodo.apply)(FormTodo.unapply)
@@ -39,7 +43,10 @@ import play.api.data.Forms._
       title        = todo.v.title,
       content      = todo.v.content,
 			// state        = todo.v.state.name,
-      // categoryName = categories.find(_.id == todo.v.categoryId).map(_.v.name).getOrElse("カテゴリーなし")
+      categoryName = categories.find(_.id == todo.v.categoryId).map(_.v.name).getOrElse("カテゴリー未設定")
     )
   }
+
+
+
 }

@@ -30,14 +30,18 @@ POST     /signup                  controllers.user.UserController.signup()
 GET      /logout                  controllers.user.UserController.logout()
 
 # API
+# Todo
 GET     /api/todo/list            controllers.api.TodoApi.list()
 GET     /api/todo/detail/:id      controllers.api.TodoApi.get(id: Long)
 +nocsrf
 POST   /api/todo/add              controllers.api.TodoApi.add()
 +nocsrf
-POST   /api/todo/edit/:id          controllers.api.TodoApi.update(id: Long)
+POST   /api/todo/edit/:id         controllers.api.TodoApi.update(id: Long)
 +nocsrf
 DELETE  /api/todo/delete/:id      controllers.api.TodoApi.delete(id: Long)
+
+# Category
+GET    /api/category/list         controllers.api.CategoryApi.list()
 
 # CSS,jsファイルへのアクセス
 # Map static resources from the /public folder to the /assets URL path
