@@ -23,12 +23,13 @@ export class TodoDetailComponent implements OnInit {
 
 	// todoの初期化
 	todos: Todo[] = []
-	todo: any
+	todo: any = []
 
 	categories: any = []
 
   ngOnInit(): void {
 		this.getTodo()
+		this.getCategoryList()
   }
 
 	getTodo(): void {

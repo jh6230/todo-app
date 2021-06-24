@@ -65,7 +65,7 @@ class TodoApi @Inject()(
 			form => {
 				val todo = new Todo(
 					id         = Some(Todo.Id(id)),
-					// categoryId = Category.Id(form.categoryId),
+					categoryId = Category.Id(form.categoryId),
 					title      = form.title,
 					content    = form.content
 					// state      = TodoStatus.apply(form.state),

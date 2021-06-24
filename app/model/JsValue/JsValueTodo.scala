@@ -17,6 +17,7 @@ import play.api.data.Forms._
     title:        String,
     content:      String,
 		// state:        String,
+		categoryId:   Long,
     categoryName: String
   )
 
@@ -43,6 +44,7 @@ import play.api.data.Forms._
       title        = todo.v.title,
       content      = todo.v.content,
 			// state        = todo.v.state.name,
+			categoryId   = todo.v.categoryId,
       categoryName = categories.find(_.id == todo.v.categoryId).map(_.v.name).getOrElse("カテゴリー未設定")
     )
   }

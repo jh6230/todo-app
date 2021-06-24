@@ -9,6 +9,7 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoService } from './todo.service';
 import { TodoDetailComponent } from './todo-detail/todo-detail.component';
 import { TodoAddComponent } from './todo-add/todo-add.component';
+import { CategoryService } from './category.service';
 
 @NgModule({
   declarations: [
@@ -21,10 +22,11 @@ import { TodoAddComponent } from './todo-add/todo-add.component';
     BrowserModule,
     AppRoutingModule,
 		HttpClientModule,
-		FormsModule
+	FormsModule
   ],
   providers: [
-		TodoService
+		TodoService,
+		CategoryService
 	],
   bootstrap: [AppComponent]
 })

@@ -2,8 +2,8 @@
 <p>id: {{ todo.id }}</p>
 <p>Title: <input type="text" [(ngModel)]="todo.title"></p>
 <p>Content: <input type="text" [(ngModel)]="todo.content"></p>
-<p>Category: <select [(ngModel)]="todo.categoryName" >
-	<option *ngFor="let category of categories" [(ngValue)]=category.id>{{ category.name }}</option>
+<p>Category: <select [(ngModel)]="todo.categoryId">
+	<option *ngFor="let category of categories" [(ngValue)]="category.id"> {{ category.name }}</option>
 </select>
 
 <button (click)="delete(todo.id)">削除</button>
