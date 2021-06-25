@@ -43,11 +43,10 @@ class TodoApi @Inject()(
 			form => {
 				val todo = new Todo(
 					id = None,
-					// categoryId = Category.Id(form.categoryId),
+					categoryId = Category.Id(form.categoryId),
 					title      = form.title,
-					content    = form.content
-					// state      = TodoStatus.apply(form.state),
-					// deadline   = form.deadline
+					content    = form.content,
+					deadline   = form.deadline
 				).toWithNoId
 				for {
 					_ <- TodoRepository.add(todo)
@@ -67,9 +66,8 @@ class TodoApi @Inject()(
 					id         = Some(Todo.Id(id)),
 					categoryId = Category.Id(form.categoryId),
 					title      = form.title,
-					content    = form.content
-					// state      = TodoStatus.apply(form.state),
-					// deadline   = form.deadline
+					content    = form.content,
+					deadline   = form.deadline
 				).toEmbeddedId
 				for {
 					_ <- TodoRepository.update(todo)

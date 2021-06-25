@@ -3,6 +3,10 @@
 <div>
 	<p>Title <input type="text" [(ngModel)]="todo.title" required ></p>
 	<p>Content <input type="text" [(ngModel)] = "todo.content" required ></p>
+	<p>Category: <select [(ngModel)] = "todo.categoryId" required>
+			<option *ngFor="let category of categories" [(ngValue)]="category.id">{{ category.name }}</option>
+		</select>
+	</p>
 
 	<button (click)="addTodo(todo)">追加</button>
 	<button routerLink="/todo/list">一覧へ戻る</button>

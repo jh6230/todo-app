@@ -5,6 +5,8 @@
 <p>Category: <select [(ngModel)]="todo.categoryId">
 	<option *ngFor="let category of categories" [(ngValue)]="category.id"> {{ category.name }}</option>
 </select>
+</p>
+<p>DeadLine: <input type="date" [(ngModel)]="todo.deadline"></p>
 
 <button (click)="delete(todo.id)">削除</button>
 <button (click)="update(todo)">更新</button>

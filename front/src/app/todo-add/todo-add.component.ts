@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 
 import { TodoService } from '../todo.service';
 import { Todo } from '../todo';
+import { CategoryService } from '../category.service';
 
 @Component({
   selector: 'app-todo-add',
@@ -12,18 +13,22 @@ import { Todo } from '../todo';
 export class TodoAddComponent implements OnInit {
 
   constructor(
-		private todoService: TodoService,
-		private location:    Location
+		private todoService:     TodoService,
+		private categoryService: CategoryService,
+		private location:        Location
 		) { }
 
 	todos: Todo[] = []
-	todo =  {
+	todo = {
 		id: null,
 		title: '',
-		content: ''
+		content: '',
+		categoryId: null
 	}
+	categories: any = []
 
   ngOnInit(): void {
+		this.getCategoryList()
   }
 
 	getList(): void {
@@ -35,6 +40,11 @@ export class TodoAddComponent implements OnInit {
 		this.todoService.addTodo(todo).subscribe()
 		this.getList()
 		this.location.back()
+	}
+
+	getCategoryList(): void {
+		this.categoryService.getCategoryList()
+			.subscribe(categories => this.categories = categories)
 	}
 
 
